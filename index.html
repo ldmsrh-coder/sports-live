@@ -27,6 +27,67 @@ button{min-height:46px;background:linear-gradient(135deg,#167c69,#145e6c);border
 .status{display:inline-flex;margin-top:15px!important;padding:5px 9px;border-radius:99px;background:#123c36;color:#6ff3c7;border:1px solid #246354}
 .empty{grid-column:1/-1;background:#0e1728;border:1px dashed #354866;text-align:center;padding:30px 18px;border-radius:16px}.small{line-height:1.8;border-top:1px solid #202d43;padding-top:18px}
 @media(max-width:650px){header{padding:28px 18px 22px}.controls{grid-template-columns:1fr;padding:13px}.controls button{width:100%}.calendar{padding:13px}.calhead{gap:5px}.calhead button{font-size:12px;padding:8px 6px}.caldate,.calday{min-height:37px}.game{padding:15px}}
+/* Reference-inspired redesign: dark live-score dashboard + mint accent */
+:root{color-scheme:dark;--bg:#080e1b;--panel:#101a2b;--line:#24354b;--muted:#92a4bc;--accent:#67f2bf;--blue:#78a8ff}
+body{background:#080e1b;color:#f5f8fc;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0}
+header{position:relative;overflow:hidden;padding:30px 22px 28px;background:linear-gradient(110deg,#101f35 0%,#0b1425 58%,#0a1724 100%);border-bottom:1px solid #20334a}
+header:after{content:"";position:absolute;width:360px;height:240px;right:-100px;top:-130px;border-radius:50%;background:#5af0bd12;filter:blur(4px);pointer-events:none}
+header .wrap{position:relative;z-index:1}
+header h1{display:flex;align-items:center;gap:12px;font-size:clamp(27px,4vw,36px);letter-spacing:-1.3px;font-weight:900;margin-bottom:7px}
+header p{font-size:13px;color:#a8bad0;letter-spacing:.15px}
+.live{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:99px;background:#123b34;border:1px solid #246854;color:#72f6c5;font-size:11px;letter-spacing:1px}
+main.wrap{max-width:1180px!important;padding:24px 22px 34px!important}
+.controls{grid-template-columns:minmax(150px,.72fr) minmax(220px,1.35fr) auto;gap:12px;align-items:end;padding:16px;background:#0e1727;border:1px solid #23344a;border-radius:17px;margin:0 0 18px;box-shadow:0 12px 36px #0002}
+.controls label{display:block;color:#aabbd0;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+input,select{width:100%;min-height:47px;margin-top:8px!important;padding:12px 14px;background:#09111f;border:1px solid #2a3d55;border-radius:11px;color:#f5f8fc;outline:none}
+input:focus,select:focus{border-color:#62e9b8;box-shadow:0 0 0 3px #62e9b81c}
+button{min-height:46px;padding:11px 16px;border-radius:11px;background:#62edb8;color:#06251d;border:1px solid #62edb8;box-shadow:none;font-weight:850;transition:transform .15s,filter .15s}
+button:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.calendar{margin:0 0 22px;padding:20px;background:#0e1727;border:1px solid #23344a;border-radius:18px;box-shadow:none}
+.calendar>div:first-child{margin-bottom:20px!important}
+.calendar>div:first-child span{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;background:#17372f;font-size:26px!important}
+.calendar>div:first-child div div:first-child{font-size:17px!important;font-weight:850!important;letter-spacing:-.3px}
+.calhead{grid-template-columns:1fr auto 1fr;margin-bottom:14px}
+.calhead strong{font-size:15px;letter-spacing:.4px}
+.calhead button{min-height:34px;padding:7px 10px;background:#15243a;color:#d8e5f5;border:1px solid #2a3d55;box-shadow:none;font-size:12px}
+.calgrid{gap:7px}
+.calday{min-height:30px;color:#6f849f;font-size:11px;text-transform:uppercase}
+.caldate{min-height:39px;border:1px solid #1d2d43;background:#121f32;color:#dce7f5;border-radius:10px;font-weight:650}
+.caldate:hover{background:#18372f;border-color:#3ca985;transform:none}
+.caldate.selected{background:#65edb8;border:1px solid #65edb8;color:#06251d;box-shadow:0 4px 14px #65edb81c;font-weight:900}
+.caldate.today:not(.selected){box-shadow:inset 0 0 0 1px #65edb8;color:#65edb8}
+.bar{margin:22px 1px 12px;padding:0;color:#9dafc5}
+.bar #summary{font-size:19px;font-weight:900;letter-spacing:-.5px;color:#f5f8fc}
+#updated{font-size:12px}
+.notice{margin-bottom:14px;padding:12px 15px;background:#0d1726;border:1px solid #22334a;border-radius:11px;color:#92a4bc;font-size:12px}
+.games{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:13px}
+.game{position:relative;overflow:hidden;padding:18px;background:linear-gradient(145deg,#121f33,#0d1626 75%);border:1px solid #263951;border-radius:16px;box-shadow:0 8px 24px #0002;transition:transform .16s,border-color .16s}
+.game:hover{transform:translateY(-2px);border-color:#3b8a76}
+.meta{align-items:center;gap:12px;margin-bottom:15px;padding-bottom:12px;border-bottom:1px solid #223149;color:#8498b2;font-size:11px}
+.meta span:first-child{color:#a8bad0;font-weight:850;letter-spacing:.5px;text-transform:uppercase}
+.meta span:last-child{font-variant-numeric:tabular-nums}
+.teams{gap:14px}
+.team{font-size:14px;font-weight:750;line-height:1.4;color:#eaf1fb}
+.score{font-size:25px;font-weight:900;line-height:1.5;color:#f7fbff;min-width:32px}
+.status{margin-top:15px!important;padding:5px 9px;background:#12352e;color:#69f1bd;border:1px solid #205744;border-radius:7px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.empty{grid-column:1/-1;background:#0e1727;border:1px dashed #2a3e56;border-radius:16px;padding:30px 18px;text-align:center;color:#9aacc2}
+.small{margin-top:26px;padding-top:18px;border-top:1px solid #1d2b40;color:#7388a4;font-size:11px;line-height:1.9}
+.small a{color:#69eabd;text-decoration:none}
+.small a:hover{text-decoration:underline}
+.error{color:#ffb3b3;border-color:#633844;background:#21131d}
+@media(max-width:650px){
+ header{padding:25px 17px 22px}main.wrap{padding:16px 14px 26px!important}
+ .controls{grid-template-columns:1fr;padding:13px;border-radius:14px;gap:11px}
+ .controls button{width:100%}
+ .calendar{padding:14px;border-radius:15px}
+ .calendar>div:first-child span{width:42px;height:42px;font-size:23px!important}
+ .calhead{gap:5px}.calhead strong{font-size:14px}.calhead button{font-size:11px;padding:7px 5px}
+ .calgrid{gap:4px}.caldate,.calday{min-height:36px;padding:5px 0;font-size:12px;border-radius:8px}
+ .games{grid-template-columns:1fr;gap:10px}.game{padding:15px}
+ .bar #summary{font-size:17px}
+}
+@media(min-width:900px){.calendar{padding:20px 24px}.caldate{min-height:42px}}
+
 </style></head>
 <body><header><div class="wrap"><h1>🏟️ 스포츠 라이브</h1><p><span class="live">● LIVE</span> 무료 경기 점수와 일정 · 날짜별 경기 검색</p></div></header>
 <main class="wrap" style="padding:0 18px 30px">
