@@ -88,17 +88,89 @@ button:hover{filter:brightness(1.05);transform:translateY(-1px)}
 }
 @media(min-width:900px){.calendar{padding:20px 24px}.caldate{min-height:42px}}
 
+/* Structural redesign based on the supplied sports dashboard reference */
+body{background:#080d17;color:#f2f6fc}
+header{display:none}
+main.dashboard{max-width:1440px!important;min-height:100vh;padding:0!important;display:grid;grid-template-columns:285px minmax(0,1fr);gap:0}
+.sidebar{min-width:0;padding:26px 18px;background:#0b1321;border-right:1px solid #202d40}
+.brand-mini{display:flex;align-items:center;gap:11px;padding:3px 8px 28px;border-bottom:1px solid #1e2a3d}
+.brand-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#5de8b5;color:#08251d;font-weight:1000;font-size:22px}
+.brand-mini b,.brand-mini small{display:block}.brand-mini b{font-size:13px;letter-spacing:1.4px}.brand-mini small{margin-top:3px;color:#72869e;font-size:9px;letter-spacing:1.8px}
+.section-label{margin:26px 8px 12px;color:#61758e;font-size:10px;font-weight:900;letter-spacing:1.8px}
+.controls{display:flex;flex-direction:column;gap:13px;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.controls label{font-size:10px;letter-spacing:1.1px;color:#8ea2ba}
+.controls select,.controls input{margin-top:8px!important;background:#101c2d;border-color:#25374d;border-radius:9px;min-height:44px;font-size:13px}
+.controls button{margin-top:3px;min-height:43px;border-radius:9px;font-size:12px}
+.calendar-label{margin-top:28px}
+.calendar{margin:0;padding:14px;background:#101a2a;border:1px solid #223248;border-radius:13px;box-shadow:none}
+.calendar-title{display:flex;align-items:center;gap:10px;margin-bottom:17px}
+.calendar-icon{width:33px;height:33px;display:grid;place-items:center;border-radius:9px;background:#19382f;color:#6af0bb;font-size:22px}
+.calendar-title-text{font-size:13px;font-weight:850}
+.muted-caption{margin-top:3px;color:#6f849c;font-size:10px}
+.calhead{grid-template-columns:28px 1fr 28px;gap:4px;margin-bottom:10px}
+.calhead strong{font-size:12px;letter-spacing:0}
+.calhead button{min-height:28px;padding:3px;background:#17263a;border:1px solid #2a3a50;border-radius:7px;color:#dce8f6;font-size:17px}
+.calgrid{gap:3px}
+.calday{min-height:25px;padding:2px 0;color:#71849b;font-size:9px}
+.caldate{min-height:30px;padding:2px 0;border-radius:7px;background:#152238;border:1px solid transparent;font-size:11px}
+.caldate.selected{background:#62eab6;color:#06251c;border-color:#62eab6;box-shadow:none}
+.calendar-hint{margin:12px 0 0;color:#6f829a;font-size:10px;line-height:1.5}
+.sidebar-note{display:flex;align-items:center;gap:8px;margin:22px 5px;color:#8195ac;font-size:11px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#62eab6;box-shadow:0 0 10px #62eab677}
+.match-content{min-width:0;padding:34px clamp(20px,3.4vw,48px) 30px}
+.welcome-row{display:flex;justify-content:space-between;align-items:center;gap:18px;padding-bottom:25px;border-bottom:1px solid #1e2b3f}
+.eyebrow{color:#6c829c;font-size:10px;font-weight:900;letter-spacing:1.8px}
+.welcome-row h2{margin:9px 0 6px;font-size:clamp(25px,3vw,35px);font-weight:900;letter-spacing:-1.2px}
+.title-dot{color:#63edb8}
+.welcome-row p{margin:0;color:#8498b1;font-size:12px}
+.date-chip{flex-shrink:0;padding:10px 13px;border:1px solid #2a3b52;border-radius:10px;background:#111d2d;color:#69eabb;font-size:12px}
+.stats-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:23px 0 34px}
+.stat-tile{display:flex;align-items:center;gap:13px;min-width:0;padding:16px;border:1px solid #223249;border-radius:12px;background:linear-gradient(125deg,#121f32,#0e1726)}
+.stat-icon{width:38px;height:38px;flex-shrink:0;display:grid;place-items:center;border-radius:10px;background:#233044;color:#dce7f5;font-size:20px}
+.stat-icon.mint{background:#16392f;color:#62edb8}.stat-icon.blue{background:#1b2d4b;color:#8bb5ff}
+.stat-tile small,.stat-tile b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stat-tile small{margin-bottom:5px;color:#778ca5;font-size:10px}
+.stat-tile b{font-size:15px;font-weight:850}
+.match-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.match-heading h3{display:flex;align-items:center;gap:10px;margin:7px 0 0;font-size:21px;letter-spacing:-.5px}
+.live-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:5px;background:#15392f;color:#68edb9;font-size:9px;letter-spacing:.8px}
+.live-pill i{width:5px;height:5px;border-radius:50%;background:#68edb9}
+.match-heading #summary{font-size:11px;color:#8297b0}
+.notice{padding:11px 14px;background:#101a29;border:1px solid #223147;border-radius:9px;color:#8da0b8;font-size:11px}
+.games{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.game{padding:17px;background:#101a2a;border:1px solid #24344a;border-radius:13px;box-shadow:none}
+.game:hover{transform:translateY(-2px);border-color:#3a8a72}
+.meta{padding-bottom:11px;margin-bottom:14px;border-bottom:1px solid #202f44;font-size:10px}
+.meta span:first-child{color:#91a5be;letter-spacing:.4px}
+.team{font-size:13px}
+.score{font-size:23px}
+.status{margin-top:13px!important;padding:4px 7px;font-size:9px}
+.empty{background:#0f1928;border-color:#2a3d54;border-radius:13px}
+.small{grid-column:1/-1;margin:0 0 24px;padding:0 22px 24px 303px;border:0;color:#647891;font-size:10px}
+@media(max-width:1050px){main.dashboard{grid-template-columns:245px minmax(0,1fr)}.sidebar{padding:22px 14px}.match-content{padding:26px 22px}.games{grid-template-columns:1fr}.small{padding-left:263px}}
+@media(max-width:760px){main.dashboard{display:flex;flex-direction:column}.sidebar{padding:15px;border-right:0;border-bottom:1px solid #202d40}.brand-mini{padding-bottom:14px}.section-label{margin:16px 4px 8px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}.controls label:first-child{grid-column:1}.controls label:nth-child(2){grid-column:2}.controls button{grid-column:1/-1;width:100%}.calendar-label{margin-top:17px}.calendar{padding:12px}.calgrid{gap:4px}.caldate{min-height:32px}.sidebar-note{margin:12px 4px 0}.match-content{padding:23px 15px}.welcome-row{align-items:start}.welcome-row p{max-width:270px;line-height:1.5}.date-chip{font-size:10px;padding:8px}.stats-row{gap:7px;margin:17px 0 25px}.stat-tile{gap:8px;padding:10px 8px}.stat-icon{width:30px;height:30px;font-size:16px}.stat-tile small{font-size:9px}.stat-tile b{font-size:12px}.match-heading h3{font-size:19px}.small{padding:0 15px 22px}.games{grid-template-columns:1fr}}
+@media(max-width:390px){.welcome-row{display:block}.date-chip{display:inline-flex;margin-top:14px}.stats-row{grid-template-columns:1fr}.stat-tile{padding:10px 12px}.controls{grid-template-columns:1fr}.controls label:first-child,.controls label:nth-child(2){grid-column:1}}
+
 </style></head>
 <body><header><div class="wrap"><h1>🏟️ 스포츠 라이브</h1><p><span class="live">● LIVE</span> 무료 경기 점수와 일정 · 날짜별 경기 검색</p></div></header>
-<main class="wrap" style="padding:0 18px 30px">
+<main class="wrap dashboard">
+<aside class="sidebar">
+<div class="brand-mini"><span class="brand-mark">S</span><div><b>SPORTS</b><small>MATCH CENTER</small></div></div>
+<div class="section-label">EXPLORE</div>
 <div class="controls">
-<label>종목<br><select id="sport" style="width:100%;margin-top:6px"><option value="football">축구</option><option value="basketball">농구</option><option value="tennis">테니스</option><option value="cricket">크리켓</option><option value="baseball">야구</option><option value="hockey">아이스하키</option><option value="americanfootball">미식축구</option><option value="volleyball">배구</option><option value="handball">핸드볼</option><option value="badminton">배드민턴</option><option value="tabletennis">탁구</option><option value="rugby">럭비</option></select></label>
-<label>팀 / 선수 / 리그 검색<br><input id="q" placeholder="예: 한국, Arsenal, NBA" style="width:100%;margin-top:6px"></label>
+<label>SPORT<br><select id="sport" style="width:100%;margin-top:6px"><option value="football">⚽ 축구</option><option value="basketball">🏀 농구</option><option value="tennis">🎾 테니스</option><option value="cricket">🏏 크리켓</option><option value="baseball">⚾ 야구</option><option value="hockey">🏒 아이스하키</option><option value="americanfootball">🏈 미식축구</option><option value="volleyball">🏐 배구</option><option value="handball">🤾 핸드볼</option><option value="badminton">🏸 배드민턴</option><option value="tabletennis">🏓 탁구</option><option value="rugby">🏉 럭비</option></select></label>
+<label>SEARCH TEAMS<br><input id="q" placeholder="팀, 선수, 리그 검색" style="width:100%;margin-top:6px"></label>
 <button id="load" style="align-self:end">경기 불러오기</button>
 </div>
-<section class="calendar" aria-label="오늘 날짜 달력"><div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><span aria-hidden="true" style="font-size:42px;line-height:1">🗓️</span><div><div style="font-weight:800;font-size:18px">오늘의 경기 달력</div><div id="todayLabel" style="color:var(--muted);font-size:13px"></div></div></div><div class="calhead"><button id="prevMonth" type="button" aria-label="이전 달">‹ 이전 달</button><strong id="monthLabel"></strong><button id="nextMonth" type="button" aria-label="다음 달">다음 달 ›</button></div><div id="calgrid" class="calgrid"></div><p style="color:var(--muted);font-size:12px;margin:10px 2px 0">오늘 날짜가 자동으로 선택됩니다. 다른 날짜도 달력에서 볼 수 있습니다.</p></section>
-<div class="bar"><span id="summary">경기 데이터를 불러오는 중…</span><span id="updated"></span></div>
-<div id="notice" class="notice">선택한 날짜의 경기 정보를 무료 데이터 제공처에서 가져옵니다. 데이터 제공 여부는 종목과 대회에 따라 다를 수 있습니다.</div>
+<div class="section-label calendar-label">MATCH DATE</div>
+<section class="calendar" aria-label="경기 날짜 달력"><div class="calendar-title"><span class="calendar-icon">▦</span><div><div class="calendar-title-text">경기 날짜</div><div id="todayLabel" class="muted-caption"></div></div></div><div class="calhead"><button id="prevMonth" type="button" aria-label="이전 달">‹</button><strong id="monthLabel"></strong><button id="nextMonth" type="button" aria-label="다음 달">›</button></div><div id="calgrid" class="calgrid"></div><p class="calendar-hint">날짜를 선택하면 해당 일정으로 바뀝니다.</p></section>
+<div class="sidebar-note"><span class="live-dot"></span> 자동 새로고침 · 60초</div>
+</aside>
+<section class="match-content">
+<div class="welcome-row"><div><div class="eyebrow">YOUR DAILY SPORTS OVERVIEW</div><h2>경기 센터 <span class="title-dot">.</span></h2><p>오늘의 경기와 실시간 스코어를 한눈에 확인하세요.</p></div><div class="date-chip">▦ <span id="selectedDateLabel"></span></div></div>
+<div class="stats-row"><div class="stat-tile"><span class="stat-icon">◉</span><div><small>선택 날짜</small><b id="stat-date">오늘</b></div></div><div class="stat-tile"><span class="stat-icon mint">▤</span><div><small>표시 중인 경기</small><b id="stat-count">확인 중</b></div></div><div class="stat-tile"><span class="stat-icon blue">↻</span><div><small>업데이트</small><b id="stat-updated">불러오는 중</b></div></div></div>
+<div class="match-heading"><div><div class="eyebrow">FIXTURES & LIVE SCORES</div><h3>경기 일정 <span class="live-pill"><i></i> LIVE</span></h3></div><span id="summary">경기 데이터를 확인하는 중…</span></div>
+<div id="notice" class="notice">선택한 날짜의 경기 정보를 무료 데이터 제공처에서 가져옵니다.</div>
 <div id="games" class="games"></div>
 <p class="small">종목별 무료 데이터 제공 범위가 다르며, 일부 종목은 ESPN 일정으로 보완합니다. 모든 팀/리그 이름의 공식 한국어 표기는 제공되지 않아 일부 이름은 원문으로 표시될 수 있습니다.<br>점수 데이터 제공: <a href="https://sportscore.com/" target="_blank" rel="noopener">SportScore</a>. 경기 데이터는 제공처의 업데이트 상태에 따라 지연되거나 일부 누락될 수 있습니다. 이 사이트는 베팅 금액이나 베팅 추적 기능을 제공하지 않습니다.</p>
 </main>
@@ -111,7 +183,7 @@ function text(v){if(typeof v==='object'&&v!==null)return v.name||v.title||v.shor
 const koNames={'Costa Rica Primera Division':'코스타리카 1부 리그','Mexico Liga MX Femenil':'멕시코 여자 리가 MX','CONMEBOL Copa Libertadores Femenino':'코파 리베르타도레스 여자부','Argentine Division 1':'아르헨티나 1부 리그','Guatemala Liga Nacional':'과테말라 내셔널 리그','Panamanian Liga de Futbol':'파나마 축구 리그','Jamaica Premier League':'자메이카 프리미어리그','Categoría Primera A':'콜롬비아 프리메라 A','Costa Rica 2 Liga':'코스타리카 2부 리그','MEX Liga Premier':'멕시코 프리미어 리그','Sporting FC':'스포르팅 FC','AD San Carlos':'AD 산카를로스','Toluca Women':'톨루카 여자팀','Santos Laguna Women':'산토스 라구나 여자팀','Deportivo Quito (w)':'데포르티보 키토 여자팀','Club Olimpia Women':'클루브 올림피아 여자팀','Libertad Limpeno Women':'리베르타드 리므페뇨 여자팀','Universidad de Chile Women':'칠레대학교 여자팀','Deportivo Riestra':'데포르티보 리에스트라','Club Atlético Unión':'클루브 아틀레티코 우니온','Antigua GFC':'안티구아 GFC','Xelaju MC':'셸라후 MC','Sporting San Miguelito':'스포르팅 산미겔리토','Tauro FC':'타우로 FC','Racing United':'레이싱 유나이티드','Waterhouse FC':'워터하우스 FC','Mount Pleasant FA':'마운트 플레전트 FC','Deportivo Pasto':'데포르티보 파스토','Alianza Fútbol Club':'알리안사 푸트볼 클럽','Leon Women':'레온 여자팀','Atlante W':'아틀란테 여자팀','Veraguas FC':'베라과스 FC','Union Cocle':'우니온 코클레'};
 function ko(s){return koNames[s]||s}
 function formatTime(s){if(!s||s==='시간 미정')return '시작 시간 미정';const d=new Date(s);if(Number.isNaN(d.getTime()))return s;return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(d)+' (한국시간)' }
-function drawCalendar(){const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth();$('monthLabel').textContent=y+'년 '+(m+1)+'월';$('todayLabel').textContent='오늘 · '+localDate;const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),selected=selectedDate;const names=['일','월','화','수','목','금','토'];$('calgrid').innerHTML=names.map(n=>'<div class="calday">'+n+'</div>').join('');for(let i=0;i<first;i++)$('calgrid').insertAdjacentHTML('beforeend','<div class="caldate blank"> </div>');for(let d=1;d<=days;d++){const iso=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');const cl=['caldate',iso===selected?'selected':'',iso===localDate?'today':''].filter(Boolean).join(' ');$('calgrid').insertAdjacentHTML('beforeend','<button type="button" class="'+cl+'" data-date="'+iso+'">'+d+'</button>')}document.querySelectorAll('[data-date]').forEach(b=>b.addEventListener('click',()=>{selectedDate=b.dataset.date;calendarMonth=new Date(y,m,1);drawCalendar();load()}))}
+function drawCalendar(){const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth();$('monthLabel').textContent=y+'년 '+(m+1)+'월';$('todayLabel').textContent='오늘 · '+localDate;$('selectedDateLabel').textContent=selectedDate;$('stat-date').textContent=selectedDate===localDate?'오늘':selectedDate;const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),selected=selectedDate;const names=['일','월','화','수','목','금','토'];$('calgrid').innerHTML=names.map(n=>'<div class="calday">'+n+'</div>').join('');for(let i=0;i<first;i++)$('calgrid').insertAdjacentHTML('beforeend','<div class="caldate blank"> </div>');for(let d=1;d<=days;d++){const iso=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');const cl=['caldate',iso===selected?'selected':'',iso===localDate?'today':''].filter(Boolean).join(' ');$('calgrid').insertAdjacentHTML('beforeend','<button type="button" class="'+cl+'" data-date="'+iso+'">'+d+'</button>')}document.querySelectorAll('[data-date]').forEach(b=>b.addEventListener('click',()=>{selectedDate=b.dataset.date;calendarMonth=new Date(y,m,1);drawCalendar();load()}))}
 $('prevMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()-1,1);drawCalendar()});$('nextMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+1,1);drawCalendar()});drawCalendar();
 function statusKo(s){const map={Finished:'종료',finished:'종료',Live:'진행 중',live:'진행 중',Scheduled:'예정',scheduled:'예정',Delayed:'지연',delayed:'지연',Postponed:'연기',postponed:'연기',Cancelled:'취소',cancelled:'취소',HalfTime:'하프타임','Half Time':'하프타임'};return map[s]||s}
 function normalizeESPN(data){const events=Array.isArray(data&&data.events)?data.events:[];return events.map(e=>{const comp=(e.competitions||[])[0]||{};const teams=comp.competitors||[];const home=teams.find(t=>t.homeAway==='home')||teams[0]||{};const away=teams.find(t=>t.homeAway==='away')||teams[1]||{};const st=comp.status||e.status||{};return {home:text(home.team&&(home.team.displayName||home.team.name)||'홈 팀'),away:text(away.team&&(away.team.displayName||away.team.name)||'원정 팀'),hs:home.score??'-',as:away.score??'-',league:text((e.leagues&&e.leagues[0]&&e.leagues[0].name)||(comp.league&&comp.league.name)||'ESPN 경기 일정'),status:text((st.type&&(st.type.shortDetail||st.type.description))||'일정'),time:formatTime(e.date||'시간 미정')}})}
@@ -129,7 +201,7 @@ allGames=games;
 if(games.length){try{localStorage.setItem('sports-live:'+sport+':'+date,JSON.stringify(games))}catch(e){}render();$('updated').textContent='확인 시각 '+new Date().toLocaleTimeString('ko-KR');$('notice').textContent=source+' · '+date+' · 경기 데이터는 제공처 상황에 따라 일부 누락될 수 있습니다.'}else{$('summary').textContent='표시할 경기를 찾지 못했습니다';$('games').innerHTML='<div class="empty"><div style="font-size:34px;margin-bottom:8px">🏟️</div><strong>경기 데이터를 가져오지 못했습니다.</strong><p style="margin:9px 0 0">잠시 후 새로고침하거나 다른 종목을 선택해 보세요. 이 종목의 일정 제공처가 응답하지 않거나 선택한 날짜에 일정이 없을 수 있습니다.</p></div>';$('notice').classList.add('error');$('notice').textContent=errors.length?'연결 확인 결과: '+errors.join(' · '):'선택한 날짜에 제공된 경기 일정이 없습니다.'}
 btn.disabled=false;btn.textContent='새로고침';}
 
-function render(){const q=$('q').value.trim().toLowerCase();const filtered=allGames.filter(g=>(g.home+' '+g.away+' '+g.league+' '+g.status).toLowerCase().includes(q));$('summary').textContent=filtered.length+'경기 표시'+(q?' (검색 결과)':'');if(!filtered.length){$('games').innerHTML='<div class="empty">이 날짜에 표시할 경기가 없거나 검색 결과가 없습니다.<br>다른 날짜·종목을 선택하거나 검색어를 지워 보세요.</div>';return}$('games').innerHTML=filtered.map(g=>{const status=g.status.replace(/</g,'&lt;');return '<article class="game"><div class="meta"><span>'+g.league.replace(/</g,'&lt;')+'</span><span>'+g.time.replace(/</g,'&lt;')+'</span></div><div class="teams"><div><div class="team">'+g.home.replace(/</g,'&lt;')+'</div><div class="team" style="margin-top:12px">'+g.away.replace(/</g,'&lt;')+'</div></div><div class="score">'+String(g.hs).replace(/</g,'&lt;')+'<br>'+String(g.as).replace(/</g,'&lt;')+'</div></div><div class="status" style="margin-top:14px">'+status+'</div></article>'}).join('')}
+function render(){const q=$('q').value.trim().toLowerCase();const filtered=allGames.filter(g=>(g.home+' '+g.away+' '+g.league+' '+g.status).toLowerCase().includes(q));$('summary').textContent=filtered.length+'경기 표시'+(q?' (검색 결과)':'');$('stat-count').textContent=filtered.length+' 경기';$('stat-updated').textContent='방금 확인';$('selectedDateLabel').textContent=selectedDate;$('stat-date').textContent=selectedDate===localDate?'오늘':selectedDate;if(!filtered.length){$('games').innerHTML='<div class="empty">이 날짜에 표시할 경기가 없거나 검색 결과가 없습니다.<br>다른 날짜·종목을 선택하거나 검색어를 지워 보세요.</div>';return}$('games').innerHTML=filtered.map(g=>{const status=g.status.replace(/</g,'&lt;');return '<article class="game"><div class="meta"><span>'+g.league.replace(/</g,'&lt;')+'</span><span>'+g.time.replace(/</g,'&lt;')+'</span></div><div class="teams"><div><div class="team">'+g.home.replace(/</g,'&lt;')+'</div><div class="team" style="margin-top:12px">'+g.away.replace(/</g,'&lt;')+'</div></div><div class="score">'+String(g.hs).replace(/</g,'&lt;')+'<br>'+String(g.as).replace(/</g,'&lt;')+'</div></div><div class="status" style="margin-top:14px">'+status+'</div></article>'}).join('')}
 $('load').addEventListener('click',load);$('sport').addEventListener('change',load);$('q').addEventListener('input',render);load();setInterval(load,60000);
 </script></body></html>
 <!-- Pages refresh commit 2026-10-20 -->
