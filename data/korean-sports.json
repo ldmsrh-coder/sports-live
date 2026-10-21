@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T14:08:03+09:00",
+  "updatedAt": "2026-10-21T14:09:02+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -2658,6 +2658,10 @@
     "KOVO": {
       "ok": true,
       "count": 2
+    },
+    "핸드볼": {
+      "ok": true,
+      "count": 0
     },
     "WKBL": {
       "ok": true,
