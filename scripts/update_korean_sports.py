@@ -383,8 +383,11 @@ def fetch_kbo(year, month):
             scores = [x for x in score_spans if x.isdigit()]
             if len(names) < 2:
                 continue
-            time_cell = next((cell for cell in cells if clean(cell.get("Class")).lower() == "time"), None)
+            time_cell = next((cell for cell in cells if clean(cell.get("Class")).lower() in ("time", "game_time", "gametime")), None)
             game_time = clean(time_cell.get("Text") if time_cell else "")
+            if not re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", game_time):
+                time_match = next((re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", clean(cell.get("Text"))) for cell in cells if re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", clean(cell.get("Text")))), None)
+                game_time = time_match.group(0) if time_match else ""
             status_text = " ".join(clean(cell.get("Text")) for cell in cells)
             game_state = status(status_text, "종료" if len(scores) >= 2 else "예정")
             game = make_game(current_day, game_time, names[-1], names[0], scores[-1] if len(scores) >= 2 else "-", scores[0] if len(scores) >= 2 else "-", "대한민국 KBO 프로야구", "baseball", "KBO 공식 일정", game_state)
