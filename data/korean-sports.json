@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T13:58:55+09:00",
+  "updatedAt": "2026-10-21T13:59:25+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -957,6 +957,48 @@
     },
     {
       "id": "",
+      "date": "2026-10-21",
+      "time": "10:00",
+      "home": "서울 삼성 썬더스",
+      "away": "부산 KCC 이지스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-21T10:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-22",
+      "time": "10:00",
+      "home": "Ulsan Mobis Phoebus",
+      "away": "창원 LG 세이커스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-22T10:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-23",
+      "time": "10:00",
+      "home": "수원 KT 소닉붐",
+      "away": "Wonju Dongbu Promy",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-23T10:00:00+09:00"
+    },
+    {
+      "id": "",
       "date": "2026-10-23",
       "time": "15:00",
       "home": "Nigeria U17 Women",
@@ -968,6 +1010,20 @@
       "sport": "soccer",
       "source": "SportScore 국내 축구",
       "rawTime": "2026-10-23T15:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "서울 SK 나이츠",
+      "away": "창원 LG 세이커스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
     },
     {
       "id": "",
@@ -1066,6 +1122,34 @@
       "sport": "soccer",
       "source": "SportScore 국내 축구",
       "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "07:30",
+      "home": "Ulsan Mobis Phoebus",
+      "away": "서울 삼성 썬더스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-24T07:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "07:30",
+      "home": "고양 소노 스카이거너스",
+      "away": "부산 KCC 이지스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-24T07:30:00+09:00"
     },
     {
       "id": "",
@@ -1197,6 +1281,34 @@
       "id": "",
       "date": "2026-10-25",
       "time": "05:00",
+      "home": "Anyang JungKwanJang Red Boosters",
+      "away": "Wonju Dongbu Promy",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "05:00",
+      "home": "서울 SK 나이츠",
+      "away": "수원 KT 소닉붐",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "05:00",
       "home": "Geoje Citizen",
       "away": "Jungnang Chorus Mustang FC",
       "homeScore": "-",
@@ -1248,6 +1360,20 @@
       "sport": "soccer",
       "source": "SportScore 국내 축구",
       "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "07:30",
+      "home": "대구 한국가스공사 페가수스",
+      "away": "서울 삼성 썬더스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-25T07:30:00+09:00"
     },
     {
       "id": "",
@@ -1377,6 +1503,34 @@
     },
     {
       "id": "",
+      "date": "2026-10-26",
+      "time": "10:00",
+      "home": "고양 소노 스카이거너스",
+      "away": "창원 LG 세이커스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-26T10:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-27",
+      "time": "10:00",
+      "home": "서울 SK 나이츠",
+      "away": "부산 KCC 이지스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-27T10:00:00+09:00"
+    },
+    {
+      "id": "",
       "date": "2026-10-28",
       "time": "09:55",
       "home": "Gyeongju Korea Hydro & Nuclear Power WFC",
@@ -1416,6 +1570,20 @@
       "sport": "soccer",
       "source": "SportScore 국내 축구",
       "rawTime": "2026-10-28T09:55:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "10:00",
+      "home": "대구 한국가스공사 페가수스",
+      "away": "Wonju Dongbu Promy",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBL 프로농구",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-28T10:00:00+09:00"
     },
     {
       "id": "241",
@@ -1526,6 +1694,10 @@
     "SportScore 국내 축구": {
       "ok": true,
       "count": 19
+    },
+    "SportScore 국내 농구": {
+      "ok": true,
+      "count": 12
     }
   }
 }
