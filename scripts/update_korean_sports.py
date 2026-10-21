@@ -62,6 +62,15 @@ TEAM_MAP = {
     "수원 KT 소닉붐": "수원 KT 소닉붐", "대구 한국가스공사 페가수스": "대구 한국가스공사 페가수스",
     "창원 LG 세이커스": "창원 LG 세이커스", "부산 KCC 이지스": "부산 KCC 이지스",
     "울산 현대모비스 피버스": "울산 현대모비스 피버스", "안양 정관장 레드부스터스": "안양 정관장 레드부스터스",
+    "Seoul SK Knights": "서울 SK 나이츠", "Seoul Samsung Thunders": "서울 삼성 썬더스",
+    "Ulsan Hyundai Mobis Phoebus": "울산 현대모비스 피버스", "Changwon LG Sakers": "창원 LG 세이커스",
+    "Busan KCC Egis": "부산 KCC 이지스", "Suwon KT Sonicboom": "수원 KT 소닉붐",
+    "Daegu KOGAS Pegasus": "대구 한국가스공사 페가수스", "Wonju DB Promy": "원주 DB 프로미",
+    "Anyang Jung Kwan Jang Red Boosters": "안양 정관장 레드부스터스",
+    "Goyang Sono Skygunners": "고양 소노 스카이거너스",
+    "Woori Bank Woori WON": "우리은행 우리WON", "KB Stars": "KB스타즈",
+    "Samsung Life Blueminx": "삼성생명 블루밍스", "Hana Bank": "하나은행",
+    "BNK Sum": "BNK 썸", "Shinhan Bank S-Birds": "신한은행 에스버드",
     "KIA": "KIA 타이거즈", "KIA Tigers": "KIA 타이거즈",
     "LG": "LG 트윈스", "LG Twins": "LG 트윈스",
     "두산": "두산 베어스", "Doosan Bears": "두산 베어스",
@@ -498,6 +507,49 @@ def fetch_sportscore_korean_football(year, month):
             print(f"[WARN] SportScore {day} 조회 실패: {exc}", file=sys.stderr)
     return out
 
+def fetch_sportscore_korean_basketball(year, month):
+    today = datetime.now(KST).date()
+    month_start = datetime(year, month, 1).date()
+    month_end = datetime(year, month, calendar.monthrange(year, month)[1]).date()
+    start_day = max(month_start, today)
+    end_day = min(month_end, today + timedelta(days=7))
+    out = []
+    for offset in range((end_day - start_day).days + 1):
+        day = (start_day + timedelta(days=offset)).isoformat()
+        url = f"https://sportscore.com/api/v1/fixtures/?sport=basketball&date={day}&limit=200"
+        try:
+            response = SESSION.get(url, timeout=TIMEOUT)
+            response.raise_for_status()
+            payload = response.json()
+            for item in unpack_array(payload, ("data", "fixtures", "results", "events", "items")):
+                competition = item.get("competition") or item.get("league") or item.get("tournament") or {}
+                league_name = clean(competition.get("name") if isinstance(competition, dict) else competition)
+                country_value = competition.get("country") if isinstance(competition, dict) else ""
+                country_name = clean(country_value.get("name") if isinstance(country_value, dict) else country_value)
+                home_obj = item.get("home_team") or item.get("homeTeam") or item.get("home") or {}
+                away_obj = item.get("away_team") or item.get("awayTeam") or item.get("away") or {}
+                home_name = home_obj.get("name") if isinstance(home_obj, dict) else home_obj
+                away_name = away_obj.get("name") if isinstance(away_obj, dict) else away_obj
+                check = f"{league_name} {country_name} {home_name} {away_name}".lower()
+                if not re.search(r"kbl|wkbl|korean|korea|대한민국|한국", check):
+                    continue
+                league = "대한민국 WKBL 여자프로농구" if re.search(r"wkbl|women|여자", check) else "대한민국 KBL 프로농구"
+                raw_date = clean(item.get("starting_at") or item.get("start_time") or item.get("date") or item.get("time") or day)
+                raw_day = raw_date[:10].replace("/", "-").replace(".", "-")
+                if raw_day != day:
+                    continue
+                clock = raw_date[11:16] if len(raw_date) >= 16 else clean(item.get("time"))
+                game = make_game(day, clock, home_name, away_name,
+                    item.get("home_score", item.get("homeScore", "-")),
+                    item.get("away_score", item.get("awayScore", "-")),
+                    league, "basketball", "SportScore 국내 농구",
+                    item.get("status") or item.get("state") or "예정", item.get("id", ""))
+                if game:
+                    out.append(game)
+        except Exception as exc:
+            print(f"[WARN] SportScore 농구 {day} 조회 실패: {exc}", file=sys.stderr)
+    return out
+
 def deduplicate(games):
     unique = {}
     for game in games:
@@ -517,6 +569,7 @@ def main():
         "WKBL": lambda: fetch_wkbl(year, month),
         "KBO": lambda: fetch_kbo(year, month),
         "SportScore 국내 축구": lambda: fetch_sportscore_korean_football(year, month),
+        "SportScore 국내 농구": lambda: fetch_sportscore_korean_basketball(year, month),
     }
     games, source_status = [], {}
     for name, fn in providers.items():
