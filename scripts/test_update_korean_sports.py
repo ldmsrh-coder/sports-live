@@ -43,6 +43,18 @@ class KoreanSportsCollectorTests(unittest.TestCase):
         self.assertIn("KFA", merged[0]["source"])
         self.assertIn("SportScore", merged[0]["source"])
 
+    def test_official_k3_k4_result_scores_are_parsed(self):
+        class FakeResponse:
+            ok = True
+            text = "<ul><li>2026 K3리그 24라운드 토요일 10-10 시흥시민축구단 포천시민축구단 2 1</li></ul>"
+            def raise_for_status(self):
+                return None
+        with patch("update_korean_sports.SESSION.get", return_value=FakeResponse()):
+            games = fetch_kfa_k3_k4(2026, 10)
+        match = next(g for g in games if g["date"] == "2026-10-10")
+        self.assertEqual((match["homeScore"], match["awayScore"]), ("2", "1"))
+        self.assertEqual(match["status"], "종료")
+
     def test_status_codes_are_korean(self):
         self.assertEqual(status("FINISHED"), "종료")
         self.assertEqual(status("POSTPONED"), "연기")
