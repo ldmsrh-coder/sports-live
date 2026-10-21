@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T14:09:02+09:00",
+  "updatedAt": "2026-10-21T14:09:41+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -2670,6 +2670,10 @@
     "KBO": {
       "ok": true,
       "count": 49
+    },
+    "KBO 퓨처스리그": {
+      "ok": true,
+      "count": 0
     },
     "SportScore 국내 축구": {
       "ok": true,
