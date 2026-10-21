@@ -165,7 +165,7 @@ def fetch_kleague(year, month):
             game = make_game(
                 day, item.get("gameTime"), item.get("homeTeamName") or item.get("homeTeam"),
                 item.get("awayTeamName") or item.get("awayTeam"), item.get("homeGoal", "-"),
-                item.get("awayGoal", "-"), f"대한민국 K리그 {league_id}부", "football",
+                item.get("awayGoal", "-"), f"대한민국 K리그 {league_id}부", "soccer",
                 "K리그 공식 일정", code, item.get("gameId"),
             )
             if game:
@@ -176,8 +176,9 @@ def fetch_kbl(year, month):
     start, end = month_bounds(year, month)
     season_end_year = year + 1 if month >= 10 else year
     url = f"https://api.kbl.or.kr/match/list?season={season_end_year}"
-    response = SESSION.get(url, timeout=TIMEOUT)
-    response.raise_for_status()
+    response = SESSION.get(url, headers={"Referer": "https://www.kbl.or.kr/", "Origin": "https://www.kbl.or.kr"}, timeout=TIMEOUT)
+    if not response.ok:
+        raise RuntimeError(f"KBL HTTP {response.status_code}: {response.text[:180]}")
     payload = response.json()
     out = []
     for item in unpack_array(payload):
@@ -332,35 +333,58 @@ def fetch_kbo(year, month):
             print(f"[WARN] KBO 보조 데이터 실패: {exc}", file=sys.stderr)
     return out
 
-def fetch_espn_korean_football(year, month):
-    days = calendar.monthrange(year, month)[1]
+def fetch_sportscore_korean_football(year, month):
+    today = datetime.now(KST).date()
+    month_start = datetime(year, month, 1).date()
+    month_end = datetime(year, month, calendar.monthrange(year, month)[1]).date()
+    start_day = max(month_start, today)
+    end_day = min(month_end, today + timedelta(days=7))
     out = []
-    leagues = ("kor.1", "kor.2", "kor.k3", "kor.k4", "kor.wk", "kor.national")
-    for league in leagues:
-        for offset in range(0, days, 7):
-            start_dt = datetime(year, month, 1) + timedelta(days=offset)
-            end_dt = datetime(year, month, min(days, offset + 7))
-            first, last = start_dt.strftime("%Y%m%d"), end_dt.strftime("%Y%m%d")
-            url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/scoreboard?dates={first}-{last}"
-            try:
-                response = SESSION.get(url, timeout=TIMEOUT)
-                response.raise_for_status()
-                payload = response.json()
-                for event in payload.get("events", []):
-                    comp = (event.get("competitions") or [{}])[0]
-                    competitors = comp.get("competitors", [])
-                    home = next((x for x in competitors if x.get("homeAway") == "home"), competitors[0] if competitors else {})
-                    away = next((x for x in competitors if x.get("homeAway") == "away"), competitors[1] if len(competitors) > 1 else {})
-                    day = clean(event.get("date"))[:10]
-                    if not day.startswith(f"{year:04d}-{month:02d}"):
-                        continue
-                    state = (comp.get("status") or {}).get("type", {}).get("shortDetail", "예정")
-                    league_name = (event.get("leagues") or [{}])[0].get("name", league)
-                    game = make_game(day, clean(event.get("date"))[11:16], (home.get("team") or {}).get("displayName"), (away.get("team") or {}).get("displayName"), home.get("score", "-"), away.get("score", "-"), league_name, "football", "ESPN 국내 축구", state, event.get("id", ""))
-                    if game:
-                        out.append(game)
-            except Exception as exc:
-                print(f"[WARN] ESPN {league} {first}-{last} 조회 실패: {exc}", file=sys.stderr)
+    for offset in range((end_day - start_day).days + 1):
+        day = (start_day + timedelta(days=offset)).isoformat()
+        url = f"https://sportscore.com/api/v1/fixtures/?sport=football&date={day}&limit=200"
+        try:
+            response = SESSION.get(url, timeout=TIMEOUT)
+            response.raise_for_status()
+            payload = response.json()
+            for item in unpack_array(payload, ("data", "fixtures", "results", "events", "items")):
+                competition = item.get("competition") or item.get("league") or item.get("tournament") or {}
+                league_name = clean(competition.get("name") if isinstance(competition, dict) else competition)
+                country = clean((competition.get("country") or {}).get("name") if isinstance(competition, dict) and isinstance(competition.get("country"), dict) else (competition.get("country") if isinstance(competition, dict) else ""))
+                team_home = item.get("home_team") or item.get("homeTeam") or item.get("home") or {}
+                team_away = item.get("away_team") or item.get("awayTeam") or item.get("away") or {}
+                home_name = team_home.get("name") if isinstance(team_home, dict) else team_home
+                away_name = team_away.get("name") if isinstance(team_away, dict) else team_away
+                text_to_check = f"{league_name} {country} {home_name} {away_name}".lower()
+                if not re.search(r"k league|k[ -]?league|k3 league|k4 league|wk league|korean|korea|대한민국|한국|korea republic", text_to_check):
+                    continue
+                if re.search(r"k league\s*1|korean k league 1|k리그\s*1", text_to_check):
+                    league = "대한민국 K리그 1부"
+                elif re.search(r"k league\s*2|korean k league 2|k리그\s*2", text_to_check):
+                    league = "대한민국 K리그 2부"
+                elif re.search(r"k3", text_to_check):
+                    league = "대한민국 K3리그"
+                elif re.search(r"k4", text_to_check):
+                    league = "대한민국 K4리그"
+                elif re.search(r"wk league|여자축구", text_to_check):
+                    league = "대한민국 WK리그 여자축구"
+                elif re.search(r"fa cup|korean cup|코리아컵", text_to_check):
+                    league = "대한민국 코리아컵"
+                else:
+                    league = league_name or "대한민국 국내 축구"
+                raw_date = clean(item.get("starting_at") or item.get("start_time") or item.get("date") or item.get("time") or day)
+                raw_day = raw_date[:10].replace("/", "-").replace(".", "-")
+                if raw_day != day:
+                    continue
+                clock = raw_date[11:16] if len(raw_date) >= 16 else clean(item.get("time"))
+                state = item.get("status") or item.get("state") or item.get("status_name") or "예정"
+                home_score = item.get("home_score", item.get("homeScore", item.get("score_home", "-")))
+                away_score = item.get("away_score", item.get("awayScore", item.get("score_away", "-")))
+                game = make_game(day, clock, home_name, away_name, home_score, away_score, league, "soccer", "SportScore 국내 축구", state, item.get("id", ""))
+                if game:
+                    out.append(game)
+        except Exception as exc:
+            print(f"[WARN] SportScore {day} 조회 실패: {exc}", file=sys.stderr)
     return out
 
 def deduplicate(games):
@@ -381,7 +405,7 @@ def main():
         "KOVO": lambda: fetch_kovo(year, month),
         "WKBL": lambda: fetch_wkbl(year, month),
         "KBO": lambda: fetch_kbo(year, month),
-        "ESPN 국내 축구": lambda: fetch_espn_korean_football(year, month),
+        "SportScore 국내 축구": lambda: fetch_sportscore_korean_football(year, month),
     }
     games, source_status = [], {}
     for name, fn in providers.items():
