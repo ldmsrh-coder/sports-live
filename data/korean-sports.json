@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-10-21T14:00:53+09:00",
+  "updatedAt": "2026-10-21T14:01:28+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
     {
       "id": "",
       "date": "2026-10-01",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "KIA 타이거즈",
       "away": "KT 위즈",
       "homeScore": "5",
@@ -14,13 +14,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-01"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-01T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-01",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "SSG 랜더스",
       "away": "LG 트윈스",
       "homeScore": "6",
@@ -28,13 +28,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-01"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-01T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-01",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "두산 베어스",
       "away": "NC 다이노스",
       "homeScore": "9",
@@ -42,13 +42,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-01"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-01T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-01",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "삼성 라이온즈",
       "away": "한화 이글스",
       "homeScore": "3",
@@ -56,13 +56,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-01"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-01T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-03",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "KT 위즈",
       "away": "롯데 자이언츠",
       "homeScore": "5",
@@ -70,13 +70,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-03"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-03T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-03",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "LG 트윈스",
       "away": "KIA 타이거즈",
       "homeScore": "4",
@@ -84,13 +84,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-03"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-03T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-03",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "NC 다이노스",
       "away": "SSG 랜더스",
       "homeScore": "13",
@@ -98,13 +98,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-03"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-03T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-03",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "삼성 라이온즈",
       "away": "두산 베어스",
       "homeScore": "6",
@@ -112,13 +112,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-03"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-03T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-03",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "한화 이글스",
       "away": "키움 히어로즈",
       "homeScore": "2",
@@ -126,27 +126,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-03"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-03T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-04",
-      "time": "시간 미정",
-      "home": "KT 위즈",
-      "away": "롯데 자이언츠",
-      "homeScore": "2",
-      "awayScore": "2",
-      "status": "종료",
-      "league": "대한민국 KBO 프로야구",
-      "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-04"
-    },
-    {
-      "id": "",
-      "date": "2026-10-04",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "LG 트윈스",
       "away": "KIA 타이거즈",
       "homeScore": "5",
@@ -154,13 +140,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-04"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-04T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-04",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "NC 다이노스",
       "away": "SSG 랜더스",
       "homeScore": "2",
@@ -168,13 +154,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-04"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-04T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-04",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "삼성 라이온즈",
       "away": "두산 베어스",
       "homeScore": "0",
@@ -182,13 +168,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-04"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-04T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-04",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "한화 이글스",
       "away": "키움 히어로즈",
       "homeScore": "3",
@@ -196,13 +182,27 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-04"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-04T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-04",
+      "time": "17:00",
+      "home": "KT 위즈",
+      "away": "롯데 자이언츠",
+      "homeScore": "2",
+      "awayScore": "2",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-04T17:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-05",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "KT 위즈",
       "away": "롯데 자이언츠",
       "homeScore": "9",
@@ -210,13 +210,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-05"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-05T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-05",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "LG 트윈스",
       "away": "KIA 타이거즈",
       "homeScore": "4",
@@ -224,13 +224,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-05"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-05T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-05",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "NC 다이노스",
       "away": "SSG 랜더스",
       "homeScore": "0",
@@ -238,13 +238,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-05"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-05T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-05",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "삼성 라이온즈",
       "away": "두산 베어스",
       "homeScore": "5",
@@ -252,13 +252,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-05"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-05T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-05",
-      "time": "시간 미정",
+      "time": "14:00",
       "home": "한화 이글스",
       "away": "키움 히어로즈",
       "homeScore": "13",
@@ -266,13 +266,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-05"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-05T14:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-06",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "KIA 타이거즈",
       "away": "삼성 라이온즈",
       "homeScore": "4",
@@ -280,13 +280,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-06"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-06T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-06",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "LG 트윈스",
       "away": "NC 다이노스",
       "homeScore": "6",
@@ -294,13 +294,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-06"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-06T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-06",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "롯데 자이언츠",
       "away": "두산 베어스",
       "homeScore": "1",
@@ -308,13 +308,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-06"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-06T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-06",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "키움 히어로즈",
       "away": "KT 위즈",
       "homeScore": "1",
@@ -322,13 +322,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-06"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-06T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-06",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "한화 이글스",
       "away": "SSG 랜더스",
       "homeScore": "9",
@@ -336,13 +336,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-06"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-06T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-07",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "KT 위즈",
       "away": "삼성 라이온즈",
       "homeScore": "9",
@@ -350,13 +350,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-07"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-07T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-07",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "LG 트윈스",
       "away": "두산 베어스",
       "homeScore": "7",
@@ -364,13 +364,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-07"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-07T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-07",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "SSG 랜더스",
       "away": "NC 다이노스",
       "homeScore": "6",
@@ -378,13 +378,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-07"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-07T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-07",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "롯데 자이언츠",
       "away": "KIA 타이거즈",
       "homeScore": "4",
@@ -392,13 +392,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-07"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-07T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-07",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "키움 히어로즈",
       "away": "한화 이글스",
       "homeScore": "5",
@@ -406,8 +406,50 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-07"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-07T18:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-09",
+      "time": "14:00",
+      "home": "NC 다이노스",
+      "away": "KIA 타이거즈",
+      "homeScore": "2",
+      "awayScore": "7",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-09T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-09",
+      "time": "14:00",
+      "home": "SSG 랜더스",
+      "away": "삼성 라이온즈",
+      "homeScore": "3",
+      "awayScore": "1",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-09T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-09",
+      "time": "14:00",
+      "home": "롯데 자이언츠",
+      "away": "LG 트윈스",
+      "homeScore": "9",
+      "awayScore": "1",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-09T14:00:00+09:00"
     },
     {
       "id": "181",
@@ -495,45 +537,17 @@
     },
     {
       "id": "",
-      "date": "2026-10-09",
-      "time": "시간 미정",
-      "home": "NC 다이노스",
-      "away": "KIA 타이거즈",
-      "homeScore": "2",
-      "awayScore": "7",
-      "status": "종료",
-      "league": "대한민국 KBO 프로야구",
-      "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-09"
-    },
-    {
-      "id": "",
-      "date": "2026-10-09",
-      "time": "시간 미정",
-      "home": "SSG 랜더스",
-      "away": "삼성 라이온즈",
-      "homeScore": "3",
-      "awayScore": "1",
-      "status": "종료",
-      "league": "대한민국 KBO 프로야구",
-      "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-09"
-    },
-    {
-      "id": "",
-      "date": "2026-10-09",
-      "time": "시간 미정",
+      "date": "2026-10-10",
+      "time": "14:00",
       "home": "롯데 자이언츠",
       "away": "LG 트윈스",
-      "homeScore": "9",
-      "awayScore": "1",
+      "homeScore": "3",
+      "awayScore": "4",
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-09"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-10T14:00:00+09:00"
     },
     {
       "id": "184",
@@ -622,7 +636,7 @@
     {
       "id": "",
       "date": "2026-10-10",
-      "time": "시간 미정",
+      "time": "17:00",
       "home": "KIA 타이거즈",
       "away": "SSG 랜더스",
       "homeScore": "8",
@@ -630,27 +644,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-10"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-10T17:00:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-10",
-      "time": "시간 미정",
-      "home": "롯데 자이언츠",
-      "away": "LG 트윈스",
-      "homeScore": "3",
-      "awayScore": "4",
-      "status": "종료",
-      "league": "대한민국 KBO 프로야구",
-      "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-10"
-    },
-    {
-      "id": "",
-      "date": "2026-10-10",
-      "time": "시간 미정",
+      "time": "17:00",
       "home": "한화 이글스",
       "away": "NC 다이노스",
       "homeScore": "8",
@@ -658,8 +658,36 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-10"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-10T17:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-11",
+      "time": "14:00",
+      "home": "KIA 타이거즈",
+      "away": "롯데 자이언츠",
+      "homeScore": "1",
+      "awayScore": "4",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-11T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-11",
+      "time": "14:00",
+      "home": "삼성 라이온즈",
+      "away": "KT 위즈",
+      "homeScore": "3",
+      "awayScore": "12",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-11T14:00:00+09:00"
     },
     {
       "id": "186",
@@ -691,36 +719,8 @@
     },
     {
       "id": "",
-      "date": "2026-10-11",
-      "time": "시간 미정",
-      "home": "KIA 타이거즈",
-      "away": "롯데 자이언츠",
-      "homeScore": "1",
-      "awayScore": "4",
-      "status": "종료",
-      "league": "대한민국 KBO 프로야구",
-      "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-11"
-    },
-    {
-      "id": "",
-      "date": "2026-10-11",
-      "time": "시간 미정",
-      "home": "삼성 라이온즈",
-      "away": "KT 위즈",
-      "homeScore": "3",
-      "awayScore": "12",
-      "status": "종료",
-      "league": "대한민국 KBO 프로야구",
-      "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-11"
-    },
-    {
-      "id": "",
       "date": "2026-10-12",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "KIA 타이거즈",
       "away": "LG 트윈스",
       "homeScore": "4",
@@ -728,13 +728,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-12"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-12T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-12",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "두산 베어스",
       "away": "롯데 자이언츠",
       "homeScore": "4",
@@ -742,13 +742,13 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-12"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-12T18:30:00+09:00"
     },
     {
       "id": "",
       "date": "2026-10-12",
-      "time": "시간 미정",
+      "time": "18:30",
       "home": "삼성 라이온즈",
       "away": "KT 위즈",
       "homeScore": "2",
@@ -756,8 +756,8 @@
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
-      "source": "KBO 공식 일정",
-      "rawTime": "2026-10-12"
+      "source": "KBO 공식 일정 + 공개 데이터",
+      "rawTime": "2026-10-12T18:30:00+09:00"
     },
     {
       "id": "225",
