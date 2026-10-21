@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T14:26:25+09:00",
+  "updatedAt": "2026-10-21T14:29:57+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -1072,6 +1072,20 @@
       "rawTime": "2026-10-09T14:00:00+09:00"
     },
     {
+      "id": "",
+      "date": "2026-10-09",
+      "time": "14:00",
+      "home": "양평FC",
+      "away": "울산시민축구단",
+      "homeScore": "2",
+      "awayScore": "1",
+      "status": "종료",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-09T14:00:00+09:00"
+    },
+    {
       "id": "181",
       "date": "2026-10-09",
       "time": "14:00",
@@ -1185,20 +1199,6 @@
     },
     {
       "id": "",
-      "date": "2026-10-09",
-      "time": "시간 미정",
-      "home": "양평FC",
-      "away": "울산시민축구단",
-      "homeScore": "2",
-      "awayScore": "1",
-      "status": "종료",
-      "league": "대한민국 K3리그",
-      "sport": "soccer",
-      "source": "대한축구협회 K3·K4리그 공식 일정",
-      "rawTime": "2026-10-09"
-    },
-    {
-      "id": "",
       "date": "2026-10-10",
       "time": "14:00",
       "home": "롯데 자이언츠",
@@ -1223,6 +1223,20 @@
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-10T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-10",
+      "time": "14:00",
+      "home": "세종SA축구단",
+      "away": "기장군민축구단",
+      "homeScore": "5",
+      "awayScore": "2",
+      "status": "종료",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
       "rawTime": "2026-10-10T14:00:00+09:00"
     },
     {
@@ -1375,20 +1389,6 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K3리그",
-      "sport": "soccer",
-      "source": "대한축구협회 K3·K4리그 공식 일정",
-      "rawTime": "2026-10-10"
-    },
-    {
-      "id": "",
-      "date": "2026-10-10",
-      "time": "시간 미정",
-      "home": "세종SA축구단",
-      "away": "기장군민축구단",
-      "homeScore": "5",
-      "awayScore": "2",
-      "status": "종료",
-      "league": "대한민국 K4리그",
       "sport": "soccer",
       "source": "대한축구협회 K3·K4리그 공식 일정",
       "rawTime": "2026-10-10"
