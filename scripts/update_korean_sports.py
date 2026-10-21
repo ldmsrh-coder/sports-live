@@ -407,7 +407,14 @@ def fetch_kfa_k3_k4(year, month):
         score_nodes = node.select(".score, .home-score, .away-score, .score_home, .score_away")
         scores = [clean(x.get_text(" ", strip=True)) for x in score_nodes if clean(x.get_text(" ", strip=True)).isdigit()]
         scored = len(scores) >= 2
-        game_state = "취소" if re.search(r"취소|연기", text_value) else ("종료" if scored else "예정")
+        if re.search(r"취소", text_value):
+            game_state = "취소"
+        elif re.search(r"연기|순연", text_value):
+            game_state = "연기"
+        elif scored or day < datetime.now(KST).date().isoformat():
+            game_state = "종료"
+        else:
+            game_state = "예정"
         game = make_game(day, clock, teams[0], teams[1], scores[0] if scored else "-", scores[1] if scored else "-",
             league, "soccer", "대한축구협회 K3·K4리그 공식 일정", game_state)
         if game:
