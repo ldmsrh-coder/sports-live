@@ -233,12 +233,12 @@ def fetch_kbl(year, month):
         ("울산 현대모비스", "울산 현대모비스 피버스"), ("현대모비스", "울산 현대모비스 피버스"),
     ]
     fallback = []
-    for url in ("https://m.kbl.or.kr/", "https://m.kbl.or.kr/match/schedule", "https://www.kbl.or.kr/match/schedule"):
+    for url in ("https://m.kbl.or.kr/", "https://m.kbl.or.kr/match/schedule", "https://www.kbl.or.kr/match/schedule", "https://promy.kbl.or.kr/", "https://www.kbl.or.kr/"):
         try:
             response = SESSION.get(url, timeout=TIMEOUT)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, "html.parser")
-            candidates = soup.select("tr, li, article, .game, .match, .schedule, .game-item")
+            candidates = soup.select("tr, li, article, div, p, .game, .match, .schedule, .game-item")
             if not candidates:
                 candidates = [soup]
             seen_rows = set()
@@ -272,10 +272,13 @@ def fetch_kbl(year, month):
                 game = make_game(day, game_time, teams[0], teams[1], hs, aws, "대한민국 KBL 프로농구", "basketball", "KBL 공식 사이트", game_state)
                 if game:
                     fallback.append(game)
+            print(f"[DEBUG] KBL 페이지 {url}: {len(response.text)} bytes, 후보 {len(candidates)}, 수집 {len(fallback)}", file=sys.stderr)
             if fallback:
                 break
         except Exception as exc:
             print(f"[WARN] KBL 공식 페이지 조회 실패: {url}: {exc}", file=sys.stderr)
+    if not fallback:
+        raise RuntimeError("KBL API와 공식 페이지에서 이번 달 경기 데이터를 찾지 못했습니다.")
     return fallback
 
 def fetch_kovo(year, month):
