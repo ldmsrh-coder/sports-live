@@ -109,14 +109,14 @@ async function applyModelProbabilities(games,date){
     const hi=String(g.homeId),ai=String(g.awayId),hs=getStats(hi),as=getStats(ai),hr=getRating(hi),ar=getRating(ai);
     if(hs.played+as.played<2)continue;
     const formRate=x=>{const recent=x.form.slice(-5);if(!recent.length)return .5;let total=0,weight=0;recent.forEach((v,i)=>{const w=i+1;total+=v.result*w;weight+=w});return total/weight};
-    const hForm=formRate(hs),aForm=formRate(as),hRate=hs.played?hs.wins/hs.played:.5,aRate=as.played?as.wins/as.played:.5;
+    const hForm=formRate(hs),aForm=formRate(as),hRate=hs.played?hs.wins/hs.played:.5,aRate=as.played?as.wins/as.played:.5,hHomeRate=(hs.homeWins+1)/(hs.homePlayed+2),aAwayRate=(as.awayWins+1)/(as.awayPlayed+2);
     const hAvg=hs.played?hs.scored/hs.played:0,aAvg=as.played?as.scored/as.played:0,hCon=hs.played?hs.allowed/hs.played:0,aCon=as.played?as.allowed/as.played:0;
     const scoringScale=cat==='soccer'?1.1:cat==='baseball'?2.2:cat==='basketball'?10:cat==='volleyball'?6:cat==='hockey'?1.5:5;
-    const ratingDiff=hr-ar,formDiff=(hForm-aForm)*95,winRateDiff=(hRate-aRate)*55,scoringDiff=((hAvg-aAvg)+(aCon-hCon))*scoringScale,homeDiff=adv;
+    const ratingDiff=hr-ar,formDiff=(hForm-aForm)*95,winRateDiff=(hRate-aRate)*55,venueDiff=(hHomeRate-aAwayRate)*42,scoringDiff=((hAvg-aAvg)+(aCon-hCon))*scoringScale,h2h=events.filter(e=>(e.home===hi&&e.away===ai)||(e.home===ai&&e.away===hi)),h2hScore=h2h.reduce((sum,e)=>{const homePerspective=e.home===hi?(e.hs>e.as?1:e.hs<e.as?0:.5):(e.as>e.hs?1:e.as<e.hs?0:.5),age=Math.max(0,(endDate.getTime()-e.date)/86400000);return sum+(homePerspective-.5)*Math.pow(.5,age/60)},0),h2hWeight=Math.min(1,h2h.length/4),h2hDiff=h2h.length?h2hScore/h2h.reduce((sum,e)=>sum+Math.pow(.5,Math.max(0,(endDate.getTime()-e.date)/86400000)/60),0)*65*h2hWeight:0,homeDiff=adv;
     const kickoff=Date.parse(g.rawTime||g.date||'');const hRest=hs.lastDate?Math.max(0,(currentTime-hs.lastDate)/86400000):4,aRest=as.lastDate?Math.max(0,(currentTime-as.lastDate)/86400000):4;
     const restDiff=Math.max(-3,Math.min(3,aRest-hRest))*5;
-    const diff=ratingDiff*.62+formDiff+winRateDiff+scoringDiff+homeDiff+restDiff,p=1/(1+10**(-diff/400));
-    g.modelDetails={homeRating:hr,awayRating:ar,ratingDiff,homeAdvantage:adv,homeStats:{played:hs.played,wins:hs.wins,draws:hs.draws,losses:hs.losses,form:hForm,scoredAverage:hAvg,allowedAverage:hCon,restDays:hRest},awayStats:{played:as.played,wins:as.wins,draws:as.draws,losses:as.losses,form:aForm,scoredAverage:aAvg,allowedAverage:aCon,restDays:aRest},historyDays:90,features:{recentForm:true,scoringTrend:true,homeAdvantage:true,restDays:!!(hs.lastDate&&as.lastDate),recentResults:hs.played+as.played}};
+    const diff=ratingDiff*.62+formDiff+winRateDiff+venueDiff+scoringDiff+homeDiff+restDiff+h2hDiff,p=1/(1+10**(-diff/400));
+    g.modelDetails={homeRating:hr,awayRating:ar,ratingDiff,homeAdvantage:adv,homeStats:{played:hs.played,wins:hs.wins,draws:hs.draws,losses:hs.losses,form:hForm,scoredAverage:hAvg,allowedAverage:hCon,restDays:hRest},awayStats:{played:as.played,wins:as.wins,draws:as.draws,losses:as.losses,form:aForm,scoredAverage:aAvg,allowedAverage:aCon,restDays:aRest},historyDays:90,features:{recentForm:true,scoringTrend:true,homeAwayPerformance:true,headToHead:h2h.length>0,homeAdvantage:true,restDays:!!(hs.lastDate&&as.lastDate),recentResults:hs.played+as.played,headToHeadGames:h2h.length}};
     if(cat==='soccer'){
      const drawBase=.25,draw=Math.max(.12,Math.min(.31,drawBase-Math.abs(diff)/2600+(Math.abs(hAvg-aAvg)<.35?.025:0))),hp=Math.max(0,p-draw/2),ap=Math.max(0,1-p-draw/2),sum=hp+draw+ap;
      g.homeProb=hp/sum*100;g.drawProb=draw/sum*100;g.awayProb=ap/sum*100;
