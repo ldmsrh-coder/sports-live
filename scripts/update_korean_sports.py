@@ -458,8 +458,8 @@ def fetch_sportscore_korean_basketball(year, month):
     today = datetime.now(KST).date()
     month_start = datetime(year, month, 1).date()
     month_end = datetime(year, month, calendar.monthrange(year, month)[1]).date()
-    start_day = max(month_start, today)
-    end_day = min(month_end, today + timedelta(days=7))
+    start_day = month_start
+    end_day = month_end
     out = []
     for offset in range((end_day - start_day).days + 1):
         day = (start_day + timedelta(days=offset)).isoformat()
