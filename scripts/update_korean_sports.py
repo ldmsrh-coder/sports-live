@@ -12,7 +12,7 @@ import json
 import os
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -174,7 +174,8 @@ def fetch_kleague(year, month):
 
 def fetch_kbl(year, month):
     start, end = month_bounds(year, month)
-    url = f"https://api.kbl.or.kr/match/list?fromDate={start}&toDate={end}"
+    season_end_year = year + 1 if month >= 10 else year
+    url = f"https://api.kbl.or.kr/match/list?season={season_end_year}"
     response = SESSION.get(url, timeout=TIMEOUT)
     response.raise_for_status()
     payload = response.json()
@@ -332,29 +333,34 @@ def fetch_kbo(year, month):
     return out
 
 def fetch_espn_korean_football(year, month):
-    first, last = month_bounds(year, month)
+    days = calendar.monthrange(year, month)[1]
     out = []
-    for league in ("kor.1", "kor.2", "kor.k3", "kor.k4", "kor.wk", "kor.national"):
-        url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/scoreboard?dates={first}-{last}"
-        try:
-            response = SESSION.get(url, timeout=TIMEOUT)
-            response.raise_for_status()
-            payload = response.json()
-            for event in payload.get("events", []):
-                comp = (event.get("competitions") or [{}])[0]
-                competitors = comp.get("competitors", [])
-                home = next((x for x in competitors if x.get("homeAway") == "home"), competitors[0] if competitors else {})
-                away = next((x for x in competitors if x.get("homeAway") == "away"), competitors[1] if len(competitors) > 1 else {})
-                day = clean(event.get("date"))[:10]
-                if not day.startswith(f"{year:04d}-{month:02d}"):
-                    continue
-                state = (comp.get("status") or {}).get("type", {}).get("shortDetail", "예정")
-                league_name = (event.get("leagues") or [{}])[0].get("name", league)
-                game = make_game(day, clean(event.get("date"))[11:16], (home.get("team") or {}).get("displayName"), (away.get("team") or {}).get("displayName"), home.get("score", "-"), away.get("score", "-"), league_name, "football", "ESPN 국내 축구", state, event.get("id", ""))
-                if game:
-                    out.append(game)
-        except Exception as exc:
-            print(f"[WARN] ESPN {league} 조회 실패: {exc}", file=sys.stderr)
+    leagues = ("kor.1", "kor.2", "kor.k3", "kor.k4", "kor.wk", "kor.national")
+    for league in leagues:
+        for offset in range(0, days, 7):
+            start_dt = datetime(year, month, 1) + timedelta(days=offset)
+            end_dt = datetime(year, month, min(days, offset + 7))
+            first, last = start_dt.strftime("%Y%m%d"), end_dt.strftime("%Y%m%d")
+            url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/scoreboard?dates={first}-{last}"
+            try:
+                response = SESSION.get(url, timeout=TIMEOUT)
+                response.raise_for_status()
+                payload = response.json()
+                for event in payload.get("events", []):
+                    comp = (event.get("competitions") or [{}])[0]
+                    competitors = comp.get("competitors", [])
+                    home = next((x for x in competitors if x.get("homeAway") == "home"), competitors[0] if competitors else {})
+                    away = next((x for x in competitors if x.get("homeAway") == "away"), competitors[1] if len(competitors) > 1 else {})
+                    day = clean(event.get("date"))[:10]
+                    if not day.startswith(f"{year:04d}-{month:02d}"):
+                        continue
+                    state = (comp.get("status") or {}).get("type", {}).get("shortDetail", "예정")
+                    league_name = (event.get("leagues") or [{}])[0].get("name", league)
+                    game = make_game(day, clean(event.get("date"))[11:16], (home.get("team") or {}).get("displayName"), (away.get("team") or {}).get("displayName"), home.get("score", "-"), away.get("score", "-"), league_name, "football", "ESPN 국내 축구", state, event.get("id", ""))
+                    if game:
+                        out.append(game)
+            except Exception as exc:
+                print(f"[WARN] ESPN {league} {first}-{last} 조회 실패: {exc}", file=sys.stderr)
     return out
 
 def deduplicate(games):
