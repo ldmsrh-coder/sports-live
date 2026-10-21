@@ -96,6 +96,13 @@ async function applyCachedHistoryModel(games,date){
       try{const arr=JSON.parse(localStorage.getItem(key)||'null');if(Array.isArray(arr))archive.push(...arr.map(g=>({...g,__cachedDate:cachedDate}))) }catch(e){}
     }
   }catch(e){}
+  try{
+    const snapshot=await fetch('./data/korean-sports.json',{cache:'no-store'});
+    if(snapshot.ok){
+      const payload=await snapshot.json();
+      if(Array.isArray(payload?.games))archive.push(...payload.games.filter(g=>String(g.date||'')<date).map(g=>({...g,__cachedDate:String(g.date||''),homeScore:g.homeScore??g.hs,awayScore:g.awayScore??g.as,sportCategory:g.sportCategory||g.sport||'football'})));
+    }
+  }catch(e){}
   const grouped=new Map();
   for(const g of archive){
     if(!finished(g))continue;
