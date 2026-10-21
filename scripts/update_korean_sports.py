@@ -83,6 +83,14 @@ TEAM_MAP = {
     "Hanyang University": "한양대학교", "Kyung Hee University": "경희대학교",
     "Sangmyung University": "상명대학교", "Kwangwoon University": "광운대학교",
     "Seoul National University": "서울대학교", "Korea National Sport University": "한국체육대학교",
+    "Sinhan Bank S-Birds": "신한은행 에스버드", "Shinhan Bank S-Birds": "신한은행 에스버드",
+    "Samsunglife Blueminx": "삼성생명 블루밍스", "Samsung Life Blueminx": "삼성생명 블루밍스",
+    "Bucheon Keb Hanabank": "부천 하나은행", "Woori Bank Wibee": "우리은행 우리WON",
+    "BNK Sum Women": "BNK 썸", "Ulaanbaatar Amazons (W)": "울란바토르 아마존스(여자)",
+    "Carleton Ravens (W)": "칼턴 레이븐스(여자)", "Victoria Select Team (W)": "빅토리아 셀렉트팀(여자)",
+    "Fujitsu Redwave Women": "후지쯔 레드웨이브(여자)", "South Korea U18 Women": "대한민국 U-18 여자대표팀",
+    "New Zealand U18 Women": "뉴질랜드 U-18 여자대표팀", "Philippines U18 Women": "필리핀 U-18 여자대표팀",
+    "Australia U18 Women": "호주 U-18 여자대표팀",
     "Goyang Sono Skygunners": "고양 소노 스카이거너스",
     "Woori Bank Woori WON": "우리은행 우리WON", "KB Stars": "KB스타즈",
     "Samsung Life Blueminx": "삼성생명 블루밍스", "Hana Bank": "하나은행",
@@ -488,9 +496,9 @@ def fetch_sportscore_korean_football(year, month):
                     league = "대한민국 K리그 1부"
                 elif re.search(r"k league\s*2|korean k league 2|k리그\s*2", text_to_check):
                     league = "대한민국 K리그 2부"
-                elif re.search(r"k3", text_to_check):
+                elif re.search(r"k\s*league\s*3|k3", text_to_check):
                     league = "대한민국 K3리그"
-                elif re.search(r"k4", text_to_check):
+                elif re.search(r"k\s*league\s*4|k4", text_to_check):
                     league = "대한민국 K4리그"
                 elif re.search(r"wk league|여자축구", text_to_check):
                     league = "대한민국 WK리그 여자축구"
