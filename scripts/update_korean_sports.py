@@ -327,6 +327,7 @@ def fetch_kbo(year, month):
         response.raise_for_status()
         payload = response.json()
         current_day = None
+        debugged_kbo_row = False
         for row in payload.get("rows", []):
             cells = row.get("row", [])
             for cell in cells:
@@ -346,6 +347,9 @@ def fetch_kbo(year, month):
             scores = [x for x in score_spans if x.isdigit()]
             if len(names) < 2:
                 continue
+            if not debugged_kbo_row and current_day and current_day.endswith("-14"):
+                print("[DEBUG KBO row] " + json.dumps([(clean(cell.get("Class")), clean(cell.get("Text"))[:80]) for cell in cells], ensure_ascii=False), file=sys.stderr)
+                debugged_kbo_row = True
             time_cell = next((cell for cell in cells if clean(cell.get("Class")).lower() in ("time", "game_time", "gametime")), None)
             game_time = clean(time_cell.get("Text") if time_cell else "")
             if not re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", game_time):
