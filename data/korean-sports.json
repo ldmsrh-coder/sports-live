@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T13:56:43+09:00",
+  "updatedAt": "2026-10-21T13:57:36+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -1508,8 +1508,8 @@
       "count": 46
     },
     "KBL": {
-      "ok": false,
-      "error": "KBL HTTP 400: {\"resultCode\":\"Fail\",\"message\":\"필수 헤더 정보가 누락되었습니다.\",\"object\":-1101,\"errorCode\":400}"
+      "ok": true,
+      "count": 0
     },
     "KOVO": {
       "ok": true,
