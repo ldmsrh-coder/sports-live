@@ -757,7 +757,8 @@ def main():
     now = datetime.now(KST)
     year, month = now.year, now.month
     next_year, next_month = (year + 1, 1) if month == 12 else (year, month + 1)
-    months = [(year, month), (next_year, next_month)]
+    third_year, third_month = (next_year + 1, 1) if next_month == 12 else (next_year, next_month + 1)
+    months = [(year, month), (next_year, next_month), (third_year, third_month)]
     current_month = f"{year:04d}-{month:02d}"
     month_labels = [f"{y:04d}-{m:02d}" for y, m in months]
     providers = {
@@ -773,7 +774,7 @@ def main():
     }
     games, source_status = [], {}
     for name, fn in providers.items():
-        periods = [months[0]] if name.startswith("SportScore") else months
+        periods = [months[0]] if name.startswith("SportScore") else (months if name in ("K리그", "KOVO", "핸드볼", "WKBL") else months[:2])
         found_all, outcomes, failures = [], [], []
         for y, m in periods:
             try:
