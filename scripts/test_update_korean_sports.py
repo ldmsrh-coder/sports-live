@@ -57,6 +57,12 @@ class KoreanSportsCollectorTests(unittest.TestCase):
         self.assertEqual((match["homeScore"], match["awayScore"]), ("2", "1"))
         self.assertEqual(match["status"], "종료")
 
+    def test_scheduled_zero_scores_are_not_shown_as_real_scores(self):
+        scheduled = make_game("2026-10-31", "19:00", "서울 SK 나이츠", "부산 KCC 이지스", "0", "0", "KBL", "basketball", "test", "Scheduled")
+        live = make_game("2026-10-21", "19:00", "서울 SK 나이츠", "부산 KCC 이지스", "0", "0", "KBL", "basketball", "test", "In Progress")
+        self.assertEqual((scheduled["homeScore"], scheduled["awayScore"]), ("-", "-"))
+        self.assertEqual((live["homeScore"], live["awayScore"]), ("0", "0"))
+
     def test_status_codes_are_korean(self):
         self.assertEqual(status("FINISHED"), "종료")
         self.assertEqual(status("POSTPONED"), "연기")
