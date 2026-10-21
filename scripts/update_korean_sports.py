@@ -606,26 +606,41 @@ def deduplicate(games):
 def main():
     now = datetime.now(KST)
     year, month = now.year, now.month
+    next_year, next_month = (year + 1, 1) if month == 12 else (year, month + 1)
+    months = [(year, month), (next_year, next_month)]
+    current_month = f"{year:04d}-{month:02d}"
+    month_labels = [f"{y:04d}-{m:02d}" for y, m in months]
     providers = {
-        "K리그": lambda: fetch_kleague(year, month),
-        "KOVO": lambda: fetch_kovo(year, month),
-        "핸드볼": lambda: fetch_handball(year, month),
-        "WKBL": lambda: fetch_wkbl(year, month),
-        "KBO": lambda: fetch_kbo(year, month),
-        "KBO 퓨처스리그": lambda: fetch_kbo(year, month, "2", "대한민국 KBO 퓨처스리그"),
-        "SportScore 국내 축구": lambda: fetch_sportscore_korean_football(year, month),
-        "SportScore 국내 농구": lambda: fetch_sportscore_korean_basketball(year, month),
+        "K리그": fetch_kleague,
+        "KOVO": fetch_kovo,
+        "핸드볼": fetch_handball,
+        "WKBL": fetch_wkbl,
+        "KBO": lambda y, m: fetch_kbo(y, m),
+        "KBO 퓨처스리그": lambda y, m: fetch_kbo(y, m, "2", "대한민국 KBO 퓨처스리그"),
+        "SportScore 국내 축구": fetch_sportscore_korean_football,
+        "SportScore 국내 농구": fetch_sportscore_korean_basketball,
     }
     games, source_status = [], {}
     for name, fn in providers.items():
-        try:
-            found = fn()
-            games.extend(found)
-            source_status[name] = {"ok": True, "count": len(found)}
-            print(f"[OK] {name}: {len(found)}경기")
-        except Exception as exc:
-            source_status[name] = {"ok": False, "error": str(exc)[:240]}
-            print(f"[WARN] {name}: {exc}", file=sys.stderr)
+        periods = [months[0]] if name.startswith("SportScore") else months
+        found_all, outcomes, failures = [], [], []
+        for y, m in periods:
+            try:
+                found = fn(y, m)
+                found_all.extend(found)
+                outcomes.append(True)
+                print(f"[OK] {name} {y:04d}-{m:02d}: {len(found)}경기")
+            except Exception as exc:
+                outcomes.append(False)
+                failures.append(f"{y:04d}-{m:02d}: {str(exc)[:180]}")
+                print(f"[WARN] {name} {y:04d}-{m:02d}: {exc}", file=sys.stderr)
+        games.extend(found_all)
+        source_status[name] = {
+            "ok": bool(outcomes) and all(outcomes),
+            "count": len(found_all),
+            "months": [f"{y:04d}-{m:02d}" for y, m in periods],
+            "errors": failures,
+        }
     games = deduplicate(games)
     old = {}
     if OUT.exists():
@@ -636,11 +651,13 @@ def main():
     successful = sum(1 for value in source_status.values() if value.get("ok"))
     if successful == 0:
         raise RuntimeError("모든 국내 경기 제공처 조회 실패; 기존 데이터를 보존합니다.")
-    if not games and old.get("games") and old.get("month") == f"{year:04d}-{month:02d}":
+    old_months = old.get("months") or ([old.get("month")] if old.get("month") else [])
+    if not games and old.get("games") and current_month in old_months:
         raise RuntimeError("새 조회 결과가 비어 있어 기존 국내 경기 데이터를 보존합니다.")
     snapshot = {
         "updatedAt": now.isoformat(timespec="seconds"),
-        "month": f"{year:04d}-{month:02d}",
+        "month": current_month,
+        "months": month_labels,
         "timezone": "Asia/Seoul",
         "games": games,
         "sourceStatus": source_status,
@@ -649,7 +666,7 @@ def main():
     temp = OUT.with_suffix(".json.tmp")
     temp.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temp.replace(OUT)
-    print(f"[DONE] {len(games)}개 국내 경기 저장: {OUT}")
+    print(f"[DONE] {len(games)}개 국내 경기 저장 ({', '.join(month_labels)}): {OUT}")
 
 if __name__ == "__main__":
     main()
