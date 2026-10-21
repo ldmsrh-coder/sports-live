@@ -381,13 +381,13 @@ def fetch_handball(year, month):
             out.append(game)
     return out
 
-def fetch_kbo(year, month):
+def fetch_kbo(year, month, league_id='1', league_label='대한민국 KBO 프로야구'):
     start, end = month_bounds(year, month)
     out = []
     url = "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
     try:
         SESSION.get("https://www.koreabaseball.com/Schedule/Schedule.aspx", timeout=TIMEOUT)
-        response = SESSION.post(url, data={"leId": "1", "srIdList": "0,1,2,3,4,5,6,7,8,9", "seasonId": str(year), "gameMonth": str(month), "teamId": ""}, headers={"X-Requested-With": "XMLHttpRequest", "Referer": "https://www.koreabaseball.com/Schedule/Schedule.aspx"}, timeout=TIMEOUT)
+        response = SESSION.post(url, data={"leId": league_id, "srIdList": "0,1,2,3,4,5,6,7,8,9", "seasonId": str(year), "gameMonth": str(month), "teamId": ""}, headers={"X-Requested-With": "XMLHttpRequest", "Referer": "https://www.koreabaseball.com/Schedule/Schedule.aspx"}, timeout=TIMEOUT)
         response.raise_for_status()
         payload = response.json()
         current_day = None
@@ -417,44 +417,46 @@ def fetch_kbo(year, month):
                 game_time = time_match.group(0) if time_match else ""
             status_text = " ".join(clean(cell.get("Text")) for cell in cells)
             game_state = status(status_text, "종료" if len(scores) >= 2 else "예정")
-            game = make_game(current_day, game_time, names[-1], names[0], scores[-1] if len(scores) >= 2 else "-", scores[0] if len(scores) >= 2 else "-", "대한민국 KBO 프로야구", "baseball", "KBO 공식 일정", game_state)
+            game = make_game(current_day, game_time, names[-1], names[0], scores[-1] if len(scores) >= 2 else "-", scores[0] if len(scores) >= 2 else "-", league_label, "baseball", "KBO 공식 일정", game_state)
             if game:
                 out.append(game)
     except Exception as exc:
         print(f"[WARN] KBO 공식 API 실패: {exc}", file=sys.stderr)
-    try:
-        fallback_response = SESSION.get(f"https://raw.githubusercontent.com/dentearl/kbo-data/main/data/kbo/{year}.json", timeout=TIMEOUT)
-        fallback_response.raise_for_status()
-        fallback_games = []
-        for item in fallback_response.json():
-            official_day = clean(item.get("officialDate") or item.get("gameDate"))[:10]
-            raw_game_date = clean(item.get("gameDate") or official_day)
-            day, clock = provider_datetime(raw_game_date, official_day)
-            if not day.startswith(f"{year:04d}-{month:02d}"):
-                continue
-            home, away = item.get("teams", {}).get("home", {}), item.get("teams", {}).get("away", {})
-            game = make_game(day, clock, home.get("team", {}).get("name"), away.get("team", {}).get("name"),
-                home.get("score", "-"), away.get("score", "-"), "대한민국 KBO 프로야구", "baseball",
-                "KBO 공개 일정 데이터", item.get("status", {}).get("detailedState", "예정"), item.get("gamePk", ""))
-            if game:
-                fallback_games.append(game)
-        if not out:
-            out = fallback_games
-        else:
-            for current in out:
-                match = next((g for g in fallback_games if g["date"] == current["date"] and g["home"] == current["home"] and g["away"] == current["away"]), None)
-                if not match:
+    if league_id == '1':
+        try:
+            fallback_response = SESSION.get(f"https://raw.githubusercontent.com/dentearl/kbo-data/main/data/kbo/{year}.json", timeout=TIMEOUT)
+            fallback_response.raise_for_status()
+            fallback_games = []
+            for item in fallback_response.json():
+                official_day = clean(item.get("officialDate") or item.get("gameDate"))[:10]
+                raw_game_date = clean(item.get("gameDate") or official_day)
+                day, clock = provider_datetime(raw_game_date, official_day)
+                if not day.startswith(f"{year:04d}-{month:02d}"):
                     continue
-                if current["time"] == "시간 미정" and match["time"] != "시간 미정":
-                    current["time"] = match["time"]
-                    current["rawTime"] = match["rawTime"]
-                    current["source"] = "KBO 공식 일정 + 공개 데이터"
-                if current["homeScore"] == "-" and match["homeScore"] != "-":
-                    current["homeScore"] = match["homeScore"]
-                if current["awayScore"] == "-" and match["awayScore"] != "-":
-                    current["awayScore"] = match["awayScore"]
-    except Exception as exc:
-        print(f"[WARN] KBO 보조 데이터 실패: {exc}", file=sys.stderr)
+                home, away = item.get("teams", {}).get("home", {}), item.get("teams", {}).get("away", {})
+                game = make_game(day, clock, home.get("team", {}).get("name"), away.get("team", {}).get("name"),
+                    home.get("score", "-"), away.get("score", "-"), "대한민국 KBO 프로야구", "baseball",
+                    "KBO 공개 일정 데이터", item.get("status", {}).get("detailedState", "예정"), item.get("gamePk", ""))
+                if game:
+                    fallback_games.append(game)
+            if not out:
+                out = fallback_games
+            else:
+                for current in out:
+                    match = next((g for g in fallback_games if g["date"] == current["date"] and g["home"] == current["home"] and g["away"] == current["away"]), None)
+                    if not match:
+                        continue
+                    if current["time"] == "시간 미정" and match["time"] != "시간 미정":
+                        current["time"] = match["time"]
+                        current["rawTime"] = match["rawTime"]
+                        current["source"] = "KBO 공식 일정 + 공개 데이터"
+                    if current["homeScore"] == "-" and match["homeScore"] != "-":
+                        current["homeScore"] = match["homeScore"]
+                    if current["awayScore"] == "-" and match["awayScore"] != "-":
+                        current["awayScore"] = match["awayScore"]
+        except Exception as exc:
+            print(f"[WARN] KBO 보조 데이터 실패: {exc}", file=sys.stderr)
+
     return out
 
 def fetch_sportscore_korean_football(year, month):
@@ -591,6 +593,7 @@ def main():
         "핸드볼": lambda: fetch_handball(year, month),
         "WKBL": lambda: fetch_wkbl(year, month),
         "KBO": lambda: fetch_kbo(year, month),
+        "KBO 퓨처스리그": lambda: fetch_kbo(year, month, "2", "대한민국 KBO 퓨처스리그"),
         "SportScore 국내 축구": lambda: fetch_sportscore_korean_football(year, month),
         "SportScore 국내 농구": lambda: fetch_sportscore_korean_basketball(year, month),
     }
