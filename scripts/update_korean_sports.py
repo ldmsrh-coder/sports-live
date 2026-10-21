@@ -82,7 +82,9 @@ def status(value, fallback="예정") -> str:
         return "진행 중"
     if any(x in value for x in ("경기종료", "종료")):
         return "종료"
-    return value or fallback
+    if value in ("하프타임", "승부차기", "연장전 진행 중") or re.search(r"^[1-4]쿼터 (진행 중|종료)$", value):
+        return value
+    return fallback
 
 def make_game(date, time, home, away, hs="-", away_score="-", league="", sport="", source="", state="예정", game_id=""):
     date = clean(date)[:10].replace("/", "-").replace(".", "-")
@@ -358,7 +360,7 @@ def fetch_espn_korean_football(year, month):
 def deduplicate(games):
     unique = {}
     for game in games:
-        key = (game["date"], game["sport"], game["league"], game["home"].lower(), game["away"].lower(), game.get("time", ""))
+        key = (game["date"], game["sport"], game["home"].lower(), game["away"].lower(), game.get("time", ""))
         prior = unique.get(key)
         if prior is None or (prior["homeScore"] == "-" and game["homeScore"] != "-"):
             unique[key] = game
