@@ -172,15 +172,20 @@ def make_game(date, time, home, away, hs="-", away_score="-", league="", sport="
     home, away = team(home), team(away)
     if not date or not home or not away:
         return None
+    normalized_state = status(state)
+    home_score = str(hs) if hs is not None and str(hs) != "" else "-"
+    away_score_text = str(away_score) if away_score is not None and str(away_score) != "" else "-"
+    if normalized_state in ("예정", "연기", "취소") and home_score in ("0", "0.0", "-") and away_score_text in ("0", "0.0", "-") and ("0" in (home_score, away_score_text) or "0.0" in (home_score, away_score_text)):
+        home_score = away_score_text = "-"
     return {
         "id": clean(game_id),
         "date": date,
         "time": time or "시간 미정",
         "home": home,
         "away": away,
-        "homeScore": str(hs) if hs is not None and str(hs) != "" else "-",
-        "awayScore": str(away_score) if away_score is not None and str(away_score) != "" else "-",
-        "status": status(state),
+        "homeScore": home_score,
+        "awayScore": away_score_text,
+        "status": normalized_state,
         "league": league,
         "sport": sport,
         "source": source,
