@@ -347,7 +347,7 @@ def fetch_kbo(year, month):
             if len(names) < 2:
                 continue
             time_cell = next((cell for cell in cells if clean(cell.get("Class")).lower() in ("time", "game_time", "gametime")), None)
-            game_time = clean(time_cell.get("Text") if time_cell else "")
+            game_time = clean(BeautifulSoup(str(time_cell.get("Text") or "") if time_cell else "", "html.parser").get_text(" ", strip=True))
             if not re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", game_time):
                 time_match = next((re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", clean(cell.get("Text"))) for cell in cells if re.search(r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", clean(cell.get("Text")))), None)
                 game_time = time_match.group(0) if time_match else ""
