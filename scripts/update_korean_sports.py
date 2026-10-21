@@ -323,7 +323,7 @@ def fetch_kbo(year, month):
     url = "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
     try:
         SESSION.get("https://www.koreabaseball.com/Schedule/Schedule.aspx", timeout=TIMEOUT)
-        response = SESSION.post(url, data={"leId": "1", "srIdList": "0,9,6", "seasonId": str(year), "gameMonth": str(month), "teamId": ""}, headers={"X-Requested-With": "XMLHttpRequest", "Referer": "https://www.koreabaseball.com/Schedule/Schedule.aspx"}, timeout=TIMEOUT)
+        response = SESSION.post(url, data={"leId": "1", "srIdList": "0,1,2,3,4,5,6,7,8,9", "seasonId": str(year), "gameMonth": str(month), "teamId": ""}, headers={"X-Requested-With": "XMLHttpRequest", "Referer": "https://www.koreabaseball.com/Schedule/Schedule.aspx"}, timeout=TIMEOUT)
         response.raise_for_status()
         payload = response.json()
         current_day = None
