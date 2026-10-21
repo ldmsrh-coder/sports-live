@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T18:47:03+09:00",
+  "updatedAt": "2026-10-21T23:42:29+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2058,9 +2058,9 @@
       "time": "19:00",
       "home": "서울 삼성 썬더스",
       "away": "부산 KCC 이지스",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
+      "homeScore": "97",
+      "awayScore": "86",
+      "status": "종료",
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
