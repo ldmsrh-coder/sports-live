@@ -1,6 +1,6 @@
 import unittest
 
-from update_korean_sports import deduplicate, make_game, provider_datetime, status
+from update_korean_sports import classify_korean_basketball, deduplicate, make_game, provider_datetime, status
 
 
 class KoreanSportsCollectorTests(unittest.TestCase):
@@ -19,6 +19,12 @@ class KoreanSportsCollectorTests(unittest.TestCase):
         self.assertEqual(status("FINISHED"), "종료")
         self.assertEqual(status("POSTPONED"), "연기")
         self.assertEqual(status("LIVE"), "진행 중")
+
+    def test_basketball_competitions_are_classified_by_league_not_team_gender(self):
+        self.assertEqual(classify_korean_basketball("KBL", "South Korea"), "대한민국 KBL 프로농구")
+        self.assertEqual(classify_korean_basketball("WKBL", "South Korea"), "대한민국 WKBL 여자프로농구")
+        self.assertEqual(classify_korean_basketball("Korea University League", "South Korea"), "대한민국 대학농구 U리그")
+        self.assertEqual(classify_korean_basketball("Women's International Friendly", "South Korea"), "")
 
     def test_deduplication_keeps_the_version_with_scores(self):
         scheduled = make_game("2026-10-21", "19:00", "FC Seoul", "Gangwon FC", "-", "-", "리그", "soccer", "source-a")
