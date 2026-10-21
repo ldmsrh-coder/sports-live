@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T14:01:57+09:00",
+  "updatedAt": "2026-10-21T14:02:49+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -1660,10 +1660,6 @@
     "K리그": {
       "ok": true,
       "count": 46
-    },
-    "KBL": {
-      "ok": false,
-      "error": "KBL API와 공식 페이지에서 이번 달 경기 데이터를 찾지 못했습니다."
     },
     "KOVO": {
       "ok": true,
