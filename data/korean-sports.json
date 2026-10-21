@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T14:03:09+09:00",
+  "updatedAt": "2026-10-21T14:03:54+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -760,6 +760,20 @@
       "rawTime": "2026-10-12T18:30:00+09:00"
     },
     {
+      "id": "",
+      "date": "2026-10-14",
+      "time": "시간 미정",
+      "home": "LG 트윈스",
+      "away": "두산 베어스",
+      "homeScore": "4",
+      "awayScore": "1",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-14"
+    },
+    {
       "id": "225",
       "date": "2026-10-17",
       "time": "14:00",
@@ -842,6 +856,20 @@
       "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-17",
+      "time": "시간 미정",
+      "home": "KIA 타이거즈",
+      "away": "LG 트윈스",
+      "homeScore": "5",
+      "awayScore": "1",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-17"
     },
     {
       "id": "189",
@@ -954,6 +982,34 @@
       "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-18",
+      "time": "시간 미정",
+      "home": "KIA 타이거즈",
+      "away": "LG 트윈스",
+      "homeScore": "6",
+      "awayScore": "3",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-18"
+    },
+    {
+      "id": "",
+      "date": "2026-10-20",
+      "time": "시간 미정",
+      "home": "LG 트윈스",
+      "away": "KIA 타이거즈",
+      "homeScore": "1",
+      "awayScore": "13",
+      "status": "종료",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-20"
     },
     {
       "id": "",
@@ -1489,6 +1545,20 @@
     },
     {
       "id": "",
+      "date": "2026-10-25",
+      "time": "시간 미정",
+      "home": "삼성 라이온즈",
+      "away": "KIA 타이거즈",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-25"
+    },
+    {
+      "id": "",
       "date": "2026-10-26",
       "time": "19:00",
       "home": "고양 소노 스카이거너스",
@@ -1500,6 +1570,20 @@
       "sport": "basketball",
       "source": "SportScore 국내 농구",
       "rawTime": "2026-10-26T19:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-26",
+      "time": "시간 미정",
+      "home": "삼성 라이온즈",
+      "away": "KIA 타이거즈",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-26"
     },
     {
       "id": "",
@@ -1570,6 +1654,34 @@
       "sport": "basketball",
       "source": "SportScore 국내 농구",
       "rawTime": "2026-10-28T19:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "시간 미정",
+      "home": "KIA 타이거즈",
+      "away": "삼성 라이온즈",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-28"
+    },
+    {
+      "id": "",
+      "date": "2026-10-29",
+      "time": "시간 미정",
+      "home": "KIA 타이거즈",
+      "away": "삼성 라이온즈",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-29"
     },
     {
       "id": "241",
@@ -1654,6 +1766,20 @@
       "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "시간 미정",
+      "home": "삼성 라이온즈",
+      "away": "KIA 타이거즈",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 KBO 프로야구",
+      "sport": "baseball",
+      "source": "KBO 공식 일정",
+      "rawTime": "2026-10-31"
     }
   ],
   "sourceStatus": {
@@ -1671,7 +1797,7 @@
     },
     "KBO": {
       "ok": true,
-      "count": 40
+      "count": 49
     },
     "SportScore 국내 축구": {
       "ok": true,
