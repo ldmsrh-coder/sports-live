@@ -351,6 +351,73 @@ def fetch_wkbl(year, month):
                 out.append(game)
     return out
 
+def fetch_kfa_k3_k4(year, month):
+    url = f"https://www.kfa.or.kr/live/live.php?act=k3_k4&year={year}&month={month:02d}"
+    response = SESSION.get(url, headers={"Referer": "https://www.kfa.or.kr/"}, timeout=TIMEOUT)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    aliases = [
+        ("FC강릉", "FC 강릉"), ("강릉시민축구단", "FC 강릉"),
+        ("FC목포", "FC 목포"), ("경주한수원FC", "경주한수원 FC"),
+        ("당진시민축구단", "당진시민축구단"), ("대전코레일FC", "대전코레일 FC"),
+        ("부산교통공사축구단", "부산교통공사 축구단"), ("시흥시민축구단", "시흥시민축구단"),
+        ("양평FC", "양평 FC"), ("여주FC", "여주 FC"), ("울산시민축구단", "울산시민축구단"),
+        ("전북현대모터스", "전북 현대 모터스"), ("창원FC", "창원 FC"),
+        ("춘천시민축구단", "춘천시민축구단"), ("포천시민축구단", "포천시민축구단"),
+        ("거제시민축구단", "거제시민축구단"), ("금산인삼FC", "금산인삼 FC"),
+        ("기장군민축구단", "기장군민축구단"), ("남양주시민축구단", "남양주시민축구단"),
+        ("서산에프씨", "서산 FC"), ("서울중랑축구단", "서울중랑축구단"),
+        ("세종SA축구단", "세종 SA 축구단"), ("제천시민축구단", "제천시민축구단"),
+        ("진주시민축구단", "진주시민축구단"), ("진천HRFC", "진천 HR FC"),
+        ("평창유나이티드축구클럽", "평창유나이티드"), ("평택시티즌FC", "평택시티즌 FC"),
+        ("함안군민축구단", "함안군민축구단"),
+    ]
+    candidates = soup.select("li, tr, article, .match-item, .schedule-item, .game-item")
+    if not candidates:
+        candidates = soup.select("div")
+    out, seen = [], set()
+    for node in candidates:
+        text_value = clean(node.get_text(" ", strip=True))
+        if not text_value or len(text_value) > 360 or not re.search(r"K[34]\s*리그|K[34]\s*League", text_value, re.I):
+            continue
+        date_match = re.search(r"(20\d{2})[./-](\d{1,2})[./-](\d{1,2})", text_value)
+        if date_match:
+            day = f"{int(date_match.group(1)):04d}-{int(date_match.group(2)):02d}-{int(date_match.group(3)):02d}"
+        else:
+            short_date = re.search(r"(?<!\d)(\d{1,2})[-./](\d{1,2})(?!\d)", text_value)
+            if not short_date:
+                continue
+            try:
+                day = datetime(year, int(short_date.group(1)), int(short_date.group(2))).strftime("%Y-%m-%d")
+            except ValueError:
+                continue
+        if not day.startswith(f"{year:04d}-{month:02d}"):
+            continue
+        matched = sorted((text_value.find(alias), canonical) for alias, canonical in aliases if text_value.find(alias) >= 0)
+        teams = []
+        for _, canonical in matched:
+            if canonical not in teams:
+                teams.append(canonical)
+        if len(teams) < 2:
+            continue
+        league = "대한민국 K3리그" if re.search(r"K3\s*리그|K3\s*League", text_value, re.I) else "대한민국 K4리그"
+        clock_match = re.search(r"\b([01]?\d|2[0-3]):([0-5]\d)\b", text_value)
+        clock = f"{int(clock_match.group(1)):02d}:{clock_match.group(2)}" if clock_match else ""
+        score_nodes = node.select(".score, .home-score, .away-score, .score_home, .score_away")
+        scores = [clean(x.get_text(" ", strip=True)) for x in score_nodes if clean(x.get_text(" ", strip=True)).isdigit()]
+        scored = len(scores) >= 2
+        game_state = "취소" if re.search(r"취소|연기", text_value) else ("종료" if scored else "예정")
+        game = make_game(day, clock, teams[0], teams[1], scores[0] if scored else "-", scores[1] if scored else "-",
+            league, "soccer", "대한축구협회 K3·K4리그 공식 일정", game_state)
+        if game:
+            key = (game["date"], game["league"], game["home"], game["away"])
+            if key not in seen:
+                seen.add(key)
+                out.append(game)
+    if not out:
+        print(f"[WARN] KFA K3·K4 일정에서 {year:04d}-{month:02d} 경기 행을 찾지 못했습니다.", file=sys.stderr)
+    return out
+
 def fetch_handball(year, month):
     url = "https://www.koreahandball.com/game/schedule_list.php"
     response = SESSION.get(url, headers={"Referer": "https://www.koreahandball.com/"}, timeout=TIMEOUT)
@@ -613,6 +680,7 @@ def main():
     month_labels = [f"{y:04d}-{m:02d}" for y, m in months]
     providers = {
         "K리그": fetch_kleague,
+        "KFA K3·K4": fetch_kfa_k3_k4,
         "KOVO": fetch_kovo,
         "핸드볼": fetch_handball,
         "WKBL": fetch_wkbl,
