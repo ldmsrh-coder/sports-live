@@ -680,7 +680,8 @@ def deduplicate(games):
     unique = {}
     for game in games:
         league_key = game["league"] if game["sport"] == "baseball" else ""
-        key = (game["date"], game["sport"], game["home"].lower(), game["away"].lower(), league_key)
+        time_key = game.get("time", "") if game["sport"] == "baseball" else ""
+        key = (game["date"], game["sport"], game["home"].lower(), game["away"].lower(), league_key, time_key)
         prior = unique.get(key)
         if prior is None:
             unique[key] = game
