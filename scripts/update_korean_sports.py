@@ -156,6 +156,8 @@ def provider_datetime(value, default_day):
     raw = clean(value)
     if not raw:
         return default_day, ""
+    if len(raw) <= 10:
+        return raw[:10].replace("/", "-").replace(".", "-"), ""
     candidate = raw.replace("Z", "+00:00")
     try:
         parsed = datetime.fromisoformat(candidate)
