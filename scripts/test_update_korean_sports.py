@@ -1,6 +1,7 @@
 import unittest
+from unittest.mock import patch
 
-from update_korean_sports import classify_korean_basketball, deduplicate, make_game, provider_datetime, status
+from update_korean_sports import classify_korean_basketball, deduplicate, fetch_kfa_k3_k4, make_game, provider_datetime, status
 
 
 class KoreanSportsCollectorTests(unittest.TestCase):
@@ -19,6 +20,19 @@ class KoreanSportsCollectorTests(unittest.TestCase):
         game = make_game("2026-10-21", "19:00", "Sinhan Bank S-Birds", "Ulaanbaatar Amazons (W)", "-", "-", "WKBL", "basketball", "test")
         self.assertEqual(game["home"], "신한은행 에스버드")
         self.assertEqual(game["away"], "울란바토르 아마존스(여자)")
+
+    def test_official_k3_k4_schedule_parser(self):
+        class FakeResponse:
+            ok = True
+            text = "<ul><li>2026 K3리그 25라운드 토요일 10-31 14:00 시흥시민축구단 포천시민축구단</li></ul>"
+            def raise_for_status(self):
+                return None
+        with patch("update_korean_sports.SESSION.get", return_value=FakeResponse()):
+            games = fetch_kfa_k3_k4(2026, 10)
+        self.assertEqual(len(games), 1)
+        self.assertEqual(games[0]["league"], "대한민국 K3리그")
+        self.assertEqual(games[0]["date"], "2026-10-31")
+        self.assertEqual(games[0]["time"], "14:00")
 
     def test_status_codes_are_korean(self):
         self.assertEqual(status("FINISHED"), "종료")
