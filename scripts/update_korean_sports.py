@@ -175,33 +175,108 @@ def fetch_kleague(year, month):
 def fetch_kbl(year, month):
     start, end = month_bounds(year, month)
     season_end_year = year + 1 if month >= 10 else year
-    url = f"https://api.kbl.or.kr/match/list?season={season_end_year}"
-    response = SESSION.get(url, headers={"Referer": "https://www.kbl.or.kr/", "Origin": "https://www.kbl.or.kr"}, timeout=TIMEOUT)
-    if not response.ok:
-        raise RuntimeError(f"KBL HTTP {response.status_code}: {response.text[:180]}")
-    payload = response.json()
+    headers = {"Referer": "https://www.kbl.or.kr/", "Origin": "https://www.kbl.or.kr"}
+    payload = None
+    errors = []
+    queries = [
+        f"fromDate={start}&toDate={end}",
+        f"fromDate={start}&toDate={end}&season={season_end_year}",
+        f"season={season_end_year}",
+        f"season={year}",
+    ]
+    for query in queries:
+        try:
+            response = SESSION.get(f"https://api.kbl.or.kr/match/list?{query}", headers=headers, timeout=TIMEOUT)
+            if not response.ok:
+                errors.append(f"{response.status_code} {query}")
+                continue
+            candidate = response.json()
+            if unpack_array(candidate):
+                payload = candidate
+                break
+            if payload is None:
+                payload = candidate
+        except Exception as exc:
+            errors.append(str(exc)[:100])
     out = []
-    for item in unpack_array(payload):
-        raw_date = clean(item.get("game_date") or item.get("gameDate") or item.get("date"))
-        if re.fullmatch(r"\d{8}", raw_date):
-            day = f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:8]}"
-        else:
-            day = parse_date(raw_date, year, month)
-        if not day or not day.startswith(f"{year:04d}-{month:02d}"):
-            continue
-        start_time = clean(item.get("game_start") or item.get("gameStart") or item.get("game_time") or "")
-        started, ended = str(item.get("is_started", "0")) == "1", str(item.get("is_ended", "0")) == "1"
-        quarter = clean(item.get("playing_quarter"))
-        game_status = "종료" if ended else (f"{quarter} 진행 중" if started and quarter and quarter != "X" else ("진행 중" if started else "예정"))
-        game = make_game(
-            day, start_time, item.get("home_team_name_full") or item.get("home_team_name"),
-            item.get("away_team_name_full") or item.get("away_team_name"),
-            item.get("home_score", "-"), item.get("away_score", "-"),
-            "대한민국 KBL 프로농구", "basketball", "KBL 공식 API", game_status, item.get("gmkey"),
-        )
-        if game:
-            out.append(game)
-    return out
+    if payload is not None:
+        for item in unpack_array(payload):
+            raw_date = clean(item.get("game_date") or item.get("gameDate") or item.get("date"))
+            if re.fullmatch(r"\d{8}", raw_date):
+                day = f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:8]}"
+            else:
+                day = parse_date(raw_date, year, month)
+            if not day or not day.startswith(f"{year:04d}-{month:02d}"):
+                continue
+            start_time = clean(item.get("game_start") or item.get("gameStart") or item.get("game_time") or "")
+            started, ended = str(item.get("is_started", "0")) == "1", str(item.get("is_ended", "0")) == "1"
+            quarter = clean(item.get("playing_quarter"))
+            game_status = "종료" if ended else (f"{quarter} 진행 중" if started and quarter and quarter != "X" else ("진행 중" if started else "예정"))
+            game = make_game(day, start_time, item.get("home_team_name_full") or item.get("home_team_name"),
+                item.get("away_team_name_full") or item.get("away_team_name"), item.get("home_score", "-"),
+                item.get("away_score", "-"), "대한민국 KBL 프로농구", "basketball", "KBL 공식 API", game_status, item.get("gmkey"))
+            if game:
+                out.append(game)
+    if out:
+        return out
+    print(f"[WARN] KBL API 요청 실패/빈 응답: {', '.join(errors) or '월별 일정 없음'}; 공식 사이트 대체 조회", file=sys.stderr)
+    aliases = [
+        ("서울 삼성 썬더스", "서울 삼성 썬더스"), ("서울 삼성", "서울 삼성 썬더스"), ("삼성", "서울 삼성 썬더스"),
+        ("안양 정관장", "안양 정관장 레드부스터스"), ("정관장", "안양 정관장 레드부스터스"),
+        ("원주 DB", "원주 DB 프로미"), ("DB", "원주 DB 프로미"),
+        ("서울 SK", "서울 SK 나이츠"), ("SK 나이츠", "서울 SK 나이츠"),
+        ("고양 소노", "고양 소노 스카이거너스"), ("소노", "고양 소노 스카이거너스"),
+        ("수원 KT", "수원 KT 소닉붐"), ("KT 소닉붐", "수원 KT 소닉붐"),
+        ("대구 한국가스공사", "대구 한국가스공사 페가수스"), ("한국가스공사", "대구 한국가스공사 페가수스"),
+        ("창원 LG", "창원 LG 세이커스"), ("LG 세이커스", "창원 LG 세이커스"),
+        ("부산 KCC", "부산 KCC 이지스"), ("KCC 이지스", "부산 KCC 이지스"), ("KCC", "부산 KCC 이지스"),
+        ("울산 현대모비스", "울산 현대모비스 피버스"), ("현대모비스", "울산 현대모비스 피버스"),
+    ]
+    fallback = []
+    for url in ("https://m.kbl.or.kr/", "https://m.kbl.or.kr/match/schedule", "https://www.kbl.or.kr/match/schedule"):
+        try:
+            response = SESSION.get(url, timeout=TIMEOUT)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
+            candidates = soup.select("tr, li, article, .game, .match, .schedule, .game-item")
+            if not candidates:
+                candidates = [soup]
+            seen_rows = set()
+            for node in candidates:
+                text = clean(node.get_text(" ", strip=True))
+                if not text or len(text) > 260 or text in seen_rows:
+                    continue
+                seen_rows.add(text)
+                match = re.search(r"(20\d{2})[./-](\d{1,2})[./-](\d{1,2})", text)
+                if match:
+                    day = f"{int(match.group(1)):04d}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+                else:
+                    short = re.search(r"(?<!\d)(\d{2})[./](\d{1,2})[./](\d{1,2})(?!\d)", text)
+                    if not short:
+                        continue
+                    day = f"{2000 + int(short.group(1)):04d}-{int(short.group(2)):02d}-{int(short.group(3)):02d}"
+                if not day.startswith(f"{year:04d}-{month:02d}"):
+                    continue
+                hits = sorted((text.find(alias), canonical) for alias, canonical in aliases if text.find(alias) >= 0)
+                teams = []
+                for _, canonical in hits:
+                    if canonical not in teams:
+                        teams.append(canonical)
+                if len(teams) < 2:
+                    continue
+                clock = re.search(r"\b([01]?\d|2[0-3]):([0-5]\d)\b", text)
+                game_time = f"{int(clock.group(1)):02d}:{clock.group(2)}" if clock else ""
+                score_match = re.search(re.escape(teams[0]) + r"\s*(\d{1,3})\s*[:\-]\s*(\d{1,3})\s*" + re.escape(teams[1]), text)
+                hs, aws = (score_match.group(1), score_match.group(2)) if score_match else ("-", "-")
+                game_state = "종료" if score_match else ("진행 중" if re.search(r"진행|LIVE|쿼터", text, re.I) else "예정")
+                game = make_game(day, game_time, teams[0], teams[1], hs, aws, "대한민국 KBL 프로농구", "basketball", "KBL 공식 사이트", game_state)
+                if game:
+                    fallback.append(game)
+            if fallback:
+                break
+        except Exception as exc:
+            print(f"[WARN] KBL 공식 페이지 조회 실패: {url}: {exc}", file=sys.stderr)
+    return fallback
 
 def fetch_kovo(year, month):
     season_year = year if month >= 10 else year - 1
