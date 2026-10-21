@@ -357,18 +357,18 @@ def fetch_kfa_k3_k4(year, month):
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
     aliases = [
-        ("FC강릉", "FC 강릉"), ("강릉시민축구단", "FC 강릉"),
-        ("FC목포", "FC 목포"), ("경주한수원FC", "경주한수원 FC"),
-        ("당진시민축구단", "당진시민축구단"), ("대전코레일FC", "대전코레일 FC"),
+        ("FC강릉", "강릉시민축구단"), ("강릉시민축구단", "강릉시민축구단"),
+        ("FC목포", "FC목포"), ("경주한수원FC", "경주한수원FC"),
+        ("당진시민축구단", "당진시민축구단"), ("대전코레일FC", "대전코레일FC"),
         ("부산교통공사축구단", "부산교통공사 축구단"), ("시흥시민축구단", "시흥시민축구단"),
-        ("양평FC", "양평 FC"), ("여주FC", "여주 FC"), ("울산시민축구단", "울산시민축구단"),
-        ("전북현대모터스", "전북 현대 모터스"), ("창원FC", "창원 FC"),
+        ("양평FC", "양평FC"), ("여주FC", "여주FC"), ("울산시민축구단", "울산시민축구단"),
+        ("전북현대모터스", "전북 현대 모터스"), ("창원FC", "창원FC"),
         ("춘천시민축구단", "춘천시민축구단"), ("포천시민축구단", "포천시민축구단"),
-        ("거제시민축구단", "거제시민축구단"), ("금산인삼FC", "금산인삼 FC"),
+        ("거제시민축구단", "거제시민축구단"), ("금산인삼FC", "금산인삼FC"),
         ("기장군민축구단", "기장군민축구단"), ("남양주시민축구단", "남양주시민축구단"),
         ("서산에프씨", "서산 FC"), ("서울중랑축구단", "서울중랑축구단"),
-        ("세종SA축구단", "세종 SA 축구단"), ("제천시민축구단", "제천시민축구단"),
-        ("진주시민축구단", "진주시민축구단"), ("진천HRFC", "진천 HR FC"),
+        ("세종SA축구단", "세종SA축구단"), ("제천시민축구단", "제천시민축구단"),
+        ("진주시민축구단", "진주시민축구단"), ("진천HRFC", "진천HRFC"),
         ("평창유나이티드축구클럽", "평창유나이티드"), ("평택시티즌FC", "평택시티즌 FC"),
         ("함안군민축구단", "함안군민축구단"),
     ]
@@ -665,10 +665,30 @@ def fetch_sportscore_korean_basketball(year, month):
 def deduplicate(games):
     unique = {}
     for game in games:
-        key = (game["date"], game["sport"], game["home"].lower(), game["away"].lower(), game.get("time", ""))
+        league_key = game["league"] if game["sport"] == "baseball" else ""
+        key = (game["date"], game["sport"], game["home"].lower(), game["away"].lower(), league_key)
         prior = unique.get(key)
-        if prior is None or (prior["homeScore"] == "-" and game["homeScore"] != "-"):
+        if prior is None:
             unique[key] = game
+            continue
+        improved = False
+        if prior["time"] == "시간 미정" and game["time"] != "시간 미정":
+            prior["time"], prior["rawTime"] = game["time"], game["rawTime"]
+            improved = True
+        for field in ("homeScore", "awayScore"):
+            if prior[field] == "-" and game[field] != "-":
+                prior[field] = game[field]
+                improved = True
+        if prior["status"] == "예정" and game["status"] not in ("예정", "시간 미정"):
+            prior["status"] = game["status"]
+            improved = True
+        if improved:
+            sources = []
+            for source_name in (prior.get("source", ""), game.get("source", "")):
+                for item in source_name.split(" + "):
+                    if item and item not in sources:
+                        sources.append(item)
+            prior["source"] = " + ".join(sources)
     return sorted(unique.values(), key=lambda g: (g["date"], g.get("time") or "", g["sport"], g["league"], g["home"]))
 
 def main():
