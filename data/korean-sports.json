@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T13:55:25+09:00",
+  "updatedAt": "2026-10-21T13:56:43+09:00",
   "month": "2026-10",
   "timezone": "Asia/Seoul",
   "games": [
@@ -419,7 +419,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-09T14:00:00+09:00"
     },
@@ -433,7 +433,7 @@
       "awayScore": "0",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-09T14:00:00+09:00"
     },
@@ -447,7 +447,7 @@
       "awayScore": "0",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-09T16:30:00+09:00"
     },
@@ -461,7 +461,7 @@
       "awayScore": "0",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-09T16:30:00+09:00"
     },
@@ -475,7 +475,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-09T16:30:00+09:00"
     },
@@ -489,7 +489,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-09T16:30:00+09:00"
     },
@@ -545,7 +545,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-10T14:00:00+09:00"
     },
@@ -559,7 +559,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-10T14:00:00+09:00"
     },
@@ -573,7 +573,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-10T14:00:00+09:00"
     },
@@ -587,7 +587,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-10T16:30:00+09:00"
     },
@@ -601,7 +601,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-10T16:30:00+09:00"
     },
@@ -615,7 +615,7 @@
       "awayScore": "0",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-10T16:30:00+09:00"
     },
@@ -671,7 +671,7 @@
       "awayScore": "3",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-11T14:00:00+09:00"
     },
@@ -685,7 +685,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-11T14:00:00+09:00"
     },
@@ -769,7 +769,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T14:00:00+09:00"
     },
@@ -783,7 +783,7 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T14:00:00+09:00"
     },
@@ -797,7 +797,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T16:30:00+09:00"
     },
@@ -811,7 +811,7 @@
       "awayScore": "0",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T16:30:00+09:00"
     },
@@ -825,7 +825,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T16:30:00+09:00"
     },
@@ -839,7 +839,7 @@
       "awayScore": "4",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-17T16:30:00+09:00"
     },
@@ -853,7 +853,7 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T14:00:00+09:00"
     },
@@ -867,7 +867,7 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T14:00:00+09:00"
     },
@@ -881,7 +881,7 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T14:00:00+09:00"
     },
@@ -895,7 +895,7 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T14:00:00+09:00"
     },
@@ -909,7 +909,7 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T16:30:00+09:00"
     },
@@ -923,7 +923,7 @@
       "awayScore": "2",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T16:30:00+09:00"
     },
@@ -937,7 +937,7 @@
       "awayScore": "0",
       "status": "종료",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T16:30:00+09:00"
     },
@@ -951,9 +951,135 @@
       "awayScore": "1",
       "status": "종료",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-18T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-23",
+      "time": "15:00",
+      "home": "Nigeria U17 Women",
+      "away": "North Korea U17 Women",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "FIFA U17 Women's World Cup",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-23T15:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "Bucheon FC 1995",
+      "away": "Gwangju Football Club",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "FC Anyang",
+      "away": "Jeonbuk Hyundai Motors",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "FC Seoul",
+      "away": "Gangwon FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "Gimcheon Sangmu Football Club",
+      "away": "Daejeon Hana Citizen",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "Incheon United Club",
+      "away": "Jeju SK FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "Ulsan HD FC",
+      "away": "Pohang Steelers",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "05:00",
+      "home": "Jeonnam Dragons",
+      "away": "Daegu Football Club",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-24",
+      "time": "07:30",
+      "home": "Gimpo FC",
+      "away": "Gimhae City",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-24T07:30:00+09:00"
     },
     {
       "id": "196",
@@ -965,7 +1091,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -979,7 +1105,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -993,7 +1119,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -1007,7 +1133,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -1021,7 +1147,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -1035,7 +1161,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 1부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -1049,7 +1175,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T14:00:00+09:00"
     },
@@ -1063,9 +1189,107 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-24T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "05:00",
+      "home": "Geoje Citizen",
+      "away": "Jungnang Chorus Mustang FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "Korean K League 4",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "05:00",
+      "home": "Busan I Park",
+      "away": "Gyeongnam FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "05:00",
+      "home": "Seongnam FC",
+      "away": "Suwon Samsung Bluewings",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "05:00",
+      "home": "Suwon Football Club",
+      "away": "Chungnam Asan",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T05:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "07:30",
+      "home": "Cheonan City",
+      "away": "Ansan Greeners FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T07:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "07:30",
+      "home": "Chungbuk Cheongju FC",
+      "away": "Yongin FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T07:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-25",
+      "time": "07:30",
+      "home": "Paju Frontier FC",
+      "away": "Hwaseong FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 2부",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-25T07:30:00+09:00"
     },
     {
       "id": "237",
@@ -1077,7 +1301,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-25T14:00:00+09:00"
     },
@@ -1091,7 +1315,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-25T14:00:00+09:00"
     },
@@ -1105,7 +1329,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-25T14:00:00+09:00"
     },
@@ -1119,7 +1343,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-25T16:30:00+09:00"
     },
@@ -1133,7 +1357,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-25T16:30:00+09:00"
     },
@@ -1147,9 +1371,51 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-25T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "09:55",
+      "home": "Gyeongju Korea Hydro & Nuclear Power WFC",
+      "away": "Seoul Amazones Women",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 WK리그 여자축구",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-28T09:55:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "09:55",
+      "home": "Incheon Hyundai Steel Red Angels Women",
+      "away": "Gangjin Swans Women",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 WK리그 여자축구",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-28T09:55:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "09:55",
+      "home": "Suwon FC Women",
+      "away": "Mungyeong Sangmu WFC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 WK리그 여자축구",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-28T09:55:00+09:00"
     },
     {
       "id": "241",
@@ -1161,7 +1427,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T14:00:00+09:00"
     },
@@ -1175,7 +1441,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T14:00:00+09:00"
     },
@@ -1217,7 +1483,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T16:30:00+09:00"
     },
@@ -1231,7 +1497,7 @@
       "awayScore": "0",
       "status": "예정",
       "league": "대한민국 K리그 2부",
-      "sport": "football",
+      "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T16:30:00+09:00"
     }
@@ -1243,7 +1509,7 @@
     },
     "KBL": {
       "ok": false,
-      "error": "400 Client Error:  for url: https://api.kbl.or.kr/match/list?season=2027"
+      "error": "KBL HTTP 400: {\"resultCode\":\"Fail\",\"message\":\"필수 헤더 정보가 누락되었습니다.\",\"object\":-1101,\"errorCode\":400}"
     },
     "KOVO": {
       "ok": true,
@@ -1257,9 +1523,9 @@
       "ok": true,
       "count": 40
     },
-    "ESPN 국내 축구": {
+    "SportScore 국내 축구": {
       "ok": true,
-      "count": 0
+      "count": 19
     }
   }
 }
