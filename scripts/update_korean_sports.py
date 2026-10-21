@@ -402,14 +402,14 @@ def fetch_kfa_k3_k4(year, month):
                 team_ends.append(pos + len(alias))
         if len(teams) < 2:
             continue
-        league = "대한민국 K3리그" if re.search(r"K3\\s*리그|K3\\s*League", text_value, re.I) else "대한민국 K4리그"
-        clock_match = re.search(r"\\b([01]?\\d|2[0-3]):([0-5]\\d)\\b", text_value)
+        league = "대한민국 K3리그" if re.search(r"K3\s*리그|K3\s*League", text_value, re.I) else "대한민국 K4리그"
+        clock_match = re.search(r"\b([01]?\d|2[0-3]):([0-5]\d)\b", text_value)
         clock = f"{int(clock_match.group(1)):02d}:{clock_match.group(2)}" if clock_match else ""
         score_nodes = node.select(".score, .home-score, .away-score, .score_home, .score_away")
         scores = [clean(x.get_text(" ", strip=True)) for x in score_nodes if clean(x.get_text(" ", strip=True)).isdigit()]
         if len(scores) < 2 and len(team_ends) >= 2:
             tail = text_value[max(team_ends[0], team_ends[1]):]
-            trailing_numbers = re.findall(r"(?<!\\d)\\d{1,2}(?!\\d)", tail)
+            trailing_numbers = re.findall(r"(?<!\d)\d{1,2}(?!\d)", tail)
             if len(trailing_numbers) >= 2:
                 scores = trailing_numbers[:2]
         scored = len(scores) >= 2
