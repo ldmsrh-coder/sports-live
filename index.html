@@ -79,7 +79,7 @@ function normalize(raw){let root=raw;for(let i=0;i<4&&root&&typeof root==='objec
 async function applyCachedHistoryModel(games,date){
   // Supplemental Elo model for fixtures that do not carry ESPN IDs/probabilities.
   // It learns only from completed, dated games already cached by this browser.
-  const norm=v=>String(v||'').toLocaleLowerCase().normalize('NFKD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^\\p{L}\\p{N}]/gu,'');
+  const norm=v=>String(v||'').toLocaleLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]/gu,'');
   const sportOf=g=>String(g.sportCategory||g.sport||'football').toLowerCase();
   const dayOf=g=>String(g.date||g.rawTime||g.time||'').slice(0,10);
   const finished=g=>/종료|final|finished|complete|경기 종료/i.test(String(g.status||'')) && Number.isFinite(Number(g.hs??g.homeScore)) && Number.isFinite(Number(g.as??g.awayScore));
@@ -90,7 +90,7 @@ async function applyCachedHistoryModel(games,date){
       if(!key.startsWith('sports-live:'))continue;
       const parts=key.split(':');
       const cachedDate=parts[parts.length-1];
-      if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(cachedDate)||cachedDate>=date)continue;
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(cachedDate)||cachedDate>=date)continue;
       const days=(Date.parse(date+'T00:00:00Z')-Date.parse(cachedDate+'T00:00:00Z'))/86400000;
       if(days<1||days>120)continue;
       try{const arr=JSON.parse(localStorage.getItem(key)||'null');if(Array.isArray(arr))archive.push(...arr.map(g=>({...g,__cachedDate:cachedDate}))) }catch(e){}
@@ -137,7 +137,7 @@ async function applyCachedHistoryModel(games,date){
   }
   for(const g of games){
     if(Number.isFinite(g.homeProb)&&Number.isFinite(g.awayProb))continue;
-    if(g.homeId&&g.awayId&&g.leagueKey)continue; // ESPN's own model handles these.
+    // Apply our model whenever source probabilities are absent, including ESPN fixtures.
     const sport=sportOf(g),league=String(g.leagueKey||g.league||'').toLowerCase();
     const group=sport+'|'+league,home=norm(g.home),away=norm(g.away);
     if(!home||!away||home===away)continue;
