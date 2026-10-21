@@ -43,5 +43,6 @@ jobs:
             echo "No data changes; keeping the existing snapshot."
           else
             git commit -m "Refresh Korean sports data"
+            git pull --rebase origin main
             git push
           fi
