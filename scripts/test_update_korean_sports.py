@@ -15,6 +15,11 @@ class KoreanSportsCollectorTests(unittest.TestCase):
         self.assertEqual(game["home"], "FC 서울")
         self.assertEqual(game["away"], "KIA 타이거즈")
 
+    def test_domestic_and_tournament_team_aliases_are_korean(self):
+        game = make_game("2026-10-21", "19:00", "Sinhan Bank S-Birds", "Ulaanbaatar Amazons (W)", "-", "-", "WKBL", "basketball", "test")
+        self.assertEqual(game["home"], "신한은행 에스버드")
+        self.assertEqual(game["away"], "울란바토르 아마존스(여자)")
+
     def test_status_codes_are_korean(self):
         self.assertEqual(status("FINISHED"), "종료")
         self.assertEqual(status("POSTPONED"), "연기")
