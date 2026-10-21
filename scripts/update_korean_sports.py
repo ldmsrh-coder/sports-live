@@ -433,6 +433,48 @@ def fetch_kfa_k3_k4(year, month):
             if key not in seen:
                 seen.add(key)
                 out.append(game)
+    for code in ("k3", "k4"):
+        try:
+            detail = SESSION.get(f"https://www.kfa.or.kr/competition/{code}_{year}.php", headers={"Referer": "https://www.kfa.or.kr/"}, timeout=TIMEOUT)
+            detail.raise_for_status()
+            detail_soup = BeautifulSoup(detail.text, "html.parser")
+            for node in detail_soup.select("li, tr, article, .match-item, .schedule-item, .game-item, div"):
+                detail_text = clean(node.get_text(" ", strip=True))
+                if not detail_text or len(detail_text) > 360:
+                    continue
+                date_match = re.search(r"(20\d{2})[./-](\d{1,2})[./-](\d{1,2})", detail_text)
+                if date_match:
+                    detail_day = f"{int(date_match.group(1)):04d}-{int(date_match.group(2)):02d}-{int(date_match.group(3)):02d}"
+                else:
+                    short_date = re.search(r"(?<!\d)(\d{1,2})[-./](\d{1,2})(?!\d)", detail_text)
+                    if not short_date:
+                        continue
+                    try:
+                        detail_day = datetime(year, int(short_date.group(1)), int(short_date.group(2))).strftime("%Y-%m-%d")
+                    except ValueError:
+                        continue
+                if not detail_day.startswith(f"{year:04d}-{month:02d}"):
+                    continue
+                matched_detail = sorted((detail_text.find(alias), alias, canonical) for alias, canonical in aliases if detail_text.find(alias) >= 0)
+                detail_teams = []
+                for _, _, canonical in matched_detail:
+                    if canonical not in detail_teams:
+                        detail_teams.append(canonical)
+                if len(detail_teams) < 2:
+                    continue
+                game = next((g for g in out if g["date"] == detail_day and g["home"] == detail_teams[0] and g["away"] == detail_teams[1]), None)
+                if not game:
+                    continue
+                detail_clock = re.search(r"\b([01]?\d|2[0-3]):([0-5]\d)\b", detail_text)
+                if game["time"] == "시간 미정" and detail_clock:
+                    game["time"] = f"{int(detail_clock.group(1)):02d}:{detail_clock.group(2)}"
+                    game["rawTime"] = f"{detail_day}T{game['time']}:00+09:00"
+                score_nodes = node.select(".score, .home-score, .away-score, .score_home, .score_away")
+                detail_scores = [clean(x.get_text(" ", strip=True)) for x in score_nodes if clean(x.get_text(" ", strip=True)).isdigit()]
+                if len(detail_scores) >= 2 and game["homeScore"] == "-" and game["awayScore"] == "-":
+                    game["homeScore"], game["awayScore"], game["status"] = detail_scores[0], detail_scores[1], "종료"
+        except Exception as exc:
+            print(f"[INFO] KFA {code.upper()} 상세 일정 보완 생략: {exc}", file=sys.stderr)
     if not out:
         print(f"[WARN] KFA K3·K4 일정에서 {year:04d}-{month:02d} 경기 행을 찾지 못했습니다.", file=sys.stderr)
     return out
