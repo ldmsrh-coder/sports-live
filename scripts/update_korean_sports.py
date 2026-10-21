@@ -63,6 +63,8 @@ TEAM_MAP = {
     "창원 LG 세이커스": "창원 LG 세이커스", "부산 KCC 이지스": "부산 KCC 이지스",
     "울산 현대모비스 피버스": "울산 현대모비스 피버스", "안양 정관장 레드부스터스": "안양 정관장 레드부스터스",
     "Seoul SK Knights": "서울 SK 나이츠", "Seoul Samsung Thunders": "서울 삼성 썬더스",
+    "Ulsan Mobis Phoebus": "울산 현대모비스 피버스", "Wonju Dongbu Promy": "원주 DB 프로미",
+    "Anyang JungKwanJang Red Boosters": "안양 정관장 레드부스터스", "Anyang Jung Kwan Jang Red Boosters": "안양 정관장 레드부스터스",
     "Ulsan Hyundai Mobis Phoebus": "울산 현대모비스 피버스", "Changwon LG Sakers": "창원 LG 세이커스",
     "Busan KCC Egis": "부산 KCC 이지스", "Suwon KT Sonicboom": "수원 KT 소닉붐",
     "Daegu KOGAS Pegasus": "대구 한국가스공사 페가수스", "Wonju DB Promy": "원주 DB 프로미",
@@ -149,6 +151,32 @@ def make_game(date, time, home, away, hs="-", away_score="-", league="", sport="
         "source": source,
         "rawTime": f"{date}T{time}:00+09:00" if time else date,
     }
+
+def provider_datetime(value, default_day):
+    raw = clean(value)
+    if not raw:
+        return default_day, ""
+    candidate = raw.replace("Z", "+00:00")
+    try:
+        parsed = datetime.fromisoformat(candidate)
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=KST)
+        parsed = parsed.astimezone(KST)
+        return parsed.date().isoformat(), parsed.strftime("%H:%M")
+    except (ValueError, TypeError):
+        day = raw[:10].replace("/", "-").replace(".", "-")
+        clock = raw[11:16] if len(raw) >= 16 and raw[10] == "T" else ""
+        return day or default_day, clock
+
+def provider_score(value):
+    if isinstance(value, dict):
+        for key in ("current", "score", "display", "value", "total"):
+            if value.get(key) is not None:
+                return str(value[key])
+        return "-"
+    if isinstance(value, list):
+        return str(value[-1]) if value else "-"
+    return str(value) if value is not None and str(value) != "" else "-"
 
 def parse_date(value, year, month):
     match = re.search(r"(?:(\d{4})[./-])?(\d{1,2})[./-](\d{1,2})", clean(value))
@@ -493,13 +521,16 @@ def fetch_sportscore_korean_football(year, month):
                 else:
                     league = league_name or "대한민국 국내 축구"
                 raw_date = clean(item.get("starting_at") or item.get("start_time") or item.get("date") or item.get("time") or day)
-                raw_day = raw_date[:10].replace("/", "-").replace(".", "-")
+                raw_day, clock = provider_datetime(raw_date, day)
                 if raw_day != day:
                     continue
-                clock = raw_date[11:16] if len(raw_date) >= 16 else clean(item.get("time"))
+                if not clock:
+                    clock = clean(item.get("time"))
                 state = item.get("status") or item.get("state") or item.get("status_name") or "예정"
-                home_score = item.get("home_score", item.get("homeScore", item.get("score_home", "-")))
-                away_score = item.get("away_score", item.get("awayScore", item.get("score_away", "-")))
+                if isinstance(state, dict):
+                    state = state.get("name") or state.get("short_name") or state.get("description") or "예정"
+                home_score = provider_score(item.get("home_score", item.get("homeScore", item.get("score_home", "-"))))
+                away_score = provider_score(item.get("away_score", item.get("awayScore", item.get("score_away", "-"))))
                 game = make_game(day, clock, home_name, away_name, home_score, away_score, league, "soccer", "SportScore 국내 축구", state, item.get("id", ""))
                 if game:
                     out.append(game)
@@ -535,15 +566,19 @@ def fetch_sportscore_korean_basketball(year, month):
                     continue
                 league = "대한민국 WKBL 여자프로농구" if re.search(r"wkbl|women|여자", check) else "대한민국 KBL 프로농구"
                 raw_date = clean(item.get("starting_at") or item.get("start_time") or item.get("date") or item.get("time") or day)
-                raw_day = raw_date[:10].replace("/", "-").replace(".", "-")
+                raw_day, clock = provider_datetime(raw_date, day)
                 if raw_day != day:
                     continue
-                clock = raw_date[11:16] if len(raw_date) >= 16 else clean(item.get("time"))
+                if not clock:
+                    clock = clean(item.get("time"))
+                game_state = item.get("status") or item.get("state") or "예정"
+                if isinstance(game_state, dict):
+                    game_state = game_state.get("name") or game_state.get("short_name") or game_state.get("description") or "예정"
                 game = make_game(day, clock, home_name, away_name,
-                    item.get("home_score", item.get("homeScore", "-")),
-                    item.get("away_score", item.get("awayScore", "-")),
+                    provider_score(item.get("home_score", item.get("homeScore", "-"))),
+                    provider_score(item.get("away_score", item.get("awayScore", "-"))),
                     league, "basketball", "SportScore 국내 농구",
-                    item.get("status") or item.get("state") or "예정", item.get("id", ""))
+                    game_state, item.get("id", ""))
                 if game:
                     out.append(game)
         except Exception as exc:
