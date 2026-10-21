@@ -33,6 +33,8 @@ class KoreanSportsCollectorTests(unittest.TestCase):
         self.assertEqual(games[0]["league"], "대한민국 K3리그")
         self.assertEqual(games[0]["date"], "2026-10-31")
         self.assertEqual(games[0]["time"], "14:00")
+        self.assertEqual((games[0]["homeScore"], games[0]["awayScore"]), ("-", "-"))
+        self.assertEqual(games[0]["status"], "예정")
 
     def test_schedule_and_live_result_records_merge(self):
         scheduled = make_game("2026-10-21", "", "시흥시민축구단", "포천시민축구단", "-", "-", "대한민국 K3리그", "soccer", "KFA")
