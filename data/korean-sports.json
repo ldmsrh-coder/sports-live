@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T14:16:25+09:00",
+  "updatedAt": "2026-10-21T14:19:27+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -261,6 +261,62 @@
     },
     {
       "id": "",
+      "date": "2026-10-03",
+      "time": "시간 미정",
+      "home": "여주 FC",
+      "away": "전북 현대 모터스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-03"
+    },
+    {
+      "id": "",
+      "date": "2026-10-03",
+      "time": "시간 미정",
+      "home": "울산시민축구단",
+      "away": "시흥시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-03"
+    },
+    {
+      "id": "",
+      "date": "2026-10-03",
+      "time": "시간 미정",
+      "home": "포천시민축구단",
+      "away": "춘천시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-03"
+    },
+    {
+      "id": "",
+      "date": "2026-10-03",
+      "time": "시간 미정",
+      "home": "남양주시민축구단",
+      "away": "기장군민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-03"
+    },
+    {
+      "id": "",
       "date": "2026-10-04",
       "time": "14:00",
       "home": "LG 트윈스",
@@ -398,6 +454,34 @@
       "sport": "basketball",
       "source": "SportScore 국내 농구",
       "rawTime": "2026-10-04T19:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-04",
+      "time": "시간 미정",
+      "home": "당진시민축구단",
+      "away": "경주한수원 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-04"
+    },
+    {
+      "id": "",
+      "date": "2026-10-04",
+      "time": "시간 미정",
+      "home": "서산 FC",
+      "away": "평창유나이티드",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-04"
     },
     {
       "id": "",
@@ -1101,6 +1185,20 @@
     },
     {
       "id": "",
+      "date": "2026-10-09",
+      "time": "시간 미정",
+      "home": "양평 FC",
+      "away": "울산시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-09"
+    },
+    {
+      "id": "",
       "date": "2026-10-10",
       "time": "14:00",
       "home": "롯데 자이언츠",
@@ -1255,6 +1353,48 @@
     },
     {
       "id": "",
+      "date": "2026-10-10",
+      "time": "시간 미정",
+      "home": "부산교통공사 축구단",
+      "away": "여주 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-10"
+    },
+    {
+      "id": "",
+      "date": "2026-10-10",
+      "time": "시간 미정",
+      "home": "춘천시민축구단",
+      "away": "전북 현대 모터스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-10"
+    },
+    {
+      "id": "",
+      "date": "2026-10-10",
+      "time": "시간 미정",
+      "home": "세종 SA 축구단",
+      "away": "기장군민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-10"
+    },
+    {
+      "id": "",
       "date": "2026-10-11",
       "time": "14:00",
       "home": "KIA 타이거즈",
@@ -1378,6 +1518,48 @@
       "sport": "basketball",
       "source": "SportScore 국내 농구",
       "rawTime": "2026-10-11T17:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-11",
+      "time": "시간 미정",
+      "home": "FC 강릉",
+      "away": "시흥시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-11"
+    },
+    {
+      "id": "",
+      "date": "2026-10-11",
+      "time": "시간 미정",
+      "home": "서산 FC",
+      "away": "진천 HR FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-11"
+    },
+    {
+      "id": "",
+      "date": "2026-10-11",
+      "time": "시간 미정",
+      "home": "평창유나이티드",
+      "away": "진주시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-11"
     },
     {
       "id": "",
@@ -2277,6 +2459,20 @@
     },
     {
       "id": "",
+      "date": "2026-10-25",
+      "time": "시간 미정",
+      "home": "거제시민축구단",
+      "away": "서울중랑축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-25"
+    },
+    {
+      "id": "",
       "date": "2026-10-26",
       "time": "18:30",
       "home": "삼성 라이온즈",
@@ -2568,6 +2764,62 @@
       "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T16:30:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "시간 미정",
+      "home": "FC 강릉",
+      "away": "양평 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-31"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "시간 미정",
+      "home": "당진시민축구단",
+      "away": "시흥시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-31"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "시간 미정",
+      "home": "기장군민축구단",
+      "away": "거제시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-31"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "시간 미정",
+      "home": "진천 HR FC",
+      "away": "진주시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-31"
     },
     {
       "id": "245",
@@ -4030,6 +4282,15 @@
     "K리그": {
       "ok": true,
       "count": 74,
+      "months": [
+        "2026-10",
+        "2026-11"
+      ],
+      "errors": []
+    },
+    "KFA K3·K4": {
+      "ok": true,
+      "count": 18,
       "months": [
         "2026-10",
         "2026-11"
