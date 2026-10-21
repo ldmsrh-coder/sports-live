@@ -76,6 +76,13 @@ TEAM_MAP = {
     "Busan KCC Egis": "부산 KCC 이지스", "Suwon KT Sonicboom": "수원 KT 소닉붐",
     "Daegu KOGAS Pegasus": "대구 한국가스공사 페가수스", "Wonju DB Promy": "원주 DB 프로미",
     "Anyang Jung Kwan Jang Red Boosters": "안양 정관장 레드부스터스",
+    "Dongguk University": "동국대학교", "Chung Ang University": "중앙대학교",
+    "Myongji University": "명지대학교", "Konkuk University": "건국대학교",
+    "Sungkyunkwan University": "성균관대학교", "Dankook University": "단국대학교",
+    "Yonsei University": "연세대학교", "Korea University": "고려대학교",
+    "Hanyang University": "한양대학교", "Kyung Hee University": "경희대학교",
+    "Sangmyung University": "상명대학교", "Kwangwoon University": "광운대학교",
+    "Seoul National University": "서울대학교", "Korea National Sport University": "한국체육대학교",
     "Goyang Sono Skygunners": "고양 소노 스카이거너스",
     "Woori Bank Woori WON": "우리은행 우리WON", "KB Stars": "KB스타즈",
     "Samsung Life Blueminx": "삼성생명 블루밍스", "Hana Bank": "하나은행",
@@ -457,6 +464,17 @@ def fetch_sportscore_korean_football(year, month):
             print(f"[WARN] SportScore {day} 조회 실패: {exc}", file=sys.stderr)
     return out
 
+def classify_korean_basketball(league_name, country_name):
+    competition = clean(league_name).lower()
+    country = clean(country_name).lower()
+    if re.search(r"\bwkbl\b", competition):
+        return "대한민국 WKBL 여자프로농구"
+    if re.search(r"\bkbl\b|korean professional basketball|korean basketball league", competition):
+        return "대한민국 KBL 프로농구"
+    if re.search(r"university|college|u-league|대학", competition) and re.search(r"korea|대한민국|한국", country + " " + competition):
+        return "대한민국 대학농구 U리그"
+    return ""
+
 def fetch_sportscore_korean_basketball(year, month):
     today = datetime.now(KST).date()
     month_start = datetime(year, month, 1).date()
@@ -480,10 +498,9 @@ def fetch_sportscore_korean_basketball(year, month):
                 away_obj = item.get("away_team") or item.get("awayTeam") or item.get("away") or {}
                 home_name = home_obj.get("name") if isinstance(home_obj, dict) else home_obj
                 away_name = away_obj.get("name") if isinstance(away_obj, dict) else away_obj
-                check = f"{league_name} {country_name} {home_name} {away_name}".lower()
-                if not re.search(r"kbl|wkbl|korean|korea|대한민국|한국", check):
+                league = classify_korean_basketball(league_name, country_name)
+                if not league:
                     continue
-                league = "대한민국 WKBL 여자프로농구" if re.search(r"wkbl|women|여자", check) else "대한민국 KBL 프로농구"
                 raw_date = clean(item.get("starting_at") or item.get("start_time") or item.get("date") or item.get("time") or day)
                 raw_day, clock = provider_datetime(raw_date, day)
                 if raw_day != day:
