@@ -469,6 +469,8 @@ def classify_korean_basketball(league_name, country_name):
     country = clean(country_name).lower()
     if re.search(r"\bwkbl\b", competition):
         return "대한민국 WKBL 여자프로농구"
+    if re.search(r"\bkbl\b.*d.?league|d.?league.*\bkbl\b", competition):
+        return "대한민국 KBL D리그"
     if re.search(r"\bkbl\b|korean professional basketball|korean basketball league", competition):
         return "대한민국 KBL 프로농구"
     if re.search(r"university|college|u-league|대학", competition) and re.search(r"korea|대한민국|한국", country + " " + competition):
