@@ -94,6 +94,7 @@ TEAM_MAP = {
     "Hanyang University": "한양대학교", "Kyung Hee University": "경희대학교",
     "Sangmyung University": "상명대학교", "Kwangwoon University": "광운대학교",
     "Seoul National University": "서울대학교", "Korea National Sport University": "한국체육대학교",
+    "SOOP SOOPers": "SOOP 수퍼스", "SOOPers": "SOOP 수퍼스",
     "Sinhan Bank S-Birds": "신한은행 에스버드", "Shinhan Bank S-Birds": "신한은행 에스버드",
     "Samsunglife Blueminx": "삼성생명 블루밍스", "Samsung Life Blueminx": "삼성생명 블루밍스",
     "Bucheon Keb Hanabank": "부천 하나은행", "Woori Bank Wibee": "우리은행 우리WON",
