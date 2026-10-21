@@ -620,7 +620,6 @@ def main():
     year, month = now.year, now.month
     providers = {
         "K리그": lambda: fetch_kleague(year, month),
-        "KBL": lambda: fetch_kbl(year, month),
         "KOVO": lambda: fetch_kovo(year, month),
         "WKBL": lambda: fetch_wkbl(year, month),
         "KBO": lambda: fetch_kbo(year, month),
