@@ -331,6 +331,56 @@ def fetch_wkbl(year, month):
                 out.append(game)
     return out
 
+def fetch_handball(year, month):
+    url = "https://www.koreahandball.com/game/schedule_list.php"
+    response = SESSION.get(url, headers={"Referer": "https://www.koreahandball.com/"}, timeout=TIMEOUT)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    rows = soup.select(".record_table.pc_only table tbody tr")
+    if not rows:
+        rows = soup.select("table tbody tr")
+    if not rows:
+        raise RuntimeError("대한핸드볼협회 일정 표를 찾지 못했습니다.")
+    current_day = None
+    out = []
+    for tr in rows:
+        cells = tr.find_all(["td", "th"], recursive=False)
+        if not cells:
+            continue
+        first_text = clean(cells[0].get_text(" ", strip=True))
+        date_match = re.search(r"(\d{4})\.(\d{2})\.(\d{2})", first_text)
+        if date_match:
+            current_day = f"{date_match.group(1)}-{date_match.group(2)}-{date_match.group(3)}"
+            time_text = clean(cells[1].get_text(" ", strip=True)) if len(cells) > 1 else ""
+            content_cell = cells[3] if len(cells) > 3 else None
+            venue = clean(cells[5].get_text(" ", strip=True)) if len(cells) > 5 else ""
+        else:
+            if not current_day:
+                continue
+            time_text = first_text
+            content_cell = cells[2] if len(cells) > 2 else None
+            venue = clean(cells[4].get_text(" ", strip=True)) if len(cells) > 4 else ""
+        if not current_day.startswith(f"{year:04d}-{month:02d}") or not content_cell:
+            continue
+        home_node = content_cell.select_one(".team.home .name")
+        away_node = content_cell.select_one(".team.away .name")
+        home = clean(home_node.get_text(" ", strip=True)) if home_node else ""
+        away = clean(away_node.get_text(" ", strip=True)) if away_node else ""
+        if not home or not away:
+            continue
+        home_score_node = content_cell.select_one(".team.home .score, .score.home, .home .score")
+        away_score_node = content_cell.select_one(".team.away .score, .score.away, .away .score")
+        hs = clean(home_score_node.get_text(" ", strip=True)) if home_score_node else "-"
+        aws = clean(away_score_node.get_text(" ", strip=True)) if away_score_node else "-"
+        scored = hs.isdigit() and aws.isdigit()
+        game = make_game(current_day, time_text, home, away, hs if scored else "-", aws if scored else "-",
+            "대한민국 핸드볼 H리그", "handball", "대한핸드볼협회 공식 일정",
+            "종료" if scored else "예정", f"{current_day}-{home}-{away}")
+        if game:
+            game["venue"] = venue
+            out.append(game)
+    return out
+
 def fetch_kbo(year, month):
     start, end = month_bounds(year, month)
     out = []
@@ -538,6 +588,7 @@ def main():
     providers = {
         "K리그": lambda: fetch_kleague(year, month),
         "KOVO": lambda: fetch_kovo(year, month),
+        "핸드볼": lambda: fetch_handball(year, month),
         "WKBL": lambda: fetch_wkbl(year, month),
         "KBO": lambda: fetch_kbo(year, month),
         "SportScore 국내 축구": lambda: fetch_sportscore_korean_football(year, month),
