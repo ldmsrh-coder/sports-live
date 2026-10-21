@@ -407,7 +407,7 @@ def fetch_kfa_k3_k4(year, month):
         clock = f"{int(clock_match.group(1)):02d}:{clock_match.group(2)}" if clock_match else ""
         score_nodes = node.select(".score, .home-score, .away-score, .score_home, .score_away")
         scores = [clean(x.get_text(" ", strip=True)) for x in score_nodes if clean(x.get_text(" ", strip=True)).isdigit()]
-        if len(scores) < 2 and len(team_ends) >= 2:
+        if len(scores) < 2 and len(team_ends) >= 2 and day < datetime.now(KST).date().isoformat():
             tail = text_value[max(team_ends[0], team_ends[1]):]
             trailing_numbers = re.findall(r"(?<!\d)\d{1,2}(?!\d)", tail)
             if len(trailing_numbers) >= 2:
