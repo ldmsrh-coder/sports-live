@@ -1,0 +1,47 @@
+name: Update Korean sports snapshot
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update_korean_sports.py"
+      - ".github/workflows/update-korean-sports.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: korean-sports-snapshot
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install data collector dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Collect current-month Korean sports schedules
+        run: python scripts/update_korean_sports.py
+      - name: Publish changed snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/korean-sports.json
+          if git diff --cached --quiet; then
+            echo "No data changes; keeping the existing snapshot."
+          else
+            git commit -m "Refresh Korean sports data"
+            git push
+          fi
