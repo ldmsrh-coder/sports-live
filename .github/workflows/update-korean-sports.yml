@@ -49,8 +49,8 @@ jobs:
           scripts = re.findall(r"<script>(.*?)</script>", html, re.S)
           if not scripts:
               raise SystemExit("No inline application script found")
-          if '<html lang="ko">' not in html or 'id="qualitySummary"' not in html:
-              raise SystemExit("Korean document language or data quality summary is missing")
+          if '<html lang="ko">' not in html or 'id="qualitySummary"' not in html or 'id="insightPanel"' not in html:
+              raise SystemExit("Korean document language, data quality summary, or live analysis panel is missing")
           for tag in re.findall(r"<a[^>]*>", html, re.I):
               normalized_tag = tag.lower().replace("'", '"')
               if 'target="_blank"' in normalized_tag and "noopener" not in normalized_tag:
