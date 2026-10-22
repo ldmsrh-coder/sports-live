@@ -47,8 +47,8 @@ jobs:
           import re
           from pathlib import Path
           html = Path("index.html").read_text(encoding="utf-8")
-          if not Path("app.js").is_file() or '<script src="./app.js"></script>' not in html:
-              raise SystemExit("External application script is missing")
+          if not Path("app.js").is_file() or not re.search(r'<script src="\./app\.js(?:\?[^\"]*)?"></script>', html):
+              raise SystemExit("External application script is missing or not safely cache-busted")
           if re.search(r"<script>(.*?)</script>", html, re.S):
               raise SystemExit("Inline JavaScript is not allowed; keep application code in app.js")
           if '<html lang="ko">' not in html or 'id="qualitySummary"' not in html or 'id="insightPanel"' not in html:
