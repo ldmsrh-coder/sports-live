@@ -46,16 +46,17 @@ jobs:
           import re
           from pathlib import Path
           html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script>(.*?)</script>", html, re.S)
-          if not scripts:
-              raise SystemExit("No inline application script found")
+          if not Path("app.js").is_file() or '<script src="./app.js"></script>' not in html:
+              raise SystemExit("External application script is missing")
+          if re.search(r"<script>(.*?)</script>", html, re.S):
+              raise SystemExit("Inline JavaScript is not allowed; keep application code in app.js")
           if '<html lang="ko">' not in html or 'id="qualitySummary"' not in html or 'id="insightPanel"' not in html:
               raise SystemExit("Korean document language, data quality summary, or live analysis panel is missing")
           for tag in re.findall(r"<a[^>]*>", html, re.I):
               normalized_tag = tag.lower().replace("'", '"')
               if 'target="_blank"' in normalized_tag and "noopener" not in normalized_tag:
                   raise SystemExit(f"Unsafe external new-window link: {tag}")
-          Path("/tmp/sports-live.js").write_text(chr(10).join(scripts), encoding="utf-8")
+          Path("/tmp/sports-live.js").write_text(Path("app.js").read_text(encoding="utf-8"), encoding="utf-8")
           payload = json.loads(Path("data/korean-sports.json").read_text(encoding="utf-8"))
           games = payload.get("games")
           if not isinstance(games, list) or not games:

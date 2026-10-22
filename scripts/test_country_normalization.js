@@ -5,12 +5,13 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 
 const html = fs.readFileSync('index.html', 'utf8');
+const app = fs.readFileSync('app.js', 'utf8');
 function section(startMarker, endMarker) {
-  const start = html.indexOf(startMarker);
-  const end = html.indexOf(endMarker, start);
+  const start = app.indexOf(startMarker);
+  const end = app.indexOf(endMarker, start);
   assert.notEqual(start, -1, 'missing function: ' + startMarker);
   assert.notEqual(end, -1, 'missing boundary: ' + endMarker);
-  return html.slice(start, end);
+  return app.slice(start, end);
 }
 
 const labelHelpers = section('function koreanizeCommonLabel(value){', 'function formatTime(');
@@ -43,14 +44,17 @@ assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code
 assert.equal(api.normalizeCountryInfo({name: 'country check required', code: 'UNKNOWN'}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code: ''}, 'NBA').code, 'USA');
 assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
-assert.ok(html.includes('function updateScoreChangeLog('), 'score change detection must be present');
-assert.ok(html.includes('function renderInsightPanel('), 'transparent match analysis must be present');
-assert.ok(html.includes('quality-details'), 'expandable data quality diagnostics must be present');
-assert.ok(html.includes('필수 항목 완성률'), 'data completeness must be reported separately from accuracy');
-assert.ok(html.includes('예정 경기인데 점수가 숫자로 표시됨'), 'scheduled-score anomaly check must be present');
-assert.ok(html.includes('신뢰도 점수나 경기 예측 정확도를 임의로 만들어 표시하지 않습니다'), 'the UI must avoid fabricated confidence scores');
+assert.ok(html.includes('<script src="./app.js"></script>'), 'application JavaScript must be loaded externally');
+assert.ok(!/<script>([\s\S]*?)<\/script>/i.test(html), 'application JavaScript must not be inline');
+assert.ok(app.includes('function updateScoreChangeLog('), 'score change detection must be present');
+assert.ok(app.includes('function renderInsightPanel('), 'transparent match analysis must be present');
+assert.ok(app.includes('quality-details'), 'expandable data quality diagnostics must be present');
+assert.ok(app.includes('필수 항목 완성률'), 'data completeness must be reported separately from accuracy');
+assert.ok(app.includes('예정 경기인데 점수가 숫자로 표시됨'), 'scheduled-score anomaly check must be present');
+assert.ok(app.includes('신뢰도 점수나 경기 예측 정확도를 임의로 만들어 표시하지 않습니다'), 'the UI must avoid fabricated confidence scores');
 const cspMatch = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
 assert.ok(cspMatch, 'Content Security Policy must be present');
+assert.ok(cspMatch[1].includes("script-src 'self'") && !cspMatch[1].includes("script-src 'self' 'unsafe-inline'"), 'CSP must block inline JavaScript');
 const csp = cspMatch[1];
 const connectSrc = (csp.match(/connect-src ([^;]+)/) || [])[1] || '';
 for (const host of [
