@@ -57,6 +57,9 @@ assert.equal(api.normalizeCountryInfo({name: 'Country not set', code: ''}, 'K Le
 assert.equal(api.normalizeCountryInfo({name: '국가 확인', code: ''}, 'K League 1').code, 'KOR');
 assert.ok(html.includes('id="connectionBadge"'), 'live connection status badge must be present');
 assert.ok(app.includes('데이터 확인 완료 · 90초 자동 확인'), 'successful data refresh should be visible');
+assert.ok(html.includes('id="scoreAlerts"'), 'score alert opt-in control must be present');
+assert.ok(app.includes('function toggleScoreAlerts(') && app.includes('function notifyScoreChanges('), 'score notifications must be opt-in and driven by observed score changes');
+assert.ok(app.includes("localStorage.setItem(SCORE_ALERT_PREF,'1')"), 'score alert preference must be saved locally');
 assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
 assert.ok(/<script src="\.\/app\.js(?:\?[^\"]*)?"><\/script>/.test(html), 'application JavaScript must be loaded externally and may use cache busting');
 assert.ok(!/<script>([\s\S]*?)<\/script>/i.test(html), 'application JavaScript must not be inline');
