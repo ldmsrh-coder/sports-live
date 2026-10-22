@@ -8,6 +8,8 @@ on:
     branches: [main]
     paths:
       - "scripts/update_korean_sports.py"
+      - "scripts/test_update_korean_sports.py"
+      - "index.html"
       - ".github/workflows/update-korean-sports.yml"
 
 permissions:
