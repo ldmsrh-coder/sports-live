@@ -174,7 +174,7 @@ const rules=[
 [/k league|kbo|kbl|wkbl|v-league|korea|대한민국|한국|kor\.k[134]|kor\.1|kor\.2|korean baseball|korean basketball/,{name:'대한민국',flag:'🇰🇷',code:'KOR'}],
 [/premier league|fa cup|england|english|잉글랜드|프리미어리그|championship|league one|league two|national league|manchester united|manchester city|liverpool|arsenal|chelsea|tottenham|newcastle united|west ham|aston villa|everton|nottingham forest|brighton|brentford|fulham|crystal palace|wolves|sunderland|leeds united/,{name:'잉글랜드',flag:'🏴',code:'ENG'}],
 [/laliga|la liga|spain|spanish|스페인|라리가|real madrid|barcelona|atletico madrid|athletic club|real sociedad|villarreal|sevilla fc|valencia cf|girona fc/,{name:'스페인',flag:'🇪🇸',code:'ESP'}],
-[/serie a|serie b|italy|italian|이탈리아|세리에|juventus|inter milan|ac milan|napoli|\\broma\\b|lazio|atalanta|fiorentina|bologna fc/,{name:'이탈리아',flag:'🇮🇹',code:'ITA'}],
+[/serie a|serie b|italy|italian|이탈리아|세리에|juventus|inter milan|ac milan|napoli|\broma\b|lazio|atalanta|fiorentina|bologna fc/,{name:'이탈리아',flag:'🇮🇹',code:'ITA'}],
 [/bundesliga|germany|german|독일|분데스리가|bayern munich|borussia dortmund|bayer leverkusen|rb leipzig|eintracht frankfurt|stuttgart/,{name:'독일',flag:'🇩🇪',code:'GER'}],
 [/ligue 1|ligue 2|france|french|프랑스|파리 생제르맹|paris saint.germain|marseille|monaco|lyon|lille osc/,{name:'프랑스',flag:'🇫🇷',code:'FRA'}],
 [/nba|wnba|mlb|nfl|nhl|mls|major league soccer|usa|united states|미국|메이저리그|프로농구|프로야구|college football|ncaa|inter miami|los angeles fc|new york city fc/,{name:'미국',flag:'🇺🇸',code:'USA'}],
