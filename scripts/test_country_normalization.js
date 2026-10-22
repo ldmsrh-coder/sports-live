@@ -23,6 +23,14 @@ assert.equal(labelsApi.ko('국가 확인 필요'), '국제/기타');
 assert.equal(labelsApi.ko('국가확인필요'), '국제/기타');
 assert.equal(labelsApi.ko('Manchester City'), '맨체스터 시티');
 
+const sourceHelper = section('function sourceUrl(source){', 'function render(){');
+const sourceApi = new Function(sourceHelper + '\nreturn {sourceUrl};')();
+assert.equal(sourceApi.sourceUrl('KBO 공식 일정'), 'https://www.koreabaseball.com/Schedule/Schedule.aspx');
+assert.equal(sourceApi.sourceUrl('KBO 공개 일정 데이터'), 'https://github.com/dentearl/kbo-data');
+assert.equal(sourceApi.sourceUrl('SportScore 국내 농구'), 'https://sportscore.com/');
+assert.equal(sourceApi.sourceUrl('알 수 없는 출처'), '');
+assert.ok(app.includes('target="_blank" rel="noopener noreferrer"'), 'source links must use safe new-window attributes');
+
 const countryFromName = section('function countryFromName(value){', 'function normalizeCountryInfo(');
 const normalizer = section('function normalizeCountryInfo(', 'function countryForLeague(');
 const countryForLeague = section('function countryForLeague(', 'function flagHtml(');
