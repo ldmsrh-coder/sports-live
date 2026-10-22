@@ -54,6 +54,14 @@ assert.equal(api.countryForLeague('United Arab Emirates Pro League').code, 'UAE'
 assert.equal(api.countryForLeague('Finland Veikkausliiga').code, 'FIN');
 assert.equal(api.countryForLeague('Serie A AS Roma').code, 'ITA');
 assert.equal(api.countryForLeague('Mystery Tournament').code, 'UNK');
+assert.equal(api.countryFromName('Bulgaria').code, 'BUL');
+assert.equal(api.countryFromName('COD').name, '콩고민주공화국');
+assert.equal(api.countryForLeague('Bosnia Premier League').code, 'BIH');
+assert.equal(api.countryForLeague('Singapore Premier League').code, 'SIN');
+assert.equal(api.countryForLeague('Oman Professional League').code, 'OMA');
+assert.equal(api.countryForLeague('Romania Liga I').code, 'ROU');
+assert.equal(api.countryForLeague('International Friendly').code, 'INT');
+
 
 assert.equal(api.countryFromName('United Arab Emirates').code, 'UAE');
 assert.equal(api.countryFromName('ROU').name, '루마니아');
@@ -64,7 +72,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-country-audit-5'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-country-audit-6'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
