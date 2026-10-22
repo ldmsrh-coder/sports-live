@@ -77,7 +77,7 @@ $('prevMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMont
 function countryForLeague(league,home='',away=''){
 const s=[league,home,away].map(v=>String(v||'').toLowerCase()).join(' ');
 const rules=[
-[/k league|kbo|kbl|wkbl|v-league|korea|대한민국|한국|kor\\.k[134]|kor\\.1|kor\\.2|korean baseball|korean basketball/,{name:'대한민국',flag:'🇰🇷',code:'KOR'}],
+[/k league|kbo|kbl|wkbl|v-league|korea|대한민국|한국|kor\.k[134]|kor\.1|kor\.2|korean baseball|korean basketball/,{name:'대한민국',flag:'🇰🇷',code:'KOR'}],
 [/premier league|fa cup|england|english|잉글랜드|프리미어리그|championship|league one|league two|national league|manchester united|manchester city|liverpool|arsenal|chelsea|tottenham|newcastle united|west ham|aston villa|everton|nottingham forest|brighton|brentford|fulham|crystal palace|wolves|sunderland|leeds united/,{name:'잉글랜드',flag:'🏴',code:'ENG'}],
 [/laliga|la liga|spain|spanish|스페인|라리가|real madrid|barcelona|atletico madrid|athletic club|real sociedad|villarreal|sevilla fc|valencia cf|girona fc/,{name:'스페인',flag:'🇪🇸',code:'ESP'}],
 [/serie a|serie b|italy|italian|이탈리아|세리에|juventus|inter milan|ac milan|napoli|roma|lazio|atalanta|fiorentina|bologna fc/,{name:'이탈리아',flag:'🇮🇹',code:'ITA'}],
@@ -87,19 +87,19 @@ const rules=[
 [/mexico|liga mx|멕시코|club america|chivas|monterrey|tigres uanl/,{name:'멕시코',flag:'🇲🇽',code:'MEX'}],
 [/argentina|아르헨티나|boca juniors|river plate/,{name:'아르헨티나',flag:'🇦🇷',code:'ARG'}],
 [/uefa|champions league|europa league|conference league|european championship|유럽 대항전|유로파리그|챔피언스리그/,{name:'유럽 대항전',flag:'🇪🇺',code:'EUR'}],
-[/j league|japan|일본|j리그|jpn\\.|kashima antlers|urawa red diamonds|yokohama f.? marinos/,{name:'일본',flag:'🇯🇵',code:'JPN'}],
-[/australia|a-league|호주|aus\\.1|melbourne victory|sydney fc/,{name:'호주',flag:'🇦🇺',code:'AUS'}],
-[/scottish|scotland|스코틀랜드|sco\\.|celtic fc|rangers fc/,{name:'스코틀랜드',flag:'🏴',code:'SCO'}],
+[/j league|japan|일본|j리그|jpn\.|kashima antlers|urawa red diamonds|yokohama f.? marinos/,{name:'일본',flag:'🇯🇵',code:'JPN'}],
+[/australia|a-league|호주|aus\.1|melbourne victory|sydney fc/,{name:'호주',flag:'🇦🇺',code:'AUS'}],
+[/scottish|scotland|스코틀랜드|sco\.|celtic fc|rangers fc/,{name:'스코틀랜드',flag:'🏴',code:'SCO'}],
 [/saudi pro league|saudi arabia|사우디|al hilal|al nassr|al ittihad/,{name:'사우디아라비아',flag:'🇸🇦',code:'KSA'}],
-[/brasileir[aã]o|brazil|브라질|bra\\.|flamengo|palmeiras|corinthians|santos fc/,{name:'브라질',flag:'🇧🇷',code:'BRA'}],
-[/eredivisie|netherlands|dutch|네덜란드|ned\\.|ajax|psv eindhoven|feyenoord/,{name:'네덜란드',flag:'🇳🇱',code:'NED'}],
-[/primeira liga|portugal|포르투갈|por\\.|benfica|sporting cp|fc porto/,{name:'포르투갈',flag:'🇵🇹',code:'POR'}],
-[/turkey|turkish|super lig|튀르키예|터키|tur\\.|galatasaray|fenerbahce|besiktas/,{name:'튀르키예',flag:'🇹🇷',code:'TUR'}],
-[/belgium|belgian|벨기에|bel\\.|jupiler pro league/,{name:'벨기에',flag:'🇧🇪',code:'BEL'}],
-[/canada|canadian|캐나다|can\\.|canadian premier league|toronto fc|vancouver whitecaps|cf montréal/,{name:'캐나다',flag:'🇨🇦',code:'CAN'}],
-[/china|chinese|중국|중국 슈퍼리그|chn\\.|shanghai port|beijing guoan/,{name:'중국',flag:'🇨🇳',code:'CHN'}],
+[/brasileir[aã]o|brazil|브라질|bra\.|flamengo|palmeiras|corinthians|santos fc/,{name:'브라질',flag:'🇧🇷',code:'BRA'}],
+[/eredivisie|netherlands|dutch|네덜란드|ned\.|ajax|psv eindhoven|feyenoord/,{name:'네덜란드',flag:'🇳🇱',code:'NED'}],
+[/primeira liga|portugal|포르투갈|por\.|benfica|sporting cp|fc porto/,{name:'포르투갈',flag:'🇵🇹',code:'POR'}],
+[/turkey|turkish|super lig|튀르키예|터키|tur\.|galatasaray|fenerbahce|besiktas/,{name:'튀르키예',flag:'🇹🇷',code:'TUR'}],
+[/belgium|belgian|벨기에|bel\.|jupiler pro league/,{name:'벨기에',flag:'🇧🇪',code:'BEL'}],
+[/canada|canadian|캐나다|can\.|canadian premier league|toronto fc|vancouver whitecaps|cf montréal/,{name:'캐나다',flag:'🇨🇦',code:'CAN'}],
+[/china|chinese|중국|중국 슈퍼리그|chn\.|shanghai port|beijing guoan/,{name:'중국',flag:'🇨🇳',code:'CHN'}],
 [/india|indian|인도|ipl|cricket|크리켓|pakistan|bangladesh|sri lanka/,{name:'인도/국제',flag:'🏏',code:'INT'}],
-[/denmark|danish|덴마크|den\\.|norway|norwegian|노르웨이|nor\\.|sweden|swedish|스웨덴|swe\\.|switzerland|swiss|스위스|sui\\.|greece|greek|그리스|gre\\.|poland|polish|폴란드|pol\\.|austria|오스트리아|aut\\.|czech|체코|croatia|크로아티아|colombia|콜롬비아|chile|칠레|uruguay|우루과이|ecuador|에콰도르|peru|페루|paraguay|파라과이/,{name:'기타 국가',flag:'🌍',code:'INT'}],
+[/denmark|danish|덴마크|den\.|norway|norwegian|노르웨이|nor\.|sweden|swedish|스웨덴|swe\.|switzerland|swiss|스위스|sui\.|greece|greek|그리스|gre\.|poland|polish|폴란드|pol\.|austria|오스트리아|aut\.|czech|체코|croatia|크로아티아|colombia|콜롬비아|chile|칠레|uruguay|우루과이|ecuador|에콰도르|peru|페루|paraguay|파라과이/,{name:'기타 국가',flag:'🌍',code:'INT'}],
 [/fifa|world cup|international|친선경기|월드컵|올림픽|국가대표|nations league|continental championship/,{name:'국제 대회',flag:'🌐',code:'INT'}]
 ];
 for(const [pattern,country] of rules){if(pattern.test(s))return country}
