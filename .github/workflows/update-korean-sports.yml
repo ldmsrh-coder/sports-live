@@ -9,6 +9,7 @@ on:
     paths:
       - "scripts/update_korean_sports.py"
       - "scripts/test_update_korean_sports.py"
+      - "scripts/test_country_normalization.js"
       - "index.html"
       - ".github/workflows/update-korean-sports.yml"
 
@@ -80,6 +81,8 @@ jobs:
           PY
       - name: Node syntax check
         run: node --check /tmp/sports-live.js
+      - name: Test country placeholder normalization
+        run: node scripts/test_country_normalization.js
       - name: Publish changed snapshot
         run: |
           git config user.name "github-actions[bot]"
