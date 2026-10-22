@@ -97,6 +97,19 @@ jobs:
             echo "No data changes; keeping the existing snapshot."
           else
             git commit -m "Refresh Korean sports data"
-            git pull --rebase origin main
-            git push
+            # The site code and scheduled collector can update main close together.
+            # Re-fetch/rebase and retry a rejected non-fast-forward push instead of
+            # failing a healthy collection run because another commit landed first.
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo "Published refreshed sports snapshot."
+                exit 0
+              fi
+              echo "Push raced with another commit; retrying ($attempt/3)."
+              sleep $((attempt * 2))
+            done
+            echo "Could not publish the snapshot after three attempts."
+            exit 1
           fi
