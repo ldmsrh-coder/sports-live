@@ -13,6 +13,15 @@ function section(startMarker, endMarker) {
   return html.slice(start, end);
 }
 
+const labelHelpers = section('function koreanizeCommonLabel(value){', 'function countryFromName(value){');
+const labelsApi = new Function(labelHelpers + '\\nreturn {koreanizeCommonLabel, ko};')();
+assert.equal(labelsApi.ko('Country Confirmation Needed'), '국제/기타');
+assert.equal(labelsApi.ko('Country_Check_Required'), '국제/기타');
+assert.equal(labelsApi.ko('CountryConfirmationNeeded'), '국제/기타');
+assert.equal(labelsApi.ko('국가 확인 필요'), '국제/기타');
+assert.equal(labelsApi.ko('국가확인필요'), '국제/기타');
+assert.equal(labelsApi.ko('Manchester City'), '맨체스터 시티');
+
 const countryFromName = section('function countryFromName(value){', 'function normalizeCountryInfo(');
 const normalizer = section('function normalizeCountryInfo(', 'function countryForLeague(');
 const countryForLeague = section('function countryForLeague(', 'function flagHtml(');
@@ -36,6 +45,10 @@ assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code
 assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
 assert.ok(html.includes('function updateScoreChangeLog('), 'score change detection must be present');
 assert.ok(html.includes('function renderInsightPanel('), 'transparent match analysis must be present');
+assert.ok(html.includes('quality-details'), 'expandable data quality diagnostics must be present');
+assert.ok(html.includes('필수 항목 완성률'), 'data completeness must be reported separately from accuracy');
+assert.ok(html.includes('예정 경기인데 점수가 숫자로 표시됨'), 'scheduled-score anomaly check must be present');
+assert.ok(html.includes('신뢰도 점수나 경기 예측 정확도를 임의로 만들어 표시하지 않습니다'), 'the UI must avoid fabricated confidence scores');
 const cspMatch = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
 assert.ok(cspMatch, 'Content Security Policy must be present');
 const csp = cspMatch[1];
