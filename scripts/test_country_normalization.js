@@ -27,6 +27,13 @@ assert.equal(api.normalizeCountryInfo({name: '국가확인필요', code: 'KOR'},
 assert.equal(api.normalizeCountryInfo({name: 'Japan', code: 'JPN'}, 'International Friendly').code, 'JPN');
 assert.equal(api.normalizeCountryInfo({name: 'Unknown Country', code: ''}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo(null, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({country_name: 'Country Confirmation Needed', country_code: 'KOR'}, 'NBA').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: '국가 확인 필요', code: 'UNKNOWN'}, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: 'country check required', code: 'UNKNOWN'}, 'UEFA Champions League').code, 'EUR');
+assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code: ''}, 'NBA').code, 'USA');
+assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
+assert.ok(html.includes('function updateScoreChangeLog('), 'score change detection must be present');
+assert.ok(html.includes('function renderInsightPanel('), 'transparent match analysis must be present');
 const cspMatch = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
 assert.ok(cspMatch, 'Content Security Policy must be present');
 const csp = cspMatch[1];
@@ -40,4 +47,4 @@ for (const host of [
 }
 assert.ok(!/connect-src https:(;|$)/.test(csp), 'CSP connect-src must not allow every HTTPS host');
 assert.ok(csp.includes("img-src 'self' data: https://flagcdn.com"), 'CSP should restrict flag images to the flag provider');
-console.log('Country normalization and CSP tests passed (9 country cases + policy checks).');
+console.log('Country normalization, live analysis, score-change detection and CSP tests passed.');
