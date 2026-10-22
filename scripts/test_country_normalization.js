@@ -7,6 +7,8 @@ const fs = require('node:fs');
 const html = fs.readFileSync('index.html', 'utf8');
 const app = fs.readFileSync('app.js', 'utf8');
 const workflow = fs.readFileSync('.github/workflows/update-korean-sports.yml', 'utf8');
+const serviceWorker = fs.readFileSync('sw.js', 'utf8');
+const manifest = JSON.parse(fs.readFileSync('manifest.webmanifest', 'utf8'));
 function section(startMarker, endMarker) {
   const start = app.indexOf(startMarker);
   const end = app.indexOf(endMarker, start);
@@ -116,6 +118,14 @@ const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value =
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
 assert.ok(html.includes('app.js?v=20261022-pwa-countryfix-18'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('rel="manifest" href="./manifest.webmanifest"'), 'PWA manifest must be linked from the page');
+assert.equal(manifest.lang, 'ko-KR');
+assert.equal(manifest.start_url, './');
+assert.ok(manifest.icons.some(icon => icon.src === './icons/sports-live.svg'));
+assert.ok(app.includes("navigator.serviceWorker.register(new URL('./sw.js'"), 'service worker should register relative to GitHub Pages subpath');
+assert.ok(serviceWorker.includes("if (url.origin !== self.location.origin) return;"), 'service worker must never cache cross-origin sports API responses');
+assert.ok(serviceWorker.includes("fetch(request)"), 'service worker must try the network first to avoid stale live data');
+assert.doesNotThrow(() => new Function(serviceWorker), 'service worker syntax must be valid');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
