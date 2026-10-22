@@ -33,9 +33,10 @@ assert.equal(sourceApi.sourceUrl('알 수 없는 출처'), '');
 assert.ok(app.includes('target="_blank" rel="noopener noreferrer"'), 'source links must use safe new-window attributes');
 
 const countryFromName = section('function countryFromName(value){', 'function normalizeCountryInfo(');
-const normalizer = section('function normalizeCountryInfo(', 'function countryForLeague(');
+const normalizer = section('function normalizeCountryInfo(', 'function isCountryUnresolved(');
 const countryForLeague = section('function countryForLeague(', 'function flagHtml(');
-const api = new Function(countryFromName + '\n' + countryForLeague + '\n' + normalizer + '\nreturn {countryFromName, normalizeCountryInfo, countryForLeague};')();
+const unresolvedHelper = section('function isCountryUnresolved(', 'function countryForLeague(');
+const api = new Function(countryFromName + '\n' + countryForLeague + '\n' + normalizer + '\n' + unresolvedHelper + '\nreturn {countryFromName, normalizeCountryInfo, countryForLeague, isCountryUnresolved};')();
 
 assert.equal(api.countryFromName('Country Confirmation Needed').name, '국가 미확인');
 assert.equal(api.countryFromName('CountryConfirmationNeeded').name, '국가 미확인');
@@ -49,6 +50,8 @@ assert.equal(api.countryFromName('국가 확인 필요\u200B — 제공처').nam
 assert.equal(api.countryFromName('Country_Check_Required').name, '국가 미확인');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
+assert.equal(api.isCountryUnresolved({name:'국가확인필요', code:'UNK'}), true);
+assert.equal(api.isCountryUnresolved({name:'대한민국', code:'KOR'}), false);
 assert.equal(api.countryForLeague('Romania Liga I').code, 'ROU');
 assert.equal(api.countryForLeague('AS Roma').code, 'ITA');
 assert.equal(api.countryForLeague('United Arab Emirates Pro League').code, 'UAE');
@@ -81,6 +84,8 @@ assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
 assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: 'USA'}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: '국가확인필요', code: 'KOR'}, 'K리그').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: 'international'}, 'K League 1').code, 'KOR', 'known league country must override a generic international placeholder');
+assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: ''}, 'Mystery Tournament').code, 'UNK', 'unknown countries must remain unresolved instead of being guessed');
 assert.equal(api.normalizeCountryInfo({name: 'Japan', code: 'JPN'}, 'International Friendly').code, 'JPN');
 assert.equal(api.normalizeCountryInfo({name: 'Unknown Country', code: ''}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo(null, 'K League 1').code, 'KOR');
