@@ -328,14 +328,14 @@ function normalize(raw){let root=raw;for(let i=0;i<4&&root&&typeof root==='objec
 function historicalSportKey(g){
  const raw=String(g?.sport||g?.sportCategory||'football').toLowerCase();
  const league=String(g?.leagueKey||'').toLowerCase();
- if(raw==='americanfootball'||/^nfl(?:\\.|$)/.test(league)||league.includes('nfl'))return 'americanfootball';
+ if(raw==='americanfootball'||/^nfl([.]|$)/.test(league)||league.includes('nfl'))return 'americanfootball';
  if(raw==='soccer')return 'football';
  if(raw==='tabletennis'||raw==='table-tennis')return 'table-tennis';
  return raw;
 }
 function historicalMatchKey(g,sport,day,home,away,hs,as,norm){
  const timeText=String(g?.time||g?.rawTime||'');
- const match=timeText.match(/\\b(\\d{1,2}):(\\d{2})\\b/);
+ const match=timeText.match(/([0-9]{1,2}):([0-9]{2})/);
  const time=match?String(Number(match[1])).padStart(2,'0')+':'+match[2]:'';
  return [sport,day,norm(home),norm(away),time,String(hs),String(as)].join('|');
 }
