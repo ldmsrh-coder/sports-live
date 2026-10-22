@@ -49,6 +49,17 @@ assert.equal(api.countryFromName('국가 확인 필요\u200B — 제공처').nam
 assert.equal(api.countryFromName('Country_Check_Required').name, '국가 미확인');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
+assert.equal(api.countryFromName('United Arab Emirates').code, 'UAE');
+assert.equal(api.countryFromName('ROU').name, '루마니아');
+assert.equal(api.countryFromName('Finland').code, 'FIN');
+assert.equal(api.countryFromName('Taiwan').code, 'TPE');
+assert.equal(api.countryFromName('홍콩').code, 'HKG');
+const flagHelper = section('function flagHtml(country){', 'function competitionLabel(');
+const flagApi = new Function(flagHelper + '\nreturn {flagHtml};')();
+assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
+assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
+assert.ok(html.includes('app.js?v=20261022-country-audit-4'), 'country normalization update must bust stale browser caches');
+
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
