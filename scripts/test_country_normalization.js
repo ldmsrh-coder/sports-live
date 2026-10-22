@@ -29,6 +29,8 @@ assert.equal(api.normalizeCountryInfo({name: 'Unknown Country', code: ''}, 'UEFA
 assert.equal(api.normalizeCountryInfo(null, 'K League 1').code, 'KOR');
 assert.equal(api.normalizeCountryInfo({country_name: 'Country Confirmation Needed', country_code: 'KOR'}, 'NBA').code, 'KOR');
 assert.equal(api.normalizeCountryInfo({name: '국가 확인 필요', code: 'UNKNOWN'}, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: '국가확인필요'.normalize('NFD'), code: ''}, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: ''}, 'UEFA Champions League').name, '유럽');
 assert.equal(api.normalizeCountryInfo({name: 'country check required', code: 'UNKNOWN'}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code: ''}, 'NBA').code, 'USA');
 assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
