@@ -35,7 +35,7 @@ function requestAuditMeta(raw){
 function renderRequestAudit(){
  const root=$('requestAudit');if(!root)return;
  const pending=requestAuditLog.pending;
- const state=$('requestAuditState');if(state){state.textContent=pending?'실시간 조회 중':'자동 조회 대기';state.className='request-audit-state'+(pending?' busy':requestAuditLog.failed>requestAuditLog.success?' bad':'')}
+ const state=$('requestAuditState'),latest=requestAuditLog.rows[0];if(state){state.textContent=pending?'실시간 조회 중':latest&&latest.state==='error'?'최근 요청 실패':requestAuditLog.total?'조회 완료':'자동 조회 대기';state.className='request-audit-state'+(pending?' busy':latest&&latest.state==='error'?' bad':'')}
  $('requestAuditTotal').textContent='요청 '+requestAuditLog.total+'회';
  $('requestAuditSuccess').textContent='성공 '+requestAuditLog.success+'회';
  $('requestAuditFailure').textContent='실패 '+requestAuditLog.failed+'회';
@@ -47,14 +47,14 @@ function renderRequestAudit(){
 function scheduleRequestAuditRender(){if(requestAuditLog.renderTimer!==null)return;requestAuditLog.renderTimer=setTimeout(()=>{requestAuditLog.renderTimer=null;renderRequestAudit()},100)}
 window.fetch=async function(input,init){
  const raw=typeof input==='string'?input:(input&&typeof input.url==='string'?input.url:String(input));
- const entry={id:++requestAuditLog.nextId,meta:requestAuditMeta(raw),state:'pending',result:'응답 대기',time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})};
+ const entry={id:++requestAuditLog.nextId,meta:requestAuditMeta(raw),state:'pending',startedAt:Date.now(),result:'응답 대기',time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})};
  requestAuditLog.total++;requestAuditLog.pending++;requestAuditLog.rows.unshift(entry);requestAuditLog.rows=requestAuditLog.rows.slice(0,40);scheduleRequestAuditRender();
  try{
   const response=await nativeFetch(input,init);
-  if(response.ok){entry.state='ok';entry.result='HTTP '+response.status;requestAuditLog.success++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)}
-  else{entry.state='error';entry.result='HTTP '+response.status;requestAuditLog.failed++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)}
+  if(response.ok){entry.state='ok';entry.result='HTTP '+response.status+' · '+Math.max(0,Date.now()-entry.startedAt)+'ms';requestAuditLog.success++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)}
+  else{entry.state='error';entry.result='HTTP '+response.status+' · '+Math.max(0,Date.now()-entry.startedAt)+'ms';requestAuditLog.failed++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)}
   scheduleRequestAuditRender();return response;
- }catch(error){entry.state='error';entry.result=error&&error.name==='AbortError'?'시간 초과':'네트워크 오류';requestAuditLog.failed++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1);scheduleRequestAuditRender();throw error}
+ }catch(error){entry.state='error';entry.result=(error&&error.name==='AbortError'?'시간 초과':'네트워크 오류')+' · '+Math.max(0,Date.now()-entry.startedAt)+'ms';requestAuditLog.failed++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1);scheduleRequestAuditRender();throw error}
 };
 
 function val(obj,keys,fallback=''){for(const k of keys){const v=k.split('.').reduce((a,b)=>a&&a[b],obj);if(v!==undefined&&v!==null&&v!=='')return v}return fallback}
