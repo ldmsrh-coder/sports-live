@@ -107,4 +107,10 @@ assert.ok(app.includes('venueDiff'), 'home/away performance should contribute to
 assert.ok(app.includes('restDiff'), 'rest-day difference should contribute to estimates');
 assert.ok(app.includes('function localPredictionBacktest('), 'historical predictions should be evaluated against final results');
 
-console.log('Country normalization, live analysis, score-change detection and CSP tests passed.');
+assert.ok(html.includes('id="requestAudit"'), 'visible live request audit panel must be present');
+assert.ok(app.includes('Transparent request audit:'), 'real fetch requests must be instrumented');
+assert.ok(app.includes("'HTTP '+response.status"), 'HTTP response status should be visible in the live request monitor');
+assert.ok(app.includes('requestAuditLog.failed++'), 'failed requests must be counted instead of hiding errors');
+assert.ok(html.includes('HTTP 성공은 데이터의 정확성'), 'request monitor must not imply HTTP success guarantees data accuracy');
+
+console.log('Country normalization, live analysis, request audit, score-change detection and CSP tests passed.');
