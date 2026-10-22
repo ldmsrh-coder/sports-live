@@ -49,6 +49,11 @@ assert.equal(api.countryFromName('country-check-required: provider label').name,
 assert.equal(api.countryFromName('CountryIdentificationNeeded').name, '국가 미확인');
 assert.equal(api.countryFromName('국가 확인 필요\u200B — 제공처').name, '국가 미확인');
 assert.equal(api.countryFromName('Country_Check_Required').name, '국가 미확인');
+assert.equal(api.countryFromName('Country not found').code, 'UNK');
+assert.equal(api.countryFromName('Country unavailable').code, 'UNK');
+assert.equal(api.countryFromName('Needs country verification').code, 'UNK');
+assert.equal(api.normalizeCountryInfo({name:'Country check required — provider label', code:''}, 'Mystery Tournament').name, '국가 미확인');
+assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-15'), 'country-label fix must invalidate cached application JavaScript');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
 assert.equal(api.isCountryUnresolved({name:'국가확인필요', code:'UNK'}), true);
