@@ -3,13 +3,13 @@
  * Network-first keeps scores fresh; cached data is an offline fallback, not a live result.
  */
 const CACHE_PREFIX = 'sports-live-shell-';
-const CACHE_VERSION = '20261022-18';
+const CACHE_VERSION = '20261022-19';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   new URL('./', BASE).href,
   new URL('./index.html', BASE).href,
-  new URL('./app.js?v=20261022-pwa-countryfix-18', BASE).href,
+  new URL('./app.js?v=20261022-stability-19', BASE).href,
   new URL('./manifest.webmanifest', BASE).href,
   new URL('./data/korean-sports.json', BASE).href,
   new URL('./icons/sports-live.svg', BASE).href

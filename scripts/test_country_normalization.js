@@ -240,3 +240,13 @@ assert.ok(app.includes("['sport','date','dates','competition','league','limit','
 assert.ok(html.includes('HTTP 성공은 데이터의 정확성'), 'request monitor must not imply HTTP success guarantees data accuracy');
 
 console.log('Country normalization, live analysis, request audit, score-change detection and CSP tests passed.');
+
+// Regression guards for visible placeholder wording, cache-bust consistency, and KST midnight rollover.
+assert.ok(!app.includes("'국가 확인/검증 필요 같은 임시 문구"), 'diagnostics must not expose raw country-confirmation placeholder wording');
+assert.ok(!app.includes("'화면에 노출될 경기 필드에서 국가 확인 필요류"), 'success diagnostics must use neutral country-classification wording');
+const appVersion = (html.match(/<script src="\.\/app\.js\?v=([^"]+)"><\/script>/) || [])[1];
+assert.ok(appVersion, 'app script must have a cache-busting version');
+assert.ok(serviceWorker.includes('./app.js?v=' + appVersion), 'service worker shell must reference the exact app script version');
+assert.ok(/const CACHE_VERSION\s*=\s*'20261022-19'/.test(serviceWorker), 'service worker cache version must be bumped with the app');
+assert.ok(app.includes('const currentKstDate=seoulDate();if(currentKstDate!==localDate)'), 'long-open pages must roll over to the new Korea-local date');
+assert.ok(app.includes('Date.now()-lastAutoRefreshAt>=15000'), 'tab visibility refresh should avoid duplicate bursts');
