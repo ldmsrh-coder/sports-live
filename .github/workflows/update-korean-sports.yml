@@ -70,8 +70,11 @@ jobs:
                   raise SystemExit(f"Game {index} has identical home and away teams")
               if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", str(game["date"])):
                   raise SystemExit(f"Game {index} has invalid ISO date: {game['date']}")
-              labels = " ".join(str(game.get(k, "")) for k in ("home", "away", "league"))
-              if re.search(r"국가 *확인 *필요|국가확인필요|country.*confirmation.*needed", labels, re.I):
+              labels = " ".join(str(game.get(k, "")) for k in ("home", "away", "league", "countryName", "country_name"))
+              country = game.get("country")
+              if isinstance(country, dict):
+                  labels += " " + " ".join(str(country.get(k, "")) for k in ("name", "country_name", "displayName"))
+              if re.search(r"국가\s*확인\s*필요|국가확인필요|국가미확인|국가미분류|country.*(confirmation|check|verification).*(needed|required|missing)", labels, re.I):
                   raise SystemExit(f"Game {index} contains an unresolved country placeholder")
               key = tuple(str(game.get(k, "")) for k in ("date", "sport", "league", "home", "away", "time"))
               if key in seen:
