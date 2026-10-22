@@ -48,6 +48,8 @@ assert.ok(html.includes('<script src="./app.js"></script>'), 'application JavaSc
 assert.ok(!/<script>([\s\S]*?)<\/script>/i.test(html), 'application JavaScript must not be inline');
 assert.ok(app.includes('function updateScoreChangeLog('), 'score change detection must be present');
 assert.ok(app.includes('function renderInsightPanel('), 'transparent match analysis must be present');
+assert.ok(app.includes('function sourceUrl(source)'), 'per-match source links must be available');
+assert.ok(app.includes('sourceUrl(g.source)'), 'match cards must link to their data source');
 assert.ok(app.includes('quality-details'), 'expandable data quality diagnostics must be present');
 assert.ok(app.includes('필수 항목 완성률'), 'data completeness must be reported separately from accuracy');
 assert.ok(app.includes('예정 경기인데 점수가 숫자로 표시됨'), 'scheduled-score anomaly check must be present');
