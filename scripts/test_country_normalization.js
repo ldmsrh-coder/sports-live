@@ -53,7 +53,7 @@ assert.equal(api.countryFromName('Country not found').code, 'UNK');
 assert.equal(api.countryFromName('Country unavailable').code, 'UNK');
 assert.equal(api.countryFromName('Needs country verification').code, 'UNK');
 assert.equal(api.normalizeCountryInfo({name:'Country check required — provider label', code:''}, 'Mystery Tournament').name, '국가 미확인');
-assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-15'), 'country-label fix must invalidate cached application JavaScript');
+assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-16-final-guard'), 'country-label fix must invalidate cached application JavaScript');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
 assert.equal(api.isCountryUnresolved({name:'국가확인필요', code:'UNK'}), true);
@@ -96,6 +96,11 @@ const sanitizerApi = new Function('ko','normalizeCountryInfo',sanitizerHelper+'\
 assert.equal(sanitizerApi.containsCountryPlaceholder('Country Confirmation Needed'), true);
 assert.equal(sanitizerApi.containsCountryPlaceholder('Country_Check_Required'), true);
 assert.equal(sanitizerApi.containsCountryPlaceholder('국가 확인 필요\u200B'), true);
+assert.equal(sanitizerApi.containsCountryPlaceholder('국가 확인이 필요합니다'), true, 'natural Korean placeholder variants must be blocked');
+assert.equal(sanitizerApi.containsCountryPlaceholder('국가 확인 필요 - 제공처'), true, 'provider suffixes must not leak into country labels');
+assert.equal(sanitizerApi.containsCountryPlaceholder('Country status: confirmation required'), true, 'English provider placeholder variants must be blocked');
+const renderStart = app.indexOf('function render(){');
+assert.ok(renderStart >= 0 && app.slice(renderStart, renderStart + 900).indexOf('allGames=allGames.map') < app.slice(renderStart, renderStart + 900).indexOf('syncCountryFilterOptions()'), 'render must sanitize legacy/cached records before building country filters');
 assert.equal(sanitizerApi.containsCountryPlaceholder('Premier League'), false);
 assert.equal(sanitizerApi.sanitizeProviderField('Country Confirmation Needed','대회 정보 미제공'),'대회 정보 미제공');
 const sanitizedGame=sanitizerApi.sanitizeGameRecord({home:'Country Confirmation Needed',away:'Unknown Opponent',league:'Country_Check_Required',country:{name:'Country Confirmation Needed',code:'UNK'},status:'예정',time:'시간 미정',source:'SportScore'});
@@ -108,7 +113,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-15'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-16-final-guard'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');

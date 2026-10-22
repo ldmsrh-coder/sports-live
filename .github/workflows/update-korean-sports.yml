@@ -12,6 +12,7 @@ on:
       - "scripts/test_country_normalization.js"
       - "index.html"
       - "app.js"
+      - "docs/**"
       - ".github/workflows/update-korean-sports.yml"
 
 permissions:
@@ -40,6 +41,12 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_*.py'
       - name: Collect current-month Korean sports schedules
         run: python scripts/update_korean_sports.py
+      - name: Sync GitHub Pages root/docs copies
+        run: |
+          mkdir -p docs/data
+          cp index.html docs/index.html
+          cp app.js docs/app.js
+          cp data/korean-sports.json docs/data/korean-sports.json
       - name: Validate site JavaScript and sports snapshot
         run: |
           python - <<'PY'
@@ -57,6 +64,11 @@ jobs:
               normalized_tag = tag.lower().replace("'", '"')
               if 'target="_blank"' in normalized_tag and "noopener" not in normalized_tag:
                   raise SystemExit(f"Unsafe external new-window link: {tag}")
+          for relative in ("index.html", "app.js", "data/korean-sports.json"):
+              root_copy = Path(relative).read_bytes()
+              docs_copy = (Path("docs") / relative).read_bytes()
+              if root_copy != docs_copy:
+                  raise SystemExit(f"GitHub Pages root/docs copy mismatch: {relative}")
           Path("/tmp/sports-live.js").write_text(Path("app.js").read_text(encoding="utf-8"), encoding="utf-8")
           payload = json.loads(Path("data/korean-sports.json").read_text(encoding="utf-8"))
           games = payload.get("games")
@@ -92,7 +104,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/korean-sports.json
+          git add data/korean-sports.json docs/index.html docs/app.js docs/data/korean-sports.json
           if git diff --cached --quiet; then
             echo "No data changes; keeping the existing snapshot."
           else
