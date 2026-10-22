@@ -6,6 +6,7 @@ const fs = require('node:fs');
 
 const html = fs.readFileSync('index.html', 'utf8');
 const app = fs.readFileSync('app.js', 'utf8');
+const workflow = fs.readFileSync('.github/workflows/update-korean-sports.yml', 'utf8');
 function section(startMarker, endMarker) {
   const start = app.indexOf(startMarker);
   const end = app.indexOf(endMarker, start);
@@ -107,6 +108,7 @@ assert.ok(app.includes('venueDiff'), 'home/away performance should contribute to
 assert.ok(app.includes('restDiff'), 'rest-day difference should contribute to estimates');
 assert.ok(app.includes('function localPredictionBacktest('), 'historical predictions should be evaluated against final results');
 
+assert.ok(workflow.includes('for attempt in 1 2 3; do') && workflow.includes('git rebase origin/main') && workflow.includes('git push origin HEAD:main'), 'snapshot publish retries concurrent updates');
 assert.ok(html.includes('id="requestAudit"'), 'visible live request audit panel must be present');
 assert.ok(app.includes('Transparent request audit:'), 'real fetch requests must be instrumented');
 assert.ok(app.includes("'HTTP '+response.status"), 'HTTP response status should be visible in the live request monitor');
