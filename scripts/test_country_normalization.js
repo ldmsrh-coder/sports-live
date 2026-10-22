@@ -55,7 +55,7 @@ assert.equal(api.countryFromName('Finland').code, 'FIN');
 assert.equal(api.countryFromName('Taiwan').code, 'TPE');
 assert.equal(api.countryFromName('홍콩').code, 'HKG');
 const flagHelper = section('function flagHtml(country){', 'function competitionLabel(');
-const flagApi = new Function(flagHelper + '\nreturn {flagHtml};')();
+const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
 assert.ok(html.includes('app.js?v=20261022-country-audit-4'), 'country normalization update must bust stale browser caches');
