@@ -12,7 +12,7 @@ function saveFavorites(){try{localStorage.setItem("sports-live:favorites",JSON.s
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 /* Transparent request audit: records real browser fetches without storing query secrets or headers. */
-const requestAuditLog={rows:[],total:0,success:0,failed:0,nextId:0,renderTimer:null};
+const requestAuditLog={rows:[],total:0,success:0,failed:0,pending:0,nextId:0,renderTimer:null};
 const nativeFetch=window.fetch.bind(window);
 function requestAuditMeta(raw){
  let u;try{u=new URL(raw,window.location.href)}catch(e){return{source:'데이터 제공처',path:'요청 주소 확인 불가'}}
@@ -34,7 +34,7 @@ function requestAuditMeta(raw){
 }
 function renderRequestAudit(){
  const root=$('requestAudit');if(!root)return;
- const pending=requestAuditLog.rows.filter(x=>x.state==='pending').length;
+ const pending=requestAuditLog.pending;
  const state=$('requestAuditState');if(state){state.textContent=pending?'실시간 조회 중':'자동 조회 대기';state.className='request-audit-state'+(pending?' busy':requestAuditLog.failed>requestAuditLog.success?' bad':'')}
  $('requestAuditTotal').textContent='요청 '+requestAuditLog.total+'회';
  $('requestAuditSuccess').textContent='성공 '+requestAuditLog.success+'회';
@@ -48,13 +48,13 @@ function scheduleRequestAuditRender(){if(requestAuditLog.renderTimer!==null)retu
 window.fetch=async function(input,init){
  const raw=typeof input==='string'?input:(input&&typeof input.url==='string'?input.url:String(input));
  const entry={id:++requestAuditLog.nextId,meta:requestAuditMeta(raw),state:'pending',result:'응답 대기',time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})};
- requestAuditLog.total++;requestAuditLog.rows.unshift(entry);requestAuditLog.rows=requestAuditLog.rows.slice(0,40);scheduleRequestAuditRender();
+ requestAuditLog.total++;requestAuditLog.pending++;requestAuditLog.rows.unshift(entry);requestAuditLog.rows=requestAuditLog.rows.slice(0,40);scheduleRequestAuditRender();
  try{
   const response=await nativeFetch(input,init);
-  if(response.ok){entry.state='ok';entry.result='HTTP '+response.status;requestAuditLog.success++}
-  else{entry.state='error';entry.result='HTTP '+response.status;requestAuditLog.failed++}
+  if(response.ok){entry.state='ok';entry.result='HTTP '+response.status;requestAuditLog.success++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)}
+  else{entry.state='error';entry.result='HTTP '+response.status;requestAuditLog.failed++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)}
   scheduleRequestAuditRender();return response;
- }catch(error){entry.state='error';entry.result=error&&error.name==='AbortError'?'시간 초과':'네트워크 오류';requestAuditLog.failed++;scheduleRequestAuditRender();throw error}
+ }catch(error){entry.state='error';entry.result=error&&error.name==='AbortError'?'시간 초과':'네트워크 오류';requestAuditLog.failed++;requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1);scheduleRequestAuditRender();throw error}
 };
 
 function val(obj,keys,fallback=''){for(const k of keys){const v=k.split('.').reduce((a,b)=>a&&a[b],obj);if(v!==undefined&&v!==null&&v!=='')return v}return fallback}
