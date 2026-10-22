@@ -79,6 +79,10 @@ assert.equal(historyApi.historicalSportKey({sport:'soccer'}), 'football');
 assert.equal(historyApi.historicalSportKey({sport:'americanfootball'}), 'americanfootball');
 assert.equal(historyApi.historicalSportKey({sportCategory:'football',leagueKey:'nfl.1'}), 'americanfootball');
 assert.equal(historyApi.historicalSportKey({sport:'tabletennis'}), 'table-tennis');
+assert.equal(historyApi.historicalDuplicateIndex([{time:''}], '19:00'), 0, 'missing kickoff time should merge with a known kickoff');
+assert.equal(historyApi.historicalDuplicateIndex([{time:'19:00'}], ''), 0, 'a missing kickoff should not duplicate a known event');
+assert.equal(historyApi.historicalDuplicateIndex([{time:'19:00'}], '19:00'), 0, 'identical kickoff should deduplicate');
+assert.equal(historyApi.historicalDuplicateIndex([{time:'19:00'}], '20:00'), -1, 'distinct kickoff times preserve doubleheaders');
 const normHistory = value => String(value||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 assert.equal(historyApi.historicalMatchKey({time:'19:00'},'football','2026-10-01','Home Team','Away Team',2,1,normHistory),historyApi.historicalMatchKey({time:'오후 19:00'},'football','2026-10-01','Home-Team','Away Team',2,1,normHistory),'duplicate cache copies of the same completed match should share a key');
 assert.notEqual(historyApi.historicalMatchKey({time:'19:00'},'football','2026-10-01','Home Team','Away Team',2,1,normHistory),historyApi.historicalMatchKey({time:'19:00'},'americanfootball','2026-10-01','Home Team','Away Team',2,1,normHistory),'soccer and American football histories must never be mixed');
@@ -99,7 +103,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-model-history-dedupe-11'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-model-history-dedupe-12'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
