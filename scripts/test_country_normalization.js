@@ -83,4 +83,15 @@ for (const host of [
 }
 assert.ok(!/connect-src https:(;|$)/.test(csp), 'CSP connect-src must not allow every HTTPS host');
 assert.ok(csp.includes("img-src 'self' data: https://flagcdn.com"), 'CSP should restrict flag images to the flag provider');
+
+const probabilityHelpers = section('function canShowProbability(g){', 'function probabilityDetails(g){');
+const probabilityApi = new Function(probabilityHelpers + '\\nreturn {canShowProbability};')();
+assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: false}), true);
+assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: true, probabilityConfidence: 'low', modelDetails: {historyGames: 6, homeStats: {played: 2}, awayStats: {played: 4}}}), true);
+assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: true, probabilityConfidence: 'low', modelDetails: {historyGames: 5, homeStats: {played: 2}, awayStats: {played: 3}}}), false);
+assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: true, probabilityConfidence: 'very-low', modelDetails: {historyGames: 20, homeStats: {played: 10}, awayStats: {played: 10}}}), false);
+assert.ok(app.includes('function localPredictionBacktest('), 'local historical prediction validation must be present');
+assert.ok(app.includes('초기 참고용 추정'), 'low-sample estimates must be labelled as provisional');
+assert.ok(app.includes('scoredAverage'), 'team scoring averages should be available to explain estimates');
+
 console.log('Country normalization, live analysis, score-change detection and CSP tests passed.');
