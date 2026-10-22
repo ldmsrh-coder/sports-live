@@ -59,6 +59,7 @@ assert.ok(html.includes('id="connectionBadge"'), 'live connection status badge m
 assert.ok(app.includes('데이터 확인 완료 · 90초 자동 확인'), 'successful data refresh should be visible');
 assert.ok(html.includes('id="scoreAlerts"'), 'score alert opt-in control must be present');
 assert.ok(app.includes('function toggleScoreAlerts(') && app.includes('function notifyScoreChanges('), 'score notifications must be opt-in and driven by observed score changes');
+assert.ok(app.includes('/저장된 일정|캐시|cache/i.test(String(source||\'\'))'), 'stale cached schedules must not trigger score notifications');
 assert.ok(app.includes("localStorage.setItem(SCORE_ALERT_PREF,'1')"), 'score alert preference must be saved locally');
 assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
 assert.ok(/<script src="\.\/app\.js(?:\?[^\"]*)?"><\/script>/.test(html), 'application JavaScript must be loaded externally and may use cache busting');
