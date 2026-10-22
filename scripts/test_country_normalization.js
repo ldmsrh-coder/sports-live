@@ -27,4 +27,17 @@ assert.equal(api.normalizeCountryInfo({name: '국가확인필요', code: 'KOR'},
 assert.equal(api.normalizeCountryInfo({name: 'Japan', code: 'JPN'}, 'International Friendly').code, 'JPN');
 assert.equal(api.normalizeCountryInfo({name: 'Unknown Country', code: ''}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo(null, 'K League 1').code, 'KOR');
-console.log('Country normalization tests passed (9 cases).');
+const cspMatch = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
+assert.ok(cspMatch, 'Content Security Policy must be present');
+const csp = cspMatch[1];
+const connectSrc = (csp.match(/connect-src ([^;]+)/) || [])[1] || '';
+for (const host of [
+  'sportscore.com', 'site.api.espn.com', 'raw.githubusercontent.com',
+  'user-api.kovo.co.kr', 'm.kbl.or.kr', 'www.wkbl.or.kr', 'www.kfa.or.kr',
+  'www.kleague.com', 'www.koreabaseball.com', 'www.koreahandball.com'
+]) {
+  assert.ok(connectSrc.includes('https://' + host), 'CSP connect-src must allow ' + host);
+}
+assert.ok(!/connect-src\\s+https:\\s*(;|$)/.test(csp), 'CSP connect-src must not allow every HTTPS host');
+assert.ok(csp.includes("img-src 'self' data: https://flagcdn.com"), 'CSP should restrict flag images to the flag provider');
+console.log('Country normalization and CSP tests passed (9 country cases + policy checks).');
