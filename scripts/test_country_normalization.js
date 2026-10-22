@@ -57,6 +57,13 @@ assert.ok(!/<script>([\s\S]*?)<\/script>/i.test(html), 'application JavaScript m
 assert.ok(app.includes('function updateScoreChangeLog('), 'score change detection must be present');
 assert.ok(app.includes('function renderInsightPanel('), 'transparent match analysis must be present');
 assert.ok(app.includes('function sourceUrl(source)'), 'per-match source links must be available');
+const csvHelper = section('function csvCell(value){', 'function exportVisibleCsv(){');
+const csvApi = new Function(csvHelper + '\nreturn {csvCell};')();
+assert.equal(csvApi.csvCell('=1+1'), '"\'=1+1"');
+assert.equal(csvApi.csvCell('+SUM(A1:A2)'), '"\'+SUM(A1:A2)"');
+assert.equal(csvApi.csvCell('-'), '"-"');
+assert.equal(csvApi.csvCell('12'), '"12"');
+
 assert.ok(app.includes('sourceUrl(g.source)'), 'match cards must link to their data source');
 assert.ok(app.includes('quality-details'), 'expandable data quality diagnostics must be present');
 assert.ok(app.includes('필수 항목 완성률'), 'data completeness must be reported separately from accuracy');
