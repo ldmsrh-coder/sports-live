@@ -53,7 +53,7 @@ assert.equal(api.countryFromName('Country not found').code, 'UNK');
 assert.equal(api.countryFromName('Country unavailable').code, 'UNK');
 assert.equal(api.countryFromName('Needs country verification').code, 'UNK');
 assert.equal(api.normalizeCountryInfo({name:'Country check required — provider label', code:''}, 'Mystery Tournament').name, '국가 미확인');
-assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-16-final-guard'), 'country-label fix must invalidate cached application JavaScript');
+assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-17-final-guard'), 'country-label fix must invalidate cached application JavaScript');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
 assert.equal(api.isCountryUnresolved({name:'국가확인필요', code:'UNK'}), true);
@@ -97,6 +97,8 @@ assert.equal(sanitizerApi.containsCountryPlaceholder('Country Confirmation Neede
 assert.equal(sanitizerApi.containsCountryPlaceholder('Country_Check_Required'), true);
 assert.equal(sanitizerApi.containsCountryPlaceholder('국가 확인 필요\u200B'), true);
 assert.equal(sanitizerApi.containsCountryPlaceholder('국가 확인이 필요합니다'), true, 'natural Korean placeholder variants must be blocked');
+assert.equal(sanitizerApi.containsCountryPlaceholder('국가 미확인'), false, 'the safe Korean fallback label must not be mistaken for a raw provider placeholder');
+assert.equal(sanitizerApi.containsCountryPlaceholder('국가 미분류'), false, 'the safe Korean fallback label must remain stable');
 assert.equal(sanitizerApi.containsCountryPlaceholder('국가 확인 필요 - 제공처'), true, 'provider suffixes must not leak into country labels');
 assert.equal(sanitizerApi.containsCountryPlaceholder('Country status: confirmation required'), true, 'English provider placeholder variants must be blocked');
 const renderStart = app.indexOf('function render(){');
@@ -113,7 +115,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-16-final-guard'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-country-normalization-cachefix-17-final-guard'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');

@@ -298,6 +298,7 @@ async function applyModelProbabilities(games,date){
 function containsCountryPlaceholder(value){
  const n=String(value??'').normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g,'').trim().toLowerCase().replace(/[._-]+/g,' ').replace(/[—–:]+/g,' ').replace(/\s+/g,' ').trim();
  const compact=n.replace(/[^a-z0-9가-힣]/g,'');
+ if(n==='국가 미확인'||n==='국가 미분류')return false;
  return /국가\s*(?:확인|검증|식별|분류)(?:이|가)?\s*(?:필요|미확인|미분류|요망|바람|미설정)(?:합니다|함|임)?|국가확인필요|국가미확인|국가미분류/.test(n) || /국가.{0,30}(?:확인|검증|식별|분류|미확인|미분류|필요|미설정)/.test(n) || /(?:확인|검증|식별|분류).{0,25}국가/.test(n)
   || /^(?:country)?(?:confirmation|check|verification|identification|classification)(?:needed|required|pending|missing|unavailable)?$/.test(compact)
   || /^needs?country(?:confirmation|check|verification)(?:needed|required|pending|missing)?$/.test(compact)
