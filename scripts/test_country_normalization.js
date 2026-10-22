@@ -43,6 +43,8 @@ assert.equal(api.countryFromName('국가 확인 필요').name, '국제/기타');
 assert.equal(api.countryFromName('국가확인필요').name, '국제/기타');
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국제/기타');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국제/기타');
+assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국제/기타');
+assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국제/기타');
 assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: 'USA'}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: '국가확인필요', code: 'KOR'}, 'K리그').code, 'KOR');
 assert.equal(api.normalizeCountryInfo({name: 'Japan', code: 'JPN'}, 'International Friendly').code, 'JPN');
@@ -52,6 +54,9 @@ assert.equal(api.normalizeCountryInfo({country_name: 'Country Confirmation Neede
 assert.equal(api.normalizeCountryInfo({name: '국가 확인 필요', code: 'UNKNOWN'}, 'K League 1').code, 'KOR');
 assert.equal(api.normalizeCountryInfo({name: '국가확인필요'.normalize('NFD'), code: ''}, 'K League 1').code, 'KOR');
 assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: ''}, 'UEFA Champions League').name, '유럽 대항전');
+assert.equal(api.normalizeCountryInfo({name: 'Country confirmation needed: provider label', code: 'REQ'}, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: '국가 확인 필요 - upstream feed', code: 'REQ'}, 'NBA').code, 'USA');
+assert.equal(api.normalizeCountryInfo({name: 'Country_Check_Required', code: 'REQ'}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo({name: 'country check required', code: 'UNKNOWN'}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code: ''}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: 'Country not set', code: ''}, 'K League 1').code, 'KOR');
@@ -67,6 +72,7 @@ assert.ok(/<script src="\.\/app\.js(?:\?[^\"]*)?"><\/script>/.test(html), 'appli
 assert.ok(!/<script>([\s\S]*?)<\/script>/i.test(html), 'application JavaScript must not be inline');
 assert.ok(app.includes('function updateScoreChangeLog('), 'score change detection must be present');
 assert.ok(app.includes('function renderInsightPanel('), 'transparent match analysis must be present');
+assert.ok(app.includes("games.forEach(g=>{g.country=normalizeCountryInfo(g.country,g.league,g.home,g.away);"), 'country placeholders must be normalized again immediately before rendering');
 assert.ok(app.includes('function sourceUrl(source)'), 'per-match source links must be available');
 const csvHelper = section('function csvCell(value){', 'function exportVisibleCsv(){');
 const csvApi = new Function(csvHelper + '\nreturn {csvCell};')();
