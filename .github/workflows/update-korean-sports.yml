@@ -45,7 +45,7 @@ jobs:
           import re
           from pathlib import Path
           html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script(.*?)</script>", html, re.S)
+          scripts = re.findall(r"<script>(.*?)</script>", html, re.S)
           if not scripts:
               raise SystemExit("No inline application script found")
           if '<html lang="ko">' not in html or 'id="qualitySummary"' not in html:
