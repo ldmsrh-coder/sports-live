@@ -188,12 +188,33 @@ function canShowProbability(g){if(!g||!Number.isFinite(g.homeProb)||!Number.isFi
  const next={};for(const g of (Array.isArray(games)?games:[]).slice(0,1500)){if(!g||!g.home||!g.away)continue;const id=matchKey(g),hs=numeric(g.hs??g.homeScore),as=numeric(g.as??g.awayScore);if(hs===null||as===null)continue;const old=previous[id];if(old&&numeric(old.hs)!==null&&numeric(old.as)!==null&&(numeric(old.hs)!==hs||numeric(old.as)!==as)){recentScoreChanges.push({home:String(g.home),away:String(g.away),league:String(g.league||''),oldHome:numeric(old.hs),oldAway:numeric(old.as),homeScore:hs,awayScore:as,status:String(g.status||'')})}next[id]={hs,as,status:String(g.status||'')};}
  recentScoreChanges=recentScoreChanges.slice(-8);try{localStorage.setItem(key,JSON.stringify(next))}catch(e){}
 }
+function localPredictionBacktest(){
+ const matches=new Map();
+ const num=v=>{if(v===null||v===undefined||String(v).trim()===''||String(v).trim()==='-')return null;const n=Number(v);return Number.isFinite(n)&&n>=0?n:null};
+ try{for(let i=0;i<localStorage.length;i++){
+  const key=localStorage.key(i)||'',parts=key.split(':'),day=parts[parts.length-1];
+  if(!key.startsWith('sports-live:')||key.includes('score-snapshot')||!/^\d{4}-\d{2}-\d{2}$/.test(day))continue;
+  let rows;try{rows=JSON.parse(localStorage.getItem(key)||'null')}catch(e){continue}if(!Array.isArray(rows))continue;
+  for(const g of rows){
+   if(!g||!g.probabilityIsEstimate||!canShowProbability(g)||!isFinishedGame(g))continue;
+   const hs=num(g.hs??g.homeScore),as=num(g.as??g.awayScore),hp=num(g.homeProb),ap=num(g.awayProb),dp=num(g.drawProb);
+   if(hs===null||as===null||hp===null||ap===null||hp+ap<=0)continue;
+   const id=[day,g.sportCategory||g.sport||'',g.league||'',g.home||'',g.away||''].join('|');
+   const total=hp+ap+(dp!==null?dp:0),ph=hp/total,pa=ap/total,pd=dp!==null?dp/total:0,actual=hs>as?'home':hs<as?'away':'draw';
+   let brier,top;
+   if(dp!==null){brier=(ph-(actual==='home'?1:0))**2+(pd-(actual==='draw'?1:0))**2+(pa-(actual==='away'?1:0))**2;top=ph>=pd&&ph>=pa?'home':pd>=pa?'draw':'away'}
+   else{const p=hp/(hp+ap),y=actual==='home'?1:0;brier=(p-y)**2+(1-p-(1-y))**2;top=p>=.5?'home':'away'}
+   matches.set(id,{brier,correct:top===actual});
+  }
+ }}catch(e){}
+ const rows=[...matches.values()];return {n:rows.length,brier:rows.length?rows.reduce((s,x)=>s+x.brier,0)/rows.length:null,accuracy:rows.length?rows.filter(x=>x.correct).length/rows.length:null};
+}
 function renderInsightPanel(games){
  const el=$('insightPanel');if(!el)return;
  const list=Array.isArray(games)?games:[],total=list.length,live=list.filter(isLiveGame),finished=list.filter(isFinishedGame);
  const withSource=list.filter(g=>String(g.source||'').trim()),withProb=list.filter(g=>Number.isFinite(g.homeProb)&&Number.isFinite(g.awayProb));
  const estimated=list.filter(g=>g.probabilityIsEstimate),withheld=estimated.filter(g=>['very-low','low'].includes(g.probabilityConfidence));const visibleProb=list.filter(g=>canShowProbability(g));
- const unresolved=list.filter(g=>!g.country||String(g.country.code||'').toUpperCase()==='INT');
+ const unresolved=list.filter(g=>!g.country||String(g.country.code||'').toUpperCase()==='INT');const backtest=localPredictionBacktest();
  const missingSource=list.filter(g=>!String(g.source||'').trim());
  const missingLeague=list.filter(g=>!String(g.league||'').trim()||/^(대회 정보 없음|경기 일정)$/i.test(String(g.league||'')));
  const missingTime=list.filter(g=>!String(g.time||'').trim()||/^(시간 미정|tbd|unknown)$/i.test(String(g.time||'')));
@@ -212,7 +233,7 @@ function renderInsightPanel(games){
  const changes=recentScoreChanges.filter(c=>list.some(g=>String(g.home||'')===c.home&&String(g.away||'')===c.away));
  const alertMarkup=changes.length?'<div class="insight-alerts"><b style="font-size:11px;color:#315d78">이번 조회에서 확인된 점수 변경</b>'+changes.map(c=>'<div class="insight-alert"><b>'+esc(c.home)+' '+c.homeScore+' : '+c.awayScore+' '+esc(c.away)+'</b> · 이전 '+c.oldHome+' : '+c.oldAway+(c.status?' · '+esc(localizeStatus(c.status)):'')+(c.league?' · '+esc(c.league):'')+'</div>').join('')+'</div>':'';
  const diagnostics='<details class="quality-details"><summary>데이터 품질 점검 내역 · '+issueCount+'개 확인 항목</summary><div class="details-body"><p>아래 숫자는 자동 점검 결과이며, 경기 결과가 맞을 확률이나 데이터 제공처의 정확도를 뜻하지 않습니다.</p><ul><li>출처 정보 없음: <b>'+missingSource.length+'</b>경기</li><li>대회명 확인 필요: <b>'+missingLeague.length+'</b>경기</li><li>진행 중인데 점수 없음/비숫자: <b>'+missingLiveScore.length+'</b>경기</li><li>예정 경기인데 점수가 숫자로 표시됨: <b>'+suspiciousScheduled.length+'</b>경기</li><li>화면 기준 중복 의심: <b>'+duplicateCount+'</b>건</li><li>시간 미정: <b>'+missingTime.length+'</b>경기</li><li>국제 대회 또는 국가 근거 미확정: <b>'+unresolved.length+'</b>경기</li></ul><p>출처 구분(중복 포함 가능): 공식 출처 표시 '+officialCount+'경기 · ESPN/SportScore '+providerCount+'경기 · 저장 데이터 표시 '+cachedCount+'경기.</p><p class="detail-warning">공식 출처 표시가 있다고 해서 해당 경기의 점수까지 독립 검증됐다는 뜻은 아닙니다. 실시간 점수는 제공처 응답 지연·정정의 영향을 받습니다.</p></div></details>';
- el.innerHTML='<div class="insight-title"><span>자동 경기 판독실</span><span class="insight-pill">설명 가능한 데이터 분석</span></div><p class="insight-subtitle">현재 조회된 경기의 상태·점수·출처·확률 데이터만 자동 점검합니다. 영상 판독(VAR), 선수 추적 또는 생성형 AI의 독립적인 실시간 판독은 아닙니다.</p><div class="insight-grid"><div class="insight-card"><small>조회 경기</small><strong>'+total+'</strong><p>진행 '+live.length+' · 종료 '+finished.length+'</p></div><div class="insight-card"><small>출처 기록률</small><strong>'+sourcePct+'%</strong><p>'+withSource.length+'/'+total+'경기에 출처 필드 있음 · 정확도와 다름</p></div><div class="insight-card"><small>필수 항목 완성률</small><strong>'+completeness+'%</strong><p>팀·대회·상태·출처 필드 기준</p></div><div class="insight-card"><small>표시 가능한 확률</small><strong>'+visibleProb.length+'</strong><p>'+esc(withheld.length+'경기는 표본 부족으로 수치 표시 보류')+'</p></div><div class="insight-card"><small>국제·국가 미확정</small><strong>'+unresolved.length+'</strong><p>국가를 확정할 근거가 없으면 임의로 국가를 단정하지 않음</p></div><div class="insight-card"><small>진행 경기 점수 누락</small><strong>'+missingLiveScore.length+'</strong><p>진행 중 경기에서 숫자 점수가 확인되지 않음</p></div><div class="insight-card"><small>시간 미정</small><strong>'+missingTime.length+'</strong><p>공개 일정에 경기 시간이 없거나 식별되지 않음</p></div><div class="insight-card"><small>자동 점검 항목</small><strong>'+issueCount+'</strong><p>누락·예정 점수·중복 의심 합계</p></div></div><div class="insight-note '+(issueCount?'warn':'')+'"><b>해석 주의</b><br>이 패널은 데이터 누락과 이상 징후를 찾는 규칙 기반 점검입니다. 신뢰도 점수나 경기 예측 정확도를 임의로 만들어 표시하지 않습니다. '+(withheld.length?'표본이 부족한 자체 승률은 표시를 보류했습니다. ':'')+'부상·확정 선발·라인업·날씨·배당 변동은 검증된 데이터 피드가 연결되지 않으면 예측에 반영되지 않습니다.</div>'+diagnostics+alertMarkup;
+ el.innerHTML='<div class="insight-title"><span>자동 경기 판독실</span><span class="insight-pill">설명 가능한 데이터 분석</span></div><p class="insight-subtitle">현재 조회된 경기의 상태·점수·출처·확률 데이터만 자동 점검합니다. 영상 판독(VAR), 선수 추적 또는 생성형 AI의 독립적인 실시간 판독은 아닙니다.</p><div class="insight-grid"><div class="insight-card"><small>조회 경기</small><strong>'+total+'</strong><p>진행 '+live.length+' · 종료 '+finished.length+'</p></div><div class="insight-card"><small>출처 기록률</small><strong>'+sourcePct+'%</strong><p>'+withSource.length+'/'+total+'경기에 출처 필드 있음 · 정확도와 다름</p></div><div class="insight-card"><small>필수 항목 완성률</small><strong>'+completeness+'%</strong><p>팀·대회·상태·출처 필드 기준</p></div><div class="insight-card"><small>표시 가능한 확률</small><strong>'+visibleProb.length+'</strong><p>'+esc(withheld.length+'경기는 표본 부족으로 수치 표시 보류')+'</p></div><div class="insight-card"><small>과거 예측 검증</small><strong>'+(backtest.n>=20?'Brier '+backtest.brier.toFixed(3):backtest.n+'/20')+'</strong><p>'+(backtest.n>=20?'누적 예측 검증 표본 · 낮은 Brier가 더 좋음':'이 브라우저에 저장된 종료 예측을 축적 중 · '+backtest.n+'건')+'</p></div><div class="insight-card"><small>국제·국가 미확정</small><strong>'+unresolved.length+'</strong><p>국가를 확정할 근거가 없으면 임의로 국가를 단정하지 않음</p></div><div class="insight-card"><small>진행 경기 점수 누락</small><strong>'+missingLiveScore.length+'</strong><p>진행 중 경기에서 숫자 점수가 확인되지 않음</p></div><div class="insight-card"><small>시간 미정</small><strong>'+missingTime.length+'</strong><p>공개 일정에 경기 시간이 없거나 식별되지 않음</p></div><div class="insight-card"><small>자동 점검 항목</small><strong>'+issueCount+'</strong><p>누락·예정 점수·중복 의심 합계</p></div></div><div class="insight-note '+(issueCount?'warn':'')+'"><b>해석 주의</b><br>이 패널은 데이터 누락과 이상 징후를 찾는 규칙 기반 점검입니다. 신뢰도 점수나 경기 예측 정확도를 임의로 만들어 표시하지 않습니다. '+(withheld.length?'표본이 부족한 자체 승률은 표시를 보류했습니다. ':'')+'부상·확정 선발·라인업·날씨·배당 변동은 검증된 데이터 피드가 연결되지 않으면 예측에 반영되지 않습니다.</div>'+diagnostics+alertMarkup;
 }
 function sourceUrl(source){
  const s=String(source||'');
