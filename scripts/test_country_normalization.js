@@ -87,7 +87,7 @@ assert.ok(!/connect-src https:(;|$)/.test(csp), 'CSP connect-src must not allow 
 assert.ok(csp.includes("img-src 'self' data: https://flagcdn.com"), 'CSP should restrict flag images to the flag provider');
 
 const probabilityHelpers = section('function canShowProbability(g){', 'function probabilityDetails(g){');
-const probabilityApi = new Function(probabilityHelpers + '\\nreturn {canShowProbability};')();
+const probabilityApi = new Function(probabilityHelpers + '\nreturn {canShowProbability};')();
 assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: false}), true);
 assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: true, probabilityConfidence: 'low', modelDetails: {historyGames: 6, homeStats: {played: 2}, awayStats: {played: 4}}}), true);
 assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: true, probabilityConfidence: 'low', modelDetails: {historyGames: 5, homeStats: {played: 2}, awayStats: {played: 3}}}), false);
