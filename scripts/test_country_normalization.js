@@ -117,7 +117,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-pwa-countryfix-18'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-stability-19'), 'country normalization update must bust stale browser caches');
 assert.ok(html.includes('rel="manifest" href="./manifest.webmanifest"'), 'PWA manifest must be linked from the page');
 assert.equal(manifest.lang, 'ko-KR');
 assert.equal(manifest.start_url, './');
