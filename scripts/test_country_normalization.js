@@ -38,6 +38,10 @@ const countryForLeague = section('function countryForLeague(', 'function flagHtm
 const api = new Function(countryFromName + '\n' + countryForLeague + '\n' + normalizer + '\nreturn {countryFromName, normalizeCountryInfo};')();
 
 assert.equal(api.countryFromName('Country Confirmation Needed').name, '국제/기타');
+assert.equal(api.countryFromName('CountryConfirmationNeeded').name, '국제/기타');
+assert.equal(api.countryFromName('CountryIdentificationNeeded').name, '국제/기타');
+assert.equal(api.countryFromName('CountryCheckRequired').name, '국제/기타');
+assert.equal(api.normalizeCountryInfo({name: 'CountryConfirmationNeeded', code: ''}, 'Unknown League').name, '국제/기타');
 assert.equal(api.countryFromName('  COUNTRY   CONFIRMATION NEEDED — upstream feed ').name, '국제/기타');
 assert.equal(api.countryFromName('country-check-required: provider label').name, '국제/기타');
 assert.equal(api.countryFromName('CountryIdentificationNeeded').name, '국제/기타');
@@ -70,7 +74,7 @@ assert.equal(api.normalizeCountryInfo({name: '국가   확인 필요 — 제공�
 assert.equal(api.normalizeCountryInfo({name: '  Unknown Country  ', code: 'USA'}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: '국가 확인', code: ''}, 'K League 1').code, 'KOR');
 assert.ok(html.includes('id="connectionBadge"'), 'live connection status badge must be present');
-assert.ok(app.includes('데이터 확인 완료 · 90초 자동 확인'), 'successful data refresh should be visible');
+assert.ok(app.includes('초 자동 확인') && app.includes("cb.textContent='데이터 확인 완료 · '+(sport!=='all'&&games.some(isLiveGame)?'30':'90')+'초 자동 확인'"), 'successful data refresh should show the active polling interval');
 assert.ok(app.includes("refreshInterval=selectedSport!=='all'&&hasLiveMatch?30000:90000"), 'specific-sport live matches should refresh more frequently without increasing all-sports provider load');
 assert.ok(html.includes('id="scoreAlerts"'), 'score alert opt-in control must be present');
 assert.ok(app.includes('function toggleScoreAlerts(') && app.includes('function notifyScoreChanges('), 'score notifications must be opt-in and driven by observed score changes');
