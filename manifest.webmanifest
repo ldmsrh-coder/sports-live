@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "스포츠 라이브 경기 센터",
+  "short_name": "스포츠 라이브",
+  "description": "한국어 스포츠 일정, 실시간 점수, 경기 데이터 품질 분석",
+  "lang": "ko-KR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7f7f7",
+  "theme_color": "#c2d1de",
+  "categories": ["sports", "news"],
+  "icons": [
+    { "src": "./icons/sports-live.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
