@@ -95,5 +95,8 @@ assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, prob
 assert.ok(app.includes('function localPredictionBacktest('), 'local historical prediction validation must be present');
 assert.ok(app.includes('초기 참고용 추정'), 'low-sample estimates must be labelled as provisional');
 assert.ok(app.includes('scoredAverage'), 'team scoring averages should be available to explain estimates');
+assert.ok(app.includes('venueDiff'), 'home/away performance should contribute to estimates');
+assert.ok(app.includes('restDiff'), 'rest-day difference should contribute to estimates');
+assert.ok(app.includes('function localPredictionBacktest('), 'historical predictions should be evaluated against final results');
 
 console.log('Country normalization, live analysis, score-change detection and CSP tests passed.');
