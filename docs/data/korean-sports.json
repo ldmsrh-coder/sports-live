@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T19:51:41+09:00",
+  "updatedAt": "2026-10-23T00:26:38+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2072,9 +2072,9 @@
       "time": "19:00",
       "home": "울산 현대모비스 피버스",
       "away": "창원 LG 세이커스",
-      "homeScore": "45",
-      "awayScore": "51",
-      "status": "진행 중",
+      "homeScore": "83",
+      "awayScore": "88",
+      "status": "종료",
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
