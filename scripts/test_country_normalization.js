@@ -114,6 +114,17 @@ for (const host of [
 assert.ok(!/connect-src https:(;|$)/.test(csp), 'CSP connect-src must not allow every HTTPS host');
 assert.ok(csp.includes("img-src 'self' data: https://flagcdn.com"), 'CSP should restrict flag images to the flag provider');
 
+const countdownHelpers = section('function kickoffTimestamp(g){', 'function formatTime(');
+const countdownApi = new Function('isLiveGame', 'isFinishedGame', countdownHelpers + '\\nreturn {kickoffTimestamp, kickoffCountdownText};')(
+  g => /진행|live|half/i.test(String(g.status || '')) && !/종료/.test(String(g.status || '')),
+  g => /종료|finished|final/.test(String(g.status || ''))
+);
+assert.ok(countdownApi.kickoffTimestamp({date: '2099-01-01', time: '12:00', status: '예정'}) > Date.now(), 'future scheduled matches should have a countdown');
+assert.equal(countdownApi.kickoffTimestamp({date: '2099-01-01', time: '12:00', status: '취소'}), 0, 'cancelled matches must not show a kickoff countdown');
+assert.equal(countdownApi.kickoffCountdownText(3600000, 0), '시작까지 1시간 0분');
+assert.equal(countdownApi.kickoffCountdownText(60000, 0), '시작까지 1분');
+assert.ok(app.includes('function updateKickoffCountdowns(') && app.includes('data-kickoff'), 'kickoff countdowns should update without repeated network requests');
+
 const probabilityHelpers = section('function canShowProbability(g){', 'function probabilityDetails(g){');
 const probabilityApi = new Function(probabilityHelpers + '\nreturn {canShowProbability};')();
 assert.equal(probabilityApi.canShowProbability({homeProb: 60, awayProb: 40, probabilityIsEstimate: false}), true);
