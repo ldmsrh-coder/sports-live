@@ -35,7 +35,7 @@ assert.ok(app.includes('target="_blank" rel="noopener noreferrer"'), 'source lin
 const countryFromName = section('function countryFromName(value){', 'function normalizeCountryInfo(');
 const normalizer = section('function normalizeCountryInfo(', 'function countryForLeague(');
 const countryForLeague = section('function countryForLeague(', 'function flagHtml(');
-const api = new Function(countryFromName + '\n' + countryForLeague + '\n' + normalizer + '\nreturn {countryFromName, normalizeCountryInfo};')();
+const api = new Function(countryFromName + '\n' + countryForLeague + '\n' + normalizer + '\nreturn {countryFromName, normalizeCountryInfo, countryForLeague};')();
 
 assert.equal(api.countryFromName('Country Confirmation Needed').name, '국가 미확인');
 assert.equal(api.countryFromName('CountryConfirmationNeeded').name, '국가 미확인');
@@ -49,6 +49,12 @@ assert.equal(api.countryFromName('국가 확인 필요\u200B — 제공처').nam
 assert.equal(api.countryFromName('Country_Check_Required').name, '국가 미확인');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
+assert.equal(api.countryForLeague('Romania Liga I').code, 'ROU');
+assert.equal(api.countryForLeague('United Arab Emirates Pro League').code, 'UAE');
+assert.equal(api.countryForLeague('Finland Veikkausliiga').code, 'FIN');
+assert.equal(api.countryForLeague('Serie A AS Roma').code, 'ITA');
+assert.equal(api.countryForLeague('Mystery Tournament').code, 'UNK');
+
 assert.equal(api.countryFromName('United Arab Emirates').code, 'UAE');
 assert.equal(api.countryFromName('ROU').name, '루마니아');
 assert.equal(api.countryFromName('Finland').code, 'FIN');
@@ -58,7 +64,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-country-audit-4'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-country-audit-5'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
