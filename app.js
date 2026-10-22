@@ -139,10 +139,12 @@ function normalizeCountryInfo(value,league='',home='',away=''){
  const isPlaceholder=v=>{const n=String(v??'').normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g,'').trim().toLowerCase().replace(/[._-]+/g,' ').replace(/[—–]/g,' ').replace(/\s+/g,' ').trim(),compact=n.replace(/[^a-z0-9가-힣]/g,'');if(/^(?:country)?(?:confirmation|check|verification|identification|classification)(?:needed|required|pending|missing|unavailable)?$/.test(compact)||/^needs?country(?:confirmation|check|verification)(?:needed|required|pending)?$/.test(compact)||/^(?:country\s*)?(?:confirmation|check|verification|identification|classification)\s*(?:needed|required|pending|missing|unavailable)?(?:\s+upstream feed)?$/.test(n)||(/country/.test(n)&&/(confirm|check|verif|unknown|tbd|pending|unavailable|required|needed|missing|identify|not set)/i.test(n))||(/국가/.test(n)&&/(필요|미확인|미분류|확인|검증|식별|미설정)/.test(n)))return true;return !n||['unknown','unk','tbd','pending','n/a','na','not available','not found','country','country unknown','unknown country','unknown region','country not set','country missing','unidentified country','country confirmation needed','country confirmation required','country check needed','country check required','country verification needed','country verification required','needs country confirmation','needs country check','needs country verification','국가 확인 필요','국가확인필요','국가 확인','국가 미확인','국가미확인','국가 미분류','국가미분류','미확인','미분류','확인필요','확인 필요'].includes(n)||(/country/.test(n)&&/(confirm|check|verif|unknown|tbd|pending|unavailable|required|needed|missing|identify|not set)/i.test(n))||(/국가/.test(n)&&/(필요|미확인|미분류|확인|검증|식별|미설정)/.test(n))};
  if(isPlaceholder(rawName))rawName='';if(isPlaceholder(rawCode))rawCode='';
  const byName=countryFromName(rawName),byCode=countryFromName(rawCode);
- const direct=byName&&byName.code!=='INT'?byName:byCode&&byCode.code!=='INT'?byCode:(byName||byCode);
- if(direct&&direct.code!=='INT')return direct;
+ const known=c=>c&&!['INT','UNK'].includes(String(c.code||'').toUpperCase());
+ const direct=known(byName)?byName:known(byCode)?byCode:(byName||byCode);
+ if(known(direct))return direct;
  const inferred=countryForLeague(league,home,away);
- if(inferred&&inferred.code!=='INT')return inferred;
+ if(inferred&&inferred.code!=='UNK'&&inferred.code!=='INT')return inferred;
+ if(inferred?.code==='INT'||byName?.code==='INT'||byCode?.code==='INT')return {name:'국제 대회',flag:'🌐',code:'INT'};
  return {name:'국가 미확인',flag:'❔',code:'UNK'};
 }
 function countryForLeague(league,home='',away=''){
