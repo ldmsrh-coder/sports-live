@@ -36,6 +36,30 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_*.py'
       - name: Collect current-month Korean sports schedules
         run: python scripts/update_korean_sports.py
+      - name: Validate site JavaScript and sports snapshot
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = __import__("re").findall(r"<script>([\\s\\S]*?)</script>", html)
+          if not scripts:
+              raise SystemExit("No inline application script found")
+          Path("/tmp/sports-live.js").write_text("\\n".join(scripts), encoding="utf-8")
+          payload = json.loads(Path("data/korean-sports.json").read_text(encoding="utf-8"))
+          games = payload.get("games")
+          if not isinstance(games, list) or not games:
+              raise SystemExit("Sports snapshot is empty or malformed")
+          required = ("date", "home", "away", "league", "sport", "status", "source")
+          for index, game in enumerate(games):
+              missing = [key for key in required if not str(game.get(key, "")).strip()]
+              if missing:
+                  raise SystemExit(f"Game {index} missing fields: {missing}")
+              if game["home"] == game["away"]:
+                  raise SystemExit(f"Game {index} has identical home and away teams")
+          print(f"Validated {len(games)} sports records; snapshot updatedAt={payload.get('updatedAt')}")
+          PY
+          node --check /tmp/sports-live.js
       - name: Publish changed snapshot
         run: |
           git config user.name "github-actions[bot]"
