@@ -115,7 +115,7 @@ assert.ok(!/connect-src https:(;|$)/.test(csp), 'CSP connect-src must not allow 
 assert.ok(csp.includes("img-src 'self' data: https://flagcdn.com"), 'CSP should restrict flag images to the flag provider');
 
 const countdownHelpers = section('function kickoffTimestamp(g){', 'function formatTime(');
-const countdownApi = new Function('isLiveGame', 'isFinishedGame', countdownHelpers + '\\nreturn {kickoffTimestamp, kickoffCountdownText};')(
+const countdownApi = new Function('isLiveGame', 'isFinishedGame', countdownHelpers + '\nreturn {kickoffTimestamp, kickoffCountdownText};')(
   g => /진행|live|half/i.test(String(g.status || '')) && !/종료/.test(String(g.status || '')),
   g => /종료|finished|final/.test(String(g.status || ''))
 );
