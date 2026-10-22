@@ -13,7 +13,7 @@ function section(startMarker, endMarker) {
   return html.slice(start, end);
 }
 
-const labelHelpers = section('function koreanizeCommonLabel(value){', 'function countryFromName(value){');
+const labelHelpers = section('function koreanizeCommonLabel(value){', 'function formatTime(');
 const labelsApi = new Function(labelHelpers + '\nreturn {koreanizeCommonLabel, ko};')();
 assert.equal(labelsApi.ko('Country Confirmation Needed'), '국제/기타');
 assert.equal(labelsApi.ko('Country_Check_Required'), '국제/기타');
