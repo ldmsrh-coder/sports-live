@@ -625,3 +625,13 @@ document.addEventListener('keydown',function(event){
  if(event.key.toLowerCase()==='r'){event.preventDefault();if(!loading)load();return}
  if(event.key.toLowerCase()==='l'){event.preventDefault();const f=$('statusFilter');if(f){f.value=f.value==='live'?'all':'live';render()}}
 });
+
+
+/* Progressive web app: cache only same-origin app shell/data, never third-party API responses. */
+(function registerSportsLivePWA(){
+ if(!('serviceWorker' in navigator)||!/^https?:$/.test(location.protocol))return;
+ const key='sports-live:service-worker-registered';
+ navigator.serviceWorker.register(new URL('./sw.js',document.baseURI),{scope:new URL('./',document.baseURI).pathname})
+  .then(()=>{try{sessionStorage.setItem(key,'1')}catch(_){}})
+  .catch(()=>{ /* PWA support is optional; the live site continues normally if registration is blocked. */ });
+})();
