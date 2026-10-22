@@ -382,3 +382,18 @@ $('sport').value=['all','football','basketball','tennis','cricket','baseball','h
 $('scoreAlerts').addEventListener('click',toggleScoreAlerts);refreshScoreAlertButton();$('shareView').addEventListener('click',shareCurrentView);$('exportCsv').addEventListener('click',exportVisibleCsv);$('exportCalendar').addEventListener('click',exportCalendarIcs);$('load').addEventListener('click',load);$('sport').addEventListener('change',load);$('q').addEventListener('input',render);$('statusFilter').addEventListener('change',render);renderRequestAudit();load();setInterval(()=>{if(document.hidden)return;updateKickoffCountdowns();if(selectedDate!==localDate||loading)return;const selectedSport=$('sport')?.value||'all';const hasLiveMatch=allGames.some(isLiveGame);const refreshInterval=selectedSport!=='all'&&hasLiveMatch?30000:90000;if(Date.now()-lastAutoRefreshAt>=refreshInterval){lastAutoRefreshAt=Date.now();load()}},10000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&selectedDate===localDate&&!loading)load()});window.addEventListener('online',()=>{if(selectedDate===localDate&&!loading)load()});window.addEventListener('offline',()=>{const n=$('notice');if(n){n.classList.add('error');n.textContent='인터넷 연결이 끊어졌습니다. 연결이 복구되면 경기 정보를 다시 확인합니다.'}const cb=$('connectionBadge');if(cb){cb.textContent='오프라인';cb.title='인터넷 연결을 확인하세요';cb.classList.add('error')}});window.addEventListener('online',()=>{const cb=$('connectionBadge');if(cb){cb.textContent='연결 복구 · 조회 중';cb.classList.remove('error')}});
 
 document.addEventListener('error',function(e){const img=e.target;if(img&&img.tagName==='IMG'&&img.classList.contains('flag-img')){img.style.display='none';const fallback=img.nextElementSibling;if(fallback)fallback.style.display='inline'}},true);
+
+
+/* Keyboard shortcuts, disabled while the user is typing in a form control. */
+document.addEventListener('keydown',function(event){
+ if(event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey)return;
+ const target=event.target,tag=String(target&&target.tagName||'').toUpperCase(),editing=['INPUT','TEXTAREA','SELECT'].includes(tag)||Boolean(target&&target.isContentEditable);
+ if(event.key==='Escape'){
+  if(tag==='INPUT'&&target.id==='q'&&target.value){target.value='';render();event.preventDefault()}
+  return
+ }
+ if(editing)return;
+ if(event.key==='/'){event.preventDefault();const q=$('q');if(q){q.focus();q.select()}return}
+ if(event.key.toLowerCase()==='r'){event.preventDefault();if(!loading)load();return}
+ if(event.key.toLowerCase()==='l'){event.preventDefault();const f=$('statusFilter');if(f){f.value=f.value==='live'?'all':'live';render()}}
+});
