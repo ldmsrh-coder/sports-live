@@ -1,5 +1,9 @@
 
 const $=id=>document.getElementById(id);
+const THEME_PREF='sports-live:theme';
+function setTheme(mode){const dark=mode==='dark';document.body.classList.toggle('dark-mode',dark);const b=$('themeToggle');if(b){b.setAttribute('aria-pressed',String(dark));b.textContent=dark?'☀️ 밝은 화면':'🌙 어두운 화면';b.title=dark?'밝은 화면으로 전환':'어두운 화면으로 전환'}}
+function initTheme(){let mode='light';try{mode=localStorage.getItem(THEME_PREF)==='dark'?'dark':'light'}catch(e){}setTheme(mode);const b=$('themeToggle');if(b)b.addEventListener('click',()=>{const next=document.body.classList.contains('dark-mode')?'light':'dark';setTheme(next);try{localStorage.setItem(THEME_PREF,next)}catch(e){const n=$('notice');if(n)n.textContent='화면 모드는 바뀌었지만 브라우저 설정 저장은 허용되지 않았습니다.'}})}
+initTheme();
 const now=new Date(), localDate=(()=>{const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now),v=Object.fromEntries(p.map(x=>[x.type,x.value]));return v.year+"-"+v.month+"-"+v.day})();
 const initialParams=new URLSearchParams(window.location.search),requestedDate=initialParams.get("date");
 let selectedDate=/^\d{4}-\d{2}-\d{2}$/.test(requestedDate||"")?requestedDate:localDate, allGames=[], calendarMonth=new Date(Number(selectedDate.slice(0,4)),Number(selectedDate.slice(5,7))-1,1), loading=false,pendingLoad=false;
