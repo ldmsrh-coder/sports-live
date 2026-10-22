@@ -11,6 +11,7 @@ on:
       - "scripts/test_update_korean_sports.py"
       - "scripts/test_country_normalization.js"
       - "index.html"
+      - "app.js"
       - ".github/workflows/update-korean-sports.yml"
 
 permissions:

@@ -202,7 +202,7 @@ function renderInsightPanel(games){
  const suspiciousScheduled=list.filter(g=>!isLiveGame(g)&&!isFinishedGame(g)&&scoreNum(g.hs??g.homeScore)&&scoreNum(g.as??g.awayScore));
  const keyOf=g=>[g.sportCategory||g.sport||'',g.league||'',g.home||'',g.away||'',String(g.time||'').match(/\b\d{1,2}:\d{2}\b/)?.[0]||''].map(v=>String(v).toLocaleLowerCase().replace(/[^\p{L}\p{N}:]/gu,'')).join('|');
  const seen=new Set();let duplicateCount=0;for(const g of list){const k=keyOf(g);if(seen.has(k))duplicateCount++;else seen.add(k)}
- const officialSource=g=>/공식|KBO|KOVO|WKBL|KBL|KFA|K리그|대한축구협회|대한핸드볼협회/i.test(String(g.source||''));
+ const officialSource=g=>!/(공개.*데이터|SportScore|ESPN|저장|캐시|cache)/i.test(String(g.source||''))&&/공식|KBO|KOVO|WKBL|KBL|KFA|K리그|대한축구협회|대한핸드볼협회/i.test(String(g.source||''));
  const providerSource=g=>/ESPN|SportScore/i.test(String(g.source||''));
  const officialCount=list.filter(officialSource).length,providerCount=list.filter(g=>!officialSource(g)&&providerSource(g)).length,cachedCount=list.filter(g=>/저장|캐시|cache/i.test(String(g.source||''))).length;
  const pct=(n,d)=>d?Math.round(n/d*100):0,sourcePct=pct(withSource.length,total);
