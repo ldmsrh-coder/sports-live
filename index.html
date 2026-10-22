@@ -75,7 +75,7 @@ function formatTime(s){if(!s||s==='시간 미정'||/^(tbd|unknown|to be determin
 function drawCalendar(){const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();$('monthLabel').textContent=y+'. '+String(m+1).padStart(2,'0');$('todayLabel').textContent=new Intl.DateTimeFormat('ko-KR',{dateStyle:'medium',timeZone:'Asia/Seoul'}).format(now);$('selectedDateLabel').textContent=displayDate(selectedDate);$('stat-date').textContent=selectedDate===localDate?'오늘':displayDate(selectedDate);const names=['일','월','화','수','목','금','토'];let html=names.map(n=>'<div class="dow">'+n+'</div>').join('');for(let i=0;i<first;i++)html+='<div class="day blank"></div>';for(let d=1;d<=days;d++){const iso=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');html+='<button type="button" class="day'+(iso===selectedDate?' selected':'')+(iso===localDate?' today':'')+'" data-date="'+iso+'">'+d+'</button>'}$('calgrid').innerHTML=html;$('calgrid').querySelectorAll('[data-date]').forEach(b=>b.addEventListener('click',()=>{selectedDate=b.dataset.date;drawCalendar();load()}))}
 $('prevMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()-1,1);drawCalendar()});$('nextMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+1,1);drawCalendar()});drawCalendar();
 function countryForLeague(league,home='',away=''){
-const s=[league,home,away].map(v=>String(v||'').toLowerCase()).join(' ');
+const leagueText=String(league||'').toLowerCase();const s=[league,home,away].map(v=>String(v||'').toLowerCase()).join(' ');
 const rules=[
 [/k league|kbo|kbl|wkbl|v-league|korea|대한민국|한국|kor\.k[134]|kor\.1|kor\.2|korean baseball|korean basketball/,{name:'대한민국',flag:'🇰🇷',code:'KOR'}],
 [/premier league|fa cup|england|english|잉글랜드|프리미어리그|championship|league one|league two|national league|manchester united|manchester city|liverpool|arsenal|chelsea|tottenham|newcastle united|west ham|aston villa|everton|nottingham forest|brighton|brentford|fulham|crystal palace|wolves|sunderland|leeds united/,{name:'잉글랜드',flag:'🏴',code:'ENG'}],
@@ -102,7 +102,7 @@ const rules=[
 [/denmark|danish|덴마크|den\.|norway|norwegian|노르웨이|nor\.|sweden|swedish|스웨덴|swe\.|switzerland|swiss|스위스|sui\.|greece|greek|그리스|gre\.|poland|polish|폴란드|pol\.|austria|오스트리아|aut\.|czech|체코|croatia|크로아티아|colombia|콜롬비아|chile|칠레|uruguay|우루과이|ecuador|에콰도르|peru|페루|paraguay|파라과이/,{name:'기타 국가',flag:'🌍',code:'INT'}],
 [/fifa|world cup|international|친선경기|월드컵|올림픽|국가대표|nations league|continental championship/,{name:'국제 대회',flag:'🌐',code:'INT'}]
 ];
-for(const [pattern,country] of rules){if(pattern.test(s))return country}
+for(const [pattern,country] of rules){if(pattern.test(leagueText))return country}for(const [pattern,country] of rules){if(pattern.test(s))return country}
 return {name:'국제/기타',flag:'🌐',code:'INT'}
 }
 function flagHtml(country){const iso={KOR:'kr',ENG:'gb',ESP:'es',ITA:'it',GER:'de',FRA:'fr',USA:'us',MEX:'mx',ARG:'ar',EUR:'eu',JPN:'jp',AUS:'au',SCO:'gb',KSA:'sa',BRA:'br',NED:'nl',POR:'pt',TUR:'tr',NAM:'ca'}[country?.code];const emoji=esc(country?.flag||'🌐');return iso?'<span class="flag-wrap"><img class="flag-img" src="https://flagcdn.com/24x18/'+iso+'.png" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><span class="flag-fallback" style="display:none">'+emoji+'</span></span>':'<span class="flag-fallback">'+emoji+'</span>'}
