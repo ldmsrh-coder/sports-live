@@ -121,6 +121,13 @@ assert.ok(app.includes('function localPredictionBacktest('), 'historical predict
 assert.ok(workflow.includes('for attempt in 1 2 3; do') && workflow.includes('git rebase origin/main') && workflow.includes('git push origin HEAD:main'), 'snapshot publish retries concurrent updates');
 assert.ok(html.includes('id="requestAudit"'), 'visible live request audit panel must be present');
 assert.ok(app.includes('Transparent request audit:'), 'real fetch requests must be instrumented');
+const privateNotes = section('/* Private per-browser match notes:', 'function esc(v){');
+assert.ok(privateNotes.includes("localStorage.setItem(MATCH_NOTES_KEY"), 'match notes must be stored locally');
+assert.ok(privateNotes.includes("slice(0,1000)"), 'match notes must be length-limited');
+assert.ok(privateNotes.includes("Object.entries(raw).slice(-500)"), 'loaded notes must be capped');
+assert.ok(privateNotes.includes("replace(/[\\\\u0000-\\\\u0008\\\\u000B\\\\u000C\\\\u000E-\\\\u001F]/g,'' )") || privateNotes.includes("replace(/[\\\\u0000-\\\\u0008\\\\u000B\\\\u000C\\\\u000E-\\\\u001F]/g,'')"), 'control characters must be removed from notes');
+assert.ok(!/\\bfetch\\s*\\(/i.test(privateNotes) && !/XMLHttpRequest/i.test(privateNotes), 'private notes must not be sent to a server');
+
 assert.ok(app.includes("'HTTP '+response.status"), 'HTTP response status should be visible in the live request monitor');
 assert.ok(app.includes('requestAuditLog.failed++'), 'failed requests must be counted instead of hiding errors');
 assert.ok(app.includes("Date.now()-entry.startedAt") && app.includes('최근 요청 실패'), 'request monitor should show latency and the latest request failure');
