@@ -74,7 +74,7 @@ assert.equal(api.countryFromName('Finland').code, 'FIN');
 assert.equal(api.countryFromName('Taiwan').code, 'TPE');
 assert.equal(api.countryFromName('홍콩').code, 'HKG');
 const historyHelpers = section('function historicalSportKey(g){', 'async function applyCachedHistoryModel(');
-const historyApi = new Function(historyHelpers + '\nreturn {historicalSportKey,historicalMatchKey};')();
+const historyApi = new Function(historyHelpers + '\nreturn {historicalSportKey,historicalMatchKey,historicalDuplicateIndex};')();
 assert.equal(historyApi.historicalSportKey({sport:'soccer'}), 'football');
 assert.equal(historyApi.historicalSportKey({sport:'americanfootball'}), 'americanfootball');
 assert.equal(historyApi.historicalSportKey({sportCategory:'football',leagueKey:'nfl.1'}), 'americanfootball');
