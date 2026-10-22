@@ -74,7 +74,7 @@ assert.equal(api.countryFromName('Finland').code, 'FIN');
 assert.equal(api.countryFromName('Taiwan').code, 'TPE');
 assert.equal(api.countryFromName('홍콩').code, 'HKG');
 const historyHelpers = section('function historicalSportKey(g){', 'async function applyCachedHistoryModel(');
-const historyApi = new Function(historyHelpers + '\\nreturn {historicalSportKey,historicalMatchKey};')();
+const historyApi = new Function(historyHelpers + '\nreturn {historicalSportKey,historicalMatchKey};')();
 assert.equal(historyApi.historicalSportKey({sport:'soccer'}), 'football');
 assert.equal(historyApi.historicalSportKey({sport:'americanfootball'}), 'americanfootball');
 assert.equal(historyApi.historicalSportKey({sportCategory:'football',leagueKey:'nfl.1'}), 'americanfootball');
@@ -99,7 +99,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-country-audit-9'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-model-history-dedupe-11'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
