@@ -60,6 +60,10 @@ assert.equal(api.normalizeCountryInfo({name: 'Country_Check_Required', code: 'RE
 assert.equal(api.normalizeCountryInfo({name: 'country check required', code: 'UNKNOWN'}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code: ''}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: 'Country not set', code: ''}, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: '  COUNTRY   CONFIRMATION NEEDED — upstream feed ', code: ''}, 'Unknown League').name, '국제/기타');
+assert.equal(api.normalizeCountryInfo({country: {name: 'Country Check Required', code: 'KOR'}}, 'Unknown League').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: '국가   확인 필요 — 제공처', code: ''}, 'Unknown League').name, '국제/기타');
+assert.equal(api.normalizeCountryInfo({name: '  Unknown Country  ', code: 'USA'}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: '국가 확인', code: ''}, 'K League 1').code, 'KOR');
 assert.ok(html.includes('id="connectionBadge"'), 'live connection status badge must be present');
 assert.ok(app.includes('데이터 확인 완료 · 90초 자동 확인'), 'successful data refresh should be visible');
