@@ -76,7 +76,7 @@ const flagHelper = section('function flagHtml(country){', 'function competitionL
 const flagApi = new Function('esc', flagHelper + '\nreturn {flagHtml};')(value => String(value));
 assert.ok(flagApi.flagHtml({code: 'ROU', flag: '🇷🇴'}).includes('flagcdn.com/24x18/ro.png'));
 assert.ok(flagApi.flagHtml({code: 'UAE', flag: '🇦🇪'}).includes('flagcdn.com/24x18/ae.png'));
-assert.ok(html.includes('app.js?v=20261022-country-audit-7'), 'country normalization update must bust stale browser caches');
+assert.ok(html.includes('app.js?v=20261022-country-audit-8'), 'country normalization update must bust stale browser caches');
 
 assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국가 미확인');
 assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국가 미확인');
