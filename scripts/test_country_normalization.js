@@ -125,7 +125,7 @@ const privateNotes = section('/* Private per-browser match notes:', 'function es
 assert.ok(privateNotes.includes("localStorage.setItem(MATCH_NOTES_KEY"), 'match notes must be stored locally');
 assert.ok(privateNotes.includes("slice(0,1000)"), 'match notes must be length-limited');
 assert.ok(privateNotes.includes("Object.entries(raw).slice(-500)"), 'loaded notes must be capped');
-assert.ok(privateNotes.includes("replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/g,'')"), 'control characters must be removed from notes');
+assert.ok(privateNotes.includes("replace(/[\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]/g,'')") || privateNotes.includes("replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/g,'')"), 'control characters must be removed from notes');
 assert.ok(!/\bfetch\s*\(/i.test(privateNotes) && !/XMLHttpRequest/i.test(privateNotes), 'private notes must not be sent to a server');
 
 assert.ok(app.includes("'HTTP '+response.status"), 'HTTP response status should be visible in the live request monitor');
