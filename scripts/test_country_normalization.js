@@ -111,6 +111,8 @@ assert.ok(html.includes('id="requestAudit"'), 'visible live request audit panel 
 assert.ok(app.includes('Transparent request audit:'), 'real fetch requests must be instrumented');
 assert.ok(app.includes("'HTTP '+response.status"), 'HTTP response status should be visible in the live request monitor');
 assert.ok(app.includes('requestAuditLog.failed++'), 'failed requests must be counted instead of hiding errors');
+assert.ok(app.includes('pending:0') && app.includes('requestAuditLog.pending=Math.max(0,requestAuditLog.pending-1)'), 'pending requests are counted independently of the shortened visible log');
+assert.ok(app.includes("['sport','date','dates','competition','league','limit','q']"), 'request monitor should only show an allowlist of harmless query fields');
 assert.ok(html.includes('HTTP 성공은 데이터의 정확성'), 'request monitor must not imply HTTP success guarantees data accuracy');
 
 console.log('Country normalization, live analysis, request audit, score-change detection and CSP tests passed.');
