@@ -119,8 +119,9 @@ const countdownApi = new Function('isLiveGame', 'isFinishedGame', countdownHelpe
   g => /진행|live|half/i.test(String(g.status || '')) && !/종료/.test(String(g.status || '')),
   g => /종료|finished|final/.test(String(g.status || ''))
 );
-assert.ok(countdownApi.kickoffTimestamp({date: '2099-01-01', time: '12:00', status: '예정'}) > Date.now(), 'future scheduled matches should have a countdown');
-assert.equal(countdownApi.kickoffTimestamp({date: '2099-01-01', time: '12:00', status: '취소'}), 0, 'cancelled matches must not show a kickoff countdown');
+const futureDay = new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10);
+assert.ok(countdownApi.kickoffTimestamp({date: futureDay, time: '12:00', status: '예정'}) > Date.now(), 'near-future scheduled matches should have a countdown');
+assert.equal(countdownApi.kickoffTimestamp({date: futureDay, time: '12:00', status: '취소'}), 0, 'cancelled matches must not show a kickoff countdown');
 assert.equal(countdownApi.kickoffCountdownText(3600000, 0), '시작까지 1시간 0분');
 assert.equal(countdownApi.kickoffCountdownText(60000, 0), '시작까지 1분');
 assert.ok(app.includes('function updateKickoffCountdowns(') && app.includes('data-kickoff'), 'kickoff countdowns should update without repeated network requests');
