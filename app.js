@@ -339,6 +339,9 @@ function historicalMatchKey(g,sport,day,home,away,hs,as,norm){
  const time=match?String(Number(match[1])).padStart(2,'0')+':'+match[2]:'';
  return [sport,day,norm(home),norm(away),time,String(hs),String(as)].join('|');
 }
+function historicalDuplicateIndex(existing,currentTime){
+ return (Array.isArray(existing)?existing:[]).findIndex(item=>!item.time||!currentTime||item.time===currentTime);
+}
 async function applyCachedHistoryModel(games,date){
   const norm=v=>String(v||'').toLocaleLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]/gu,'');
 
@@ -348,8 +351,8 @@ async function applyCachedHistoryModel(games,date){
   const archive=[];
   try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i)||'';if(!key.startsWith('sports-live:'))continue;const parts=key.split(':'),cachedDate=parts[parts.length-1];if(!/^\d{4}-\d{2}-\d{2}$/.test(cachedDate)||cachedDate>=date)continue;const days=(Date.parse(date+'T00:00:00Z')-Date.parse(cachedDate+'T00:00:00Z'))/86400000;if(days<1||days>180)continue;try{const arr=JSON.parse(localStorage.getItem(key)||'null');if(Array.isArray(arr))archive.push(...arr.map(g=>({...g,__cachedDate:cachedDate}))) }catch(e){}}}catch(e){}
   try{const response=await fetch('./data/korean-sports.json',{cache:'no-store'});if(response.ok){const payload=await response.json();if(Array.isArray(payload?.games))archive.push(...payload.games.filter(g=>String(g.date||'')<date).map(g=>({...g,__cachedDate:String(g.date||''),hs:g.hs??g.homeScore,as:g.as??g.awayScore,status:g.status||'종료'})))}}catch(e){}
-  const grouped=new Map(),seenHistory=new Set();
-  for(const g of archive){if(!finished(g))continue;const day=dayOf(g);if(!day||day>=date)continue;const sport=historicalSportKey(g),home=norm(g.home),away=norm(g.away),hs=scoreOf(g,'h'),as=scoreOf(g,'a');if(!home||!away||home===away||hs===null||as===null)continue;const eventKey=historicalMatchKey(g,sport,day,home,away,hs,as,norm);if(seenHistory.has(eventKey))continue;seenHistory.add(eventKey);if(!grouped.has(sport))grouped.set(sport,[]);grouped.get(sport).push({day,time:String(g.time||g.rawTime||''),home,away,hs,as})}
+  const grouped=new Map(),seenHistory=new Map();
+  for(const g of archive){if(!finished(g))continue;const day=dayOf(g);if(!day||day>=date)continue;const sport=historicalSportKey(g),home=norm(g.home),away=norm(g.away),hs=scoreOf(g,'h'),as=scoreOf(g,'a');if(!home||!away||home===away||hs===null||as===null)continue;const eventKey=historicalMatchKey(g,sport,day,home,away,hs,as,norm),baseKey=[sport,day,norm(home),norm(away),String(hs),String(as)].join('|'),tm=String(g.time||g.rawTime||'').match(/([0-9]{1,2}):([0-9]{2})/),time=tm?String(Number(tm[1])).padStart(2,'0')+':'+tm[2]:'',prior=seenHistory.get(baseKey)||[],duplicateIndex=historicalDuplicateIndex(prior,time);if(duplicateIndex>=0){const duplicate=prior[duplicateIndex];if(!duplicate.time&&time){duplicate.time=time;duplicate.event.time=String(g.time||g.rawTime||'')}continue}const event={day,time:String(g.time||g.rawTime||''),home,away,hs,as};prior.push({key:eventKey,time,event});seenHistory.set(baseKey,prior);if(!grouped.has(sport))grouped.set(sport,[]);grouped.get(sport).push(event)}
   const ratings=new Map(),counts=new Map(),stats=new Map();
   const rating=(sport,team)=>ratings.get(sport+'|'+team)||1500,count=(sport,team)=>counts.get(sport+'|'+team)||0;
   const stat=(sport,team)=>{const k=sport+'|'+team;if(!stats.has(k))stats.set(k,{played:0,wins:0,draws:0,losses:0,scored:0,allowed:0,form:[],homePlayed:0,homeWins:0,awayPlayed:0,awayWins:0});return stats.get(k)};
