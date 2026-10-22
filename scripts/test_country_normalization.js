@@ -76,6 +76,9 @@ assert.equal(api.normalizeCountryInfo({name: '국가 확인', code: ''}, 'K Leag
 assert.ok(html.includes('id="connectionBadge"'), 'live connection status badge must be present');
 assert.ok(app.includes('초 자동 확인') && app.includes("cb.textContent='데이터 확인 완료 · '+(sport!=='all'&&games.some(isLiveGame)?'30':'90')+'초 자동 확인'"), 'successful data refresh should show the active polling interval');
 assert.ok(app.includes("refreshInterval=selectedSport!=='all'&&hasLiveMatch?30000:90000"), 'specific-sport live matches should refresh more frequently without increasing all-sports provider load');
+assert.ok(html.includes('id="countryFilter"'), 'country filter control must be present');
+assert.ok(app.includes('function syncCountryFilterOptions(') && app.includes("searchParams.set('country',countryFilterValue)"), 'country filtering should sync to shared links');
+assert.ok(app.includes("cf=countryFilterValue||'all'") && app.includes("activeCountry==='all'"), 'country filtering must apply to screen and export data');
 assert.ok(html.includes('id="scoreAlerts"'), 'score alert opt-in control must be present');
 assert.ok(app.includes('function toggleScoreAlerts(') && app.includes('function notifyScoreChanges('), 'score notifications must be opt-in and driven by observed score changes');
 assert.ok(app.includes('/저장된 일정|캐시|cache/i.test(String(source||\'\'))'), 'stale cached schedules must not trigger score notifications');
