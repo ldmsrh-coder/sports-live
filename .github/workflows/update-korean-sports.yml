@@ -45,15 +45,16 @@ jobs:
           import re
           from pathlib import Path
           html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script>(.*?)</script>", html, re.S)
+          scripts = re.findall(r"<script(.*?)</script>", html, re.S)
           if not scripts:
               raise SystemExit("No inline application script found")
           if '<html lang="ko">' not in html or 'id="qualitySummary"' not in html:
               raise SystemExit("Korean document language or data quality summary is missing")
-          for tag in re.findall(r"<a\\b[^>]*>", html, re.I):
-              if re.search(r'target=["\\']_blank["\\']', tag, re.I) and not re.search(r'rel=["\\'][^"\\']*noopener', tag, re.I):
+          for tag in re.findall(r"<a[^>]*>", html, re.I):
+              normalized_tag = tag.lower().replace("'", '"')
+              if 'target="_blank"' in normalized_tag and "noopener" not in normalized_tag:
                   raise SystemExit(f"Unsafe external new-window link: {tag}")
-          Path("/tmp/sports-live.js").write_text("\\n".join(scripts), encoding="utf-8")
+          Path("/tmp/sports-live.js").write_text(chr(10).join(scripts), encoding="utf-8")
           payload = json.loads(Path("data/korean-sports.json").read_text(encoding="utf-8"))
           games = payload.get("games")
           if not isinstance(games, list) or not games:
@@ -66,9 +67,10 @@ jobs:
                   raise SystemExit(f"Game {index} missing fields: {missing}")
               if game["home"] == game["away"]:
                   raise SystemExit(f"Game {index} has identical home and away teams")
-              if not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", str(game["date"])):
+              if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", str(game["date"])):
                   raise SystemExit(f"Game {index} has invalid ISO date: {game['date']}")
-              if re.search(r"국가\\s*확인\\s*필요|국가확인필요|country.*confirmation.*needed", " ".join(str(game.get(k, "")) for k in ("home", "away", "league")), re.I):
+              labels = " ".join(str(game.get(k, "")) for k in ("home", "away", "league"))
+              if re.search(r"국가 *확인 *필요|국가확인필요|country.*confirmation.*needed", labels, re.I):
                   raise SystemExit(f"Game {index} contains an unresolved country placeholder")
               key = tuple(str(game.get(k, "")) for k in ("date", "sport", "league", "home", "away", "time"))
               if key in seen:
