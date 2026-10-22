@@ -40,6 +40,8 @@ assert.equal(api.countryFromName('Country Confirmation Needed').name, '국제/�
 assert.equal(api.countryFromName('Country_Check_Required').name, '국제/기타');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국제/기타');
 assert.equal(api.countryFromName('국가확인필요').name, '국제/기타');
+assert.equal(api.countryFromName('국가 확인 필요 - upstream feed').name, '국제/기타');
+assert.equal(api.countryFromName('Country confirmation needed: provider label').name, '국제/기타');
 assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: 'USA'}, 'NBA').code, 'USA');
 assert.equal(api.normalizeCountryInfo({name: '국가확인필요', code: 'KOR'}, 'K리그').code, 'KOR');
 assert.equal(api.normalizeCountryInfo({name: 'Japan', code: 'JPN'}, 'International Friendly').code, 'JPN');
