@@ -244,7 +244,7 @@ function normalizeESPN(data,leagueKey=''){const leagueCountry=(()=>{const m={'ko
 const espnLeagues={football:['kor.1','kor.2','kor.k3','kor.k4','kor.wk','kor.national','eng.1','eng.2','eng.3','eng.4','eng.5','eng.fa','eng.league_cup','eng.trophy','eng.w.1','eng.w.fa','esp.1','esp.2','esp.copa_del_rey','esp.super_cup','esp.w.1','ita.1','ita.2','ita.coppa_italia','ger.1','ger.2','ger.dfb_pokal','fra.1','fra.2','fra.coupe_de_france','ned.1','ned.2','sco.1','sco.2','sco.3','sco.4','usa.1','usa.usl.1','usa.usl.l1','usa.nwsl','jpn.1','jpn.2','jpn.3','aus.1','por.1','por.2','bel.1','tur.1','bra.1','bra.2','arg.1','mex.1','mex.2','uefa.champions','uefa.champions_qual','uefa.europa','uefa.europa_qual','uefa.europa.conf','uefa.wchampions','uefa.euro','uefa.euroq','uefa.euro_u21','uefa.euro_u21_qual','uefa.euro.u19','uefa.nations','fifa.world','fifa.wwc','fifa.world.u20','fifa.world.u17','fifa.wworld.u17','fifa.u20.friendly','fifa.friendly_u21','fifa.friendly','fifa.friendly.w','fifa.worldq','fifa.olympics','fifa.w.olympics'],basketball:['nba','wnba','mens-college-basketball','kor.kbl','kor.wkbl'],baseball:['kor.kbo','mlb','college-baseball'],hockey:['nhl'],americanfootball:['nfl','college-football']};
 async function applyModelProbabilities(games,date){
  const targets=[...new Map(games.filter(g=>g.eventId&&g.leagueKey&&g.sportCategory).map(g=>[g.leagueKey,g])).values()];
- const endDate=new Date(date+'T00:00:00+09:00'),startDate=new Date(endDate.getTime()-90*86400000),fmt=d=>d.getUTCFullYear()+String(d.getUTCMonth()+1).padStart(2,'0')+String(d.getUTCDate()).padStart(2,'0'),range=fmt(startDate)+'-'+fmt(endDate);
+ const endDate=new Date(date+'T00:00:00Z'),startDate=new Date(endDate.getTime()-90*86400000),fmt=d=>d.getUTCFullYear()+String(d.getUTCMonth()+1).padStart(2,'0')+String(d.getUTCDate()).padStart(2,'0'),range=fmt(startDate)+'-'+fmt(endDate);
  const queue=targets.slice();await Promise.allSettled(Array.from({length:Math.min(4,queue.length)},async()=>{while(queue.length){const target=queue.shift();await (async()=>{
   const cat=target.sportCategory,league=target.leagueKey,ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),5000);
   try{
@@ -455,6 +455,7 @@ function selfCheckItems(){
  const liveMissing=gameList.filter(g=>isLiveGame(g)&&(!isNum(g.hs??g.homeScore)||!isNum(g.as??g.awayScore))).length;
  const scheduledScore=gameList.filter(g=>!isLiveGame(g)&&!isFinishedGame(g)&&isNum(g.hs??g.homeScore)&&isNum(g.as??g.awayScore)).length;
  add(liveMissing||scheduledScore?'warn':'ok','점수 이상 검사','진행 중 점수 누락 '+liveMissing+' · 예정/비진행 경기의 숫자 점수 의심 '+scheduledScore+'경기입니다. 이상 감지는 오류 확정이 아닙니다.');
+ const probabilityRecords=gameList.filter(g=>g.homeProb!==undefined||g.awayProb!==undefined||g.drawProb!==undefined);const invalidProb=probabilityRecords.filter(g=>![g.homeProb,g.awayProb].every(v=>Number.isFinite(Number(v))&&Number(v)>0&&Number(v)<=100)||(g.drawProb!==undefined&&g.drawProb!==null&&(!Number.isFinite(Number(g.drawProb))||Number(g.drawProb)<0||Number(g.drawProb)>100)));const invalidModelSum=probabilityRecords.filter(g=>g.probabilityIsEstimate&&Number.isFinite(Number(g.homeProb))&&Number.isFinite(Number(g.awayProb))&&g.drawProb!==undefined&&g.drawProb!==null&&Math.abs(Number(g.homeProb)+Number(g.drawProb)+Number(g.awayProb)-100)>1.5);add(invalidProb.length||invalidModelSum.length?'warn':'ok','승률 수치 무결성',invalidProb.length||invalidModelSum.length?'확률 범위 오류 '+invalidProb.length+'건 · 자체 3-way 확률 합계 점검 '+invalidModelSum.length+'건. 출처/모델을 확인해야 합니다.':'확률 범위와 자체 3-way 확률 합계가 허용 범위입니다. 예측 정확도를 보장하지는 않습니다.');
  const duplicateKeys=new Set();let duplicateCount=0;
  for(const g of gameList){const k=[g.sportCategory||g.sport||'',g.league||'',g.home||'',g.away||'',String(g.rawTime||g.time||'').slice(0,16)].join('|').toLocaleLowerCase();if(duplicateKeys.has(k))duplicateCount++;else duplicateKeys.add(k)}
  add(duplicateCount?'warn':'ok','중복 경기 검사',duplicateCount?'현재 화면 데이터에서 중복 의심 '+duplicateCount+'건을 찾았습니다. 더블헤더나 별도 경기일 가능성도 있어 자동 삭제하지 않습니다.':'현재 화면 기준 중복 의심이 없습니다.');
@@ -472,7 +473,7 @@ function selfCheckItems(){
  return {items:out,summary:{total:out.length,ok:out.length-warnings-errors,warn:warnings,error:errors},badCache};
 }
 function renderSelfCheck(){
- const panel=$('selfCheck');if(!panel||panel.hidden)return;
+ const panel=$('selfCheck');if(!panel)return;
  const result=selfCheckItems();selfCheckState.items=result.items;selfCheckState.lastRunAt=new Date().toISOString();
  const state=$('selfCheckState');if(state){state.textContent=result.summary.error?'오류 발견':result.summary.warn?'주의 항목 있음':'기본 검사 정상';state.className='request-audit-state'+(result.summary.error?' bad':result.summary.warn?' busy':'')}
  $('selfCheckTotal').textContent=result.summary.total;$('selfCheckOk').textContent=result.summary.ok;$('selfCheckWarn').textContent=result.summary.warn;$('selfCheckError').textContent=result.summary.error;
@@ -506,7 +507,7 @@ function initSelfCheck(){
  $('selfCheckRepair')?.addEventListener('click',safeSelfRepair);
  $('selfCheckExport')?.addEventListener('click',downloadSelfCheckReport);
  $('selfCheckClearErrors')?.addEventListener('click',()=>{selfCheckState.runtimeErrors=[];renderSelfCheck()});
- setInterval(()=>{if(!$('selfCheck')?.hidden&&!document.hidden)renderSelfCheck()},30000);
+ setInterval(()=>{if(!document.hidden)renderSelfCheck()},30000);
 }
 initSelfCheck();
 
