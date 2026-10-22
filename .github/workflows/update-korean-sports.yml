@@ -43,10 +43,13 @@ jobs:
         run: python scripts/update_korean_sports.py
       - name: Sync GitHub Pages root/docs copies
         run: |
-          mkdir -p docs/data
+          mkdir -p docs/data docs/icons
           cp index.html docs/index.html
           cp app.js docs/app.js
           cp data/korean-sports.json docs/data/korean-sports.json
+          cp sw.js docs/sw.js
+          cp manifest.webmanifest docs/manifest.webmanifest
+          cp icons/sports-live.svg docs/icons/sports-live.svg
       - name: Validate site JavaScript and sports snapshot
         run: |
           python - <<'PY'
@@ -64,7 +67,7 @@ jobs:
               normalized_tag = tag.lower().replace("'", '"')
               if 'target="_blank"' in normalized_tag and "noopener" not in normalized_tag:
                   raise SystemExit(f"Unsafe external new-window link: {tag}")
-          for relative in ("index.html", "app.js", "data/korean-sports.json"):
+          for relative in ("index.html", "app.js", "data/korean-sports.json", "sw.js", "manifest.webmanifest", "icons/sports-live.svg"):
               root_copy = Path(relative).read_bytes()
               docs_copy = (Path("docs") / relative).read_bytes()
               if root_copy != docs_copy:

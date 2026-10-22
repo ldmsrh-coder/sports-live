@@ -55,7 +55,7 @@ assert.equal(api.countryFromName('Country not found').code, 'UNK');
 assert.equal(api.countryFromName('Country unavailable').code, 'UNK');
 assert.equal(api.countryFromName('Needs country verification').code, 'UNK');
 assert.equal(api.normalizeCountryInfo({name:'Country check required — provider label', code:''}, 'Mystery Tournament').name, '국가 미확인');
-assert.ok(html.includes('app.js?v=20261022-pwa-countryfix-18'), 'country-label fix must invalidate cached application JavaScript');
+assert.ok(html.includes('app.js?v=20261022-stability-19'), 'updated app must invalidate cached application JavaScript');
 assert.equal(api.countryFromName('국가 확인 필요').name, '국가 미확인');
 assert.equal(api.countryFromName('국가확인필요').name, '국가 미확인');
 assert.equal(api.isCountryUnresolved({name:'국가확인필요', code:'UNK'}), true);
@@ -250,3 +250,4 @@ assert.ok(serviceWorker.includes('./app.js?v=' + appVersion), 'service worker sh
 assert.ok(/const CACHE_VERSION\s*=\s*'20261022-19'/.test(serviceWorker), 'service worker cache version must be bumped with the app');
 assert.ok(app.includes('const currentKstDate=seoulDate();if(currentKstDate!==localDate)'), 'long-open pages must roll over to the new Korea-local date');
 assert.ok(app.includes('Date.now()-lastAutoRefreshAt>=15000'), 'tab visibility refresh should avoid duplicate bursts');
+assert.ok(workflow.includes('cp sw.js docs/sw.js') && workflow.includes('cp manifest.webmanifest docs/manifest.webmanifest') && workflow.includes('cp icons/sports-live.svg docs/icons/sports-live.svg'), 'Pages sync must include service worker, manifest, and app icon');
