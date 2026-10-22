@@ -53,8 +53,12 @@ assert.equal(api.normalizeCountryInfo({name: '국가확인필요'.normalize('NFD
 assert.equal(api.normalizeCountryInfo({name: 'Country Confirmation Needed', code: ''}, 'UEFA Champions League').name, '유럽 대항전');
 assert.equal(api.normalizeCountryInfo({name: 'country check required', code: 'UNKNOWN'}, 'UEFA Champions League').code, 'EUR');
 assert.equal(api.normalizeCountryInfo({name: 'Country Verification Needed', code: ''}, 'NBA').code, 'USA');
+assert.equal(api.normalizeCountryInfo({name: 'Country not set', code: ''}, 'K League 1').code, 'KOR');
+assert.equal(api.normalizeCountryInfo({name: '국가 확인', code: ''}, 'K League 1').code, 'KOR');
+assert.ok(html.includes('id="connectionBadge"'), 'live connection status badge must be present');
+assert.ok(app.includes('데이터 확인 완료 · 90초 자동 확인'), 'successful data refresh should be visible');
 assert.ok(html.includes('id="insightPanel"'), 'live analysis panel must be present');
-assert.ok(html.includes('<script src="./app.js"></script>'), 'application JavaScript must be loaded externally');
+assert.ok(/<script src="\.\/app\.js(?:\?[^\"]*)?"><\/script>/.test(html), 'application JavaScript must be loaded externally and may use cache busting');
 assert.ok(!/<script>([\s\S]*?)<\/script>/i.test(html), 'application JavaScript must not be inline');
 assert.ok(app.includes('function updateScoreChangeLog('), 'score change detection must be present');
 assert.ok(app.includes('function renderInsightPanel('), 'transparent match analysis must be present');
