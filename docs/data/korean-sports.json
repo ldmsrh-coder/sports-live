@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T14:39:07+09:00",
+  "updatedAt": "2026-10-23T19:30:36+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2086,9 +2086,9 @@
       "time": "19:00",
       "home": "수원 KT 소닉붐",
       "away": "원주 DB 프로미",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
+      "homeScore": "20",
+      "awayScore": "27",
+      "status": "진행 중",
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
