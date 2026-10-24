@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T06:38:49+09:00",
+  "updatedAt": "2026-10-25T08:41:59+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2734,6 +2734,48 @@
       "awayScore": "-",
       "status": "예정",
       "league": "대한민국 K3리그",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-31T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "14:00",
+      "home": "Geumsan Insam FC",
+      "away": "Sejong SA",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-31T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "14:00",
+      "home": "진천HRFC",
+      "away": "Jinju Citizen",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-31T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "14:00",
+      "home": "평창유나이티드",
+      "away": "Pyeongtaek Citizen",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
       "sport": "soccer",
       "source": "SportScore 국내 축구",
       "rawTime": "2026-10-31T14:00:00+09:00"
@@ -5823,7 +5865,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 21,
+      "count": 24,
       "months": [
         "2026-10"
       ],
