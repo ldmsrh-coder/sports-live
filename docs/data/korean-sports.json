@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T22:38:13+09:00",
+  "updatedAt": "2026-10-25T01:56:20+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2246,20 +2246,6 @@
       "league": "대한민국 K리그 2부",
       "sport": "soccer",
       "source": "K리그 공식 일정",
-      "rawTime": "2026-10-24T16:30:00+09:00"
-    },
-    {
-      "id": "",
-      "date": "2026-10-24",
-      "time": "16:30",
-      "home": "김포 FC",
-      "away": "김해시청 축구단",
-      "homeScore": "1",
-      "awayScore": "2",
-      "status": "종료",
-      "league": "대한민국 K리그 2부",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
       "rawTime": "2026-10-24T16:30:00+09:00"
     },
     {
@@ -5837,7 +5823,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 29,
+      "count": 21,
       "months": [
         "2026-10"
       ],
