@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T21:18:38+09:00",
+  "updatedAt": "2026-10-26T01:33:58+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2291,20 +2291,6 @@
       "rawTime": "2026-10-25T14:00:00+09:00"
     },
     {
-      "id": "",
-      "date": "2026-10-25",
-      "time": "14:00",
-      "home": "거제시민축구단",
-      "away": "서울중랑축구단",
-      "homeScore": "4",
-      "awayScore": "0",
-      "status": "종료",
-      "league": "대한민국 K4리그",
-      "sport": "soccer",
-      "source": "대한축구협회 K3·K4리그 공식 일정 + SportScore 국내 축구",
-      "rawTime": "2026-10-25T14:00:00+09:00"
-    },
-    {
       "id": "237",
       "date": "2026-10-25",
       "time": "14:00",
@@ -2344,20 +2330,6 @@
       "league": "대한민국 K리그 2부",
       "sport": "soccer",
       "source": "K리그 공식 일정",
-      "rawTime": "2026-10-25T14:00:00+09:00"
-    },
-    {
-      "id": "",
-      "date": "2026-10-25",
-      "time": "14:00",
-      "home": "수원 FC",
-      "away": "충남 아산",
-      "homeScore": "0",
-      "awayScore": "1",
-      "status": "종료",
-      "league": "대한민국 K리그 2부",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
       "rawTime": "2026-10-25T14:00:00+09:00"
     },
     {
@@ -2403,20 +2375,6 @@
       "rawTime": "2026-10-25T16:30:00+09:00"
     },
     {
-      "id": "",
-      "date": "2026-10-25",
-      "time": "16:30",
-      "home": "충북청주 FC",
-      "away": "용인 FC",
-      "homeScore": "0",
-      "awayScore": "2",
-      "status": "종료",
-      "league": "대한민국 K리그 2부",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
-      "rawTime": "2026-10-25T16:30:00+09:00"
-    },
-    {
       "id": "240",
       "date": "2026-10-25",
       "time": "16:30",
@@ -2433,16 +2391,16 @@
     {
       "id": "",
       "date": "2026-10-25",
-      "time": "16:30",
-      "home": "파주 프런티어 FC",
-      "away": "화성 FC",
-      "homeScore": "1",
-      "awayScore": "1",
+      "time": "시간 미정",
+      "home": "거제시민축구단",
+      "away": "서울중랑축구단",
+      "homeScore": "4",
+      "awayScore": "0",
       "status": "종료",
-      "league": "대한민국 K리그 2부",
+      "league": "대한민국 K4리그",
       "sport": "soccer",
-      "source": "SportScore 국내 축구",
-      "rawTime": "2026-10-25T16:30:00+09:00"
+      "source": "대한축구협회 K3·K4리그 공식 일정",
+      "rawTime": "2026-10-25"
     },
     {
       "id": "",
@@ -5879,7 +5837,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 24,
+      "count": 17,
       "months": [
         "2026-10"
       ],
