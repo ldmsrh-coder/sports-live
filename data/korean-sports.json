@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T10:47:21+09:00",
+  "updatedAt": "2026-10-26T16:03:22+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2405,6 +2405,34 @@
     {
       "id": "",
       "date": "2026-10-26",
+      "time": "14:00",
+      "home": "Dankook University Women",
+      "away": "Kangwon National University Women",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 대학농구 U리그",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-26T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-26",
+      "time": "14:00",
+      "home": "Gwangju University Women",
+      "away": "Suwon University Women",
+      "homeScore": "69",
+      "awayScore": "63",
+      "status": "종료",
+      "league": "대한민국 대학농구 U리그",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-26T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-26",
       "time": "18:30",
       "home": "삼성 라이온즈",
       "away": "KIA 타이거즈",
@@ -2739,6 +2767,20 @@
       "rawTime": "2026-10-31T14:00:00+09:00"
     },
     {
+      "id": "199",
+      "date": "2026-10-31",
+      "time": "14:00",
+      "home": "전북 현대 모터스",
+      "away": "대전 하나 시티즌",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-10-31T14:00:00+09:00"
+    },
+    {
       "id": "241",
       "date": "2026-10-31",
       "time": "14:00",
@@ -2820,6 +2862,20 @@
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-31T16:30:00+09:00"
+    },
+    {
+      "id": "200",
+      "date": "2026-10-31",
+      "time": "16:30",
+      "home": "광주 FC",
+      "away": "김천 상무",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
       "rawTime": "2026-10-31T16:30:00+09:00"
     },
     {
@@ -2935,6 +2991,34 @@
       "rawTime": "2026-11-01T14:00:00+09:00"
     },
     {
+      "id": "202",
+      "date": "2026-11-01",
+      "time": "14:00",
+      "home": "울산 HD",
+      "away": "강원 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-01T14:00:00+09:00"
+    },
+    {
+      "id": "201",
+      "date": "2026-11-01",
+      "time": "14:00",
+      "home": "포항 스틸러스",
+      "away": "제주 SK FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-01T14:00:00+09:00"
+    },
+    {
       "id": "245",
       "date": "2026-11-01",
       "time": "14:00",
@@ -3003,6 +3087,34 @@
       "sport": "volleyball",
       "source": "KOVO 공식 API",
       "rawTime": "2026-11-01T16:00:00+09:00"
+    },
+    {
+      "id": "203",
+      "date": "2026-11-01",
+      "time": "16:30",
+      "home": "FC 서울",
+      "away": "인천 유나이티드",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-01T16:30:00+09:00"
+    },
+    {
+      "id": "204",
+      "date": "2026-11-01",
+      "time": "16:30",
+      "home": "FC 안양",
+      "away": "부천 FC 1995",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-01T16:30:00+09:00"
     },
     {
       "id": "248",
@@ -3201,6 +3313,20 @@
       "rawTime": "2026-11-07T14:00:00+09:00"
     },
     {
+      "id": "205",
+      "date": "2026-11-07",
+      "time": "14:00",
+      "home": "제주 SK FC",
+      "away": "광주 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-07T14:00:00+09:00"
+    },
+    {
       "id": "249",
       "date": "2026-11-07",
       "time": "14:00",
@@ -3271,6 +3397,20 @@
       "rawTime": "2026-11-07T16:00:00+09:00"
     },
     {
+      "id": "206",
+      "date": "2026-11-07",
+      "time": "16:30",
+      "home": "김천 상무",
+      "away": "FC 안양",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-07T16:30:00+09:00"
+    },
+    {
       "id": "251",
       "date": "2026-11-07",
       "time": "16:30",
@@ -3311,6 +3451,34 @@
       "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-11-07T16:30:00+09:00"
+    },
+    {
+      "id": "207",
+      "date": "2026-11-08",
+      "time": "14:00",
+      "home": "FC 서울",
+      "away": "울산 HD",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-08T14:00:00+09:00"
+    },
+    {
+      "id": "208",
+      "date": "2026-11-08",
+      "time": "14:00",
+      "home": "대전 하나 시티즌",
+      "away": "인천 유나이티드",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-08T14:00:00+09:00"
     },
     {
       "id": "254",
@@ -3381,6 +3549,34 @@
       "sport": "volleyball",
       "source": "KOVO 공식 API",
       "rawTime": "2026-11-08T16:00:00+09:00"
+    },
+    {
+      "id": "209",
+      "date": "2026-11-08",
+      "time": "16:30",
+      "home": "강원 FC",
+      "away": "전북 현대 모터스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-08T16:30:00+09:00"
+    },
+    {
+      "id": "210",
+      "date": "2026-11-08",
+      "time": "16:30",
+      "home": "부천 FC 1995",
+      "away": "포항 스틸러스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-08T16:30:00+09:00"
     },
     {
       "id": "256",
@@ -3817,6 +4013,34 @@
       "rawTime": "2026-11-21T14:00:00+09:00"
     },
     {
+      "id": "211",
+      "date": "2026-11-21",
+      "time": "14:00",
+      "home": "전북 현대 모터스",
+      "away": "FC 서울",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-21T14:00:00+09:00"
+    },
+    {
+      "id": "212",
+      "date": "2026-11-21",
+      "time": "14:00",
+      "home": "포항 스틸러스",
+      "away": "FC 안양",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-21T14:00:00+09:00"
+    },
+    {
       "id": "258",
       "date": "2026-11-21",
       "time": "14:00",
@@ -3887,6 +4111,34 @@
       "rawTime": "2026-11-21T16:00:00+09:00"
     },
     {
+      "id": "213",
+      "date": "2026-11-21",
+      "time": "16:30",
+      "home": "강원 FC",
+      "away": "대전 하나 시티즌",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-21T16:30:00+09:00"
+    },
+    {
+      "id": "214",
+      "date": "2026-11-21",
+      "time": "16:30",
+      "home": "인천 유나이티드",
+      "away": "울산 HD",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-21T16:30:00+09:00"
+    },
+    {
       "id": "259",
       "date": "2026-11-21",
       "time": "16:30",
@@ -3913,6 +4165,34 @@
       "sport": "soccer",
       "source": "K리그 공식 일정",
       "rawTime": "2026-11-21T16:30:00+09:00"
+    },
+    {
+      "id": "216",
+      "date": "2026-11-22",
+      "time": "14:00",
+      "home": "광주 FC",
+      "away": "부천 FC 1995",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-22T14:00:00+09:00"
+    },
+    {
+      "id": "215",
+      "date": "2026-11-22",
+      "time": "14:00",
+      "home": "김천 상무",
+      "away": "제주 SK FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-22T14:00:00+09:00"
     },
     {
       "id": "261",
@@ -4181,6 +4461,34 @@
       "rawTime": "2026-11-28T14:00:00+09:00"
     },
     {
+      "id": "217",
+      "date": "2026-11-28",
+      "time": "14:00",
+      "home": "FC 서울",
+      "away": "대전 하나 시티즌",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-28T14:00:00+09:00"
+    },
+    {
+      "id": "218",
+      "date": "2026-11-28",
+      "time": "14:00",
+      "home": "FC 안양",
+      "away": "제주 SK FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-28T14:00:00+09:00"
+    },
+    {
       "id": "49",
       "date": "2026-11-28",
       "time": "14:00",
@@ -4221,6 +4529,34 @@
       "sport": "volleyball",
       "source": "KOVO 공식 API",
       "rawTime": "2026-11-28T16:00:00+09:00"
+    },
+    {
+      "id": "220",
+      "date": "2026-11-28",
+      "time": "16:30",
+      "home": "부천 FC 1995",
+      "away": "김천 상무",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-28T16:30:00+09:00"
+    },
+    {
+      "id": "219",
+      "date": "2026-11-28",
+      "time": "16:30",
+      "home": "포항 스틸러스",
+      "away": "광주 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-28T16:30:00+09:00"
     },
     {
       "id": "270",
@@ -4335,6 +4671,20 @@
       "rawTime": "2026-11-29T00:00:00+09:00"
     },
     {
+      "id": "221",
+      "date": "2026-11-29",
+      "time": "14:00",
+      "home": "울산 HD",
+      "away": "전북 현대 모터스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-29T14:00:00+09:00"
+    },
+    {
       "id": "51",
       "date": "2026-11-29",
       "time": "14:00",
@@ -4375,6 +4725,20 @@
       "sport": "volleyball",
       "source": "KOVO 공식 API",
       "rawTime": "2026-11-29T16:00:00+09:00"
+    },
+    {
+      "id": "222",
+      "date": "2026-11-29",
+      "time": "16:30",
+      "home": "인천 유나이티드",
+      "away": "강원 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-11-29T16:30:00+09:00"
     },
     {
       "id": "",
@@ -4545,6 +4909,48 @@
       "rawTime": "2026-12-05T14:00:00+09:00"
     },
     {
+      "id": "224",
+      "date": "2026-12-05",
+      "time": "14:00",
+      "home": "FC 안양",
+      "away": "광주 FC",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-12-05T14:00:00+09:00"
+    },
+    {
+      "id": "225",
+      "date": "2026-12-05",
+      "time": "14:00",
+      "home": "김천 상무",
+      "away": "포항 스틸러스",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-12-05T14:00:00+09:00"
+    },
+    {
+      "id": "223",
+      "date": "2026-12-05",
+      "time": "14:00",
+      "home": "제주 SK FC",
+      "away": "부천 FC 1995",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-12-05T14:00:00+09:00"
+    },
+    {
       "id": "61",
       "date": "2026-12-05",
       "time": "14:00",
@@ -4585,6 +4991,48 @@
       "sport": "volleyball",
       "source": "KOVO 공식 API",
       "rawTime": "2026-12-05T16:00:00+09:00"
+    },
+    {
+      "id": "227",
+      "date": "2026-12-06",
+      "time": "14:00",
+      "home": "강원 FC",
+      "away": "FC 서울",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-12-06T14:00:00+09:00"
+    },
+    {
+      "id": "226",
+      "date": "2026-12-06",
+      "time": "14:00",
+      "home": "대전 하나 시티즌",
+      "away": "울산 HD",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-12-06T14:00:00+09:00"
+    },
+    {
+      "id": "228",
+      "date": "2026-12-06",
+      "time": "14:00",
+      "home": "전북 현대 모터스",
+      "away": "인천 유나이티드",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K리그 1부",
+      "sport": "soccer",
+      "source": "K리그 공식 일정",
+      "rawTime": "2026-12-06T14:00:00+09:00"
     },
     {
       "id": "63",
@@ -5770,7 +6218,7 @@
   "sourceStatus": {
     "K리그": {
       "ok": true,
-      "count": 74,
+      "count": 104,
       "months": [
         "2026-10",
         "2026-11",
@@ -5845,7 +6293,7 @@
     },
     "SportScore 국내 농구": {
       "ok": true,
-      "count": 78,
+      "count": 80,
       "months": [
         "2026-10"
       ],
