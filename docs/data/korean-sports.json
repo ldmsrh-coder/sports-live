@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-27T11:23:23+09:00",
+  "updatedAt": "2026-10-27T17:08:48+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2464,9 +2464,9 @@
       "time": "18:30",
       "home": "삼성 라이온즈",
       "away": "KIA 타이거즈",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
+      "homeScore": "0",
+      "awayScore": "0",
+      "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
       "source": "KBO 공식 일정",
@@ -6285,7 +6285,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 17,
+      "count": 19,
       "months": [
         "2026-10"
       ],
