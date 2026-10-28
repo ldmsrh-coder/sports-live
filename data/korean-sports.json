@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T17:24:28+09:00",
+  "updatedAt": "2026-10-29T00:16:42+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2503,68 +2503,12 @@
     {
       "id": "",
       "date": "2026-10-28",
-      "time": "18:00",
-      "home": "South Korea U17",
-      "away": "Vietnam U17",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
-      "league": "International Friendly",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
-      "rawTime": "2026-10-28T18:00:00+09:00"
-    },
-    {
-      "id": "",
-      "date": "2026-10-28",
-      "time": "18:55",
-      "home": "경주한수원 여자축구단",
-      "away": "서울시청 여자축구단",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
-      "league": "대한민국 WK리그 여자축구",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
-      "rawTime": "2026-10-28T18:55:00+09:00"
-    },
-    {
-      "id": "",
-      "date": "2026-10-28",
-      "time": "18:55",
-      "home": "수원FC 위민",
-      "away": "문경 상무 여자축구단",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
-      "league": "대한민국 WK리그 여자축구",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
-      "rawTime": "2026-10-28T18:55:00+09:00"
-    },
-    {
-      "id": "",
-      "date": "2026-10-28",
-      "time": "18:55",
-      "home": "인천 현대제철 레드엔젤스",
-      "away": "강진 스완스 여자축구단",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
-      "league": "대한민국 WK리그 여자축구",
-      "sport": "soccer",
-      "source": "SportScore 국내 축구",
-      "rawTime": "2026-10-28T18:55:00+09:00"
-    },
-    {
-      "id": "",
-      "date": "2026-10-28",
       "time": "19:00",
       "home": "대구 한국가스공사 페가수스",
       "away": "원주 DB 프로미",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
+      "homeScore": "95",
+      "awayScore": "90",
+      "status": "종료",
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
@@ -6313,7 +6257,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 20,
+      "count": 16,
       "months": [
         "2026-10"
       ],
