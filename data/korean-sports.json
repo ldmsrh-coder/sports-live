@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T11:09:30+09:00",
+  "updatedAt": "2026-10-28T17:24:28+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2485,6 +2485,34 @@
       "sport": "basketball",
       "source": "SportScore 국내 농구",
       "rawTime": "2026-10-27T19:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "14:00",
+      "home": "Dankook University Women",
+      "away": "Gwangju University Women",
+      "homeScore": "81",
+      "awayScore": "62",
+      "status": "종료",
+      "league": "대한민국 대학농구 U리그",
+      "sport": "basketball",
+      "source": "SportScore 국내 농구",
+      "rawTime": "2026-10-28T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-28",
+      "time": "18:00",
+      "home": "South Korea U17",
+      "away": "Vietnam U17",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "International Friendly",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-28T18:00:00+09:00"
     },
     {
       "id": "",
@@ -6285,7 +6313,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 19,
+      "count": 20,
       "months": [
         "2026-10"
       ],
@@ -6293,7 +6321,7 @@
     },
     "SportScore 국내 농구": {
       "ok": true,
-      "count": 80,
+      "count": 81,
       "months": [
         "2026-10"
       ],
