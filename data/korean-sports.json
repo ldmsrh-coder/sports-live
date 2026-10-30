@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-30T06:59:35+09:00",
+  "updatedAt": "2026-10-30T10:46:18+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2714,6 +2714,20 @@
       "id": "",
       "date": "2026-10-31",
       "time": "14:00",
+      "home": "Gijang United",
+      "away": "거제시민축구단",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 K4리그",
+      "sport": "soccer",
+      "source": "SportScore 국내 축구",
+      "rawTime": "2026-10-31T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-10-31",
+      "time": "14:00",
       "home": "진천HRFC",
       "away": "Jinju Citizen",
       "homeScore": "-",
@@ -3971,20 +3985,6 @@
       "rawTime": "2026-11-20T19:00:00+09:00"
     },
     {
-      "id": "",
-      "date": "2026-11-21",
-      "time": "14:00",
-      "home": "KB스타즈",
-      "away": "신한은행 에스버드",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
-      "league": "대한민국 WKBL 여자프로농구",
-      "sport": "basketball",
-      "source": "WKBL 공식 일정",
-      "rawTime": "2026-11-21T14:00:00+09:00"
-    },
-    {
       "id": "211",
       "date": "2026-11-21",
       "time": "14:00",
@@ -4053,6 +4053,20 @@
       "sport": "volleyball",
       "source": "KOVO 공식 API",
       "rawTime": "2026-11-21T14:00:00+09:00"
+    },
+    {
+      "id": "",
+      "date": "2026-11-21",
+      "time": "15:10",
+      "home": "KB스타즈",
+      "away": "신한은행 에스버드",
+      "homeScore": "-",
+      "awayScore": "-",
+      "status": "예정",
+      "league": "대한민국 WKBL 여자프로농구",
+      "sport": "basketball",
+      "source": "WKBL 공식 일정",
+      "rawTime": "2026-11-21T15:10:00+09:00"
     },
     {
       "id": "",
@@ -6257,7 +6271,7 @@
     },
     "SportScore 국내 축구": {
       "ok": true,
-      "count": 16,
+      "count": 17,
       "months": [
         "2026-10"
       ],
