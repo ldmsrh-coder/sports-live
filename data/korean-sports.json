@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-30T16:44:44+09:00",
+  "updatedAt": "2026-10-30T23:33:17+09:00",
   "month": "2026-10",
   "months": [
     "2026-10",
@@ -2564,7 +2564,7 @@
       "away": "Yewon Arts University",
       "homeScore": "2",
       "awayScore": "0",
-      "status": "진행 중",
+      "status": "종료",
       "league": "South Korea University Championship",
       "sport": "soccer",
       "source": "SportScore 국내 축구",
@@ -2576,8 +2576,8 @@
       "time": "18:30",
       "home": "KIA 타이거즈",
       "away": "삼성 라이온즈",
-      "homeScore": "0",
-      "awayScore": "0",
+      "homeScore": "4",
+      "awayScore": "2",
       "status": "종료",
       "league": "대한민국 KBO 프로야구",
       "sport": "baseball",
@@ -2590,9 +2590,9 @@
       "time": "19:00",
       "home": "고양 소노 스카이거너스",
       "away": "서울 삼성 썬더스",
-      "homeScore": "-",
-      "awayScore": "-",
-      "status": "예정",
+      "homeScore": "87",
+      "awayScore": "95",
+      "status": "종료",
       "league": "대한민국 KBL 프로농구",
       "sport": "basketball",
       "source": "SportScore 국내 농구",
@@ -5149,7 +5149,7 @@
     {
       "id": "2026-12-06-인천도시공사-SK호크스",
       "date": "2026-12-06",
-      "time": "14:30",
+      "time": "14:55",
       "home": "인천도시공사",
       "away": "SK호크스",
       "homeScore": "-",
@@ -5158,7 +5158,7 @@
       "league": "대한민국 핸드볼 H리그",
       "sport": "handball",
       "source": "대한핸드볼협회 공식 일정",
-      "rawTime": "2026-12-06T14:30:00+09:00",
+      "rawTime": "2026-12-06T14:55:00+09:00",
       "venue": "인천선학체육관"
     },
     {
@@ -5192,7 +5192,7 @@
     {
       "id": "2026-12-06-충남도청-두산",
       "date": "2026-12-06",
-      "time": "17:00",
+      "time": "17:10",
       "home": "충남도청",
       "away": "두산 베어스",
       "homeScore": "-",
@@ -5201,7 +5201,7 @@
       "league": "대한민국 핸드볼 H리그",
       "sport": "handball",
       "source": "대한핸드볼협회 공식 일정",
-      "rawTime": "2026-12-06T17:00:00+09:00",
+      "rawTime": "2026-12-06T17:10:00+09:00",
       "venue": "인천선학체육관"
     },
     {
